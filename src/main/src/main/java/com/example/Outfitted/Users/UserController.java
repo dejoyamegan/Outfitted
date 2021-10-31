@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+//@DemoController
 public class UserController {
 
     @Autowired

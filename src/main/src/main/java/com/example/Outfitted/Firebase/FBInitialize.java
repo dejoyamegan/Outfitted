@@ -17,7 +17,7 @@ public class FBInitialize {
             FileInputStream serviceAccount =
                     new FileInputStream("serviceaccountkey.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setCredentials(GoogleCredentials.getApplicationDefault())
                     //databseURL from firebase config
                     .setDatabaseUrl("https://outfitted-database-default-rtdb.firebaseio.com")
                     .build();
