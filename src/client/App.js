@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Login from './components/authentication/login';
 import Signup from './components/authentication/signup';
+import Closet from './components/closet/closet'
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,13 @@ function MyStack() {
           options= {
             {title: 'Login'},
             {headerLeft: null}
+          }
+        />
+        <Stack.Screen
+          name="Closet"
+          component={Closet}
+          options= {
+            {title: 'Closet'}
           }
         />
     </Stack.Navigator>
