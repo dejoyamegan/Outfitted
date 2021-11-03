@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseOptions;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.FileInputStream;
 //@service and @postconstruct are annotations from spring boot
 @Service
@@ -15,9 +16,9 @@ public class FBInitialize {
     public void initialize() {
         try{
             FileInputStream serviceAccount =
-                    new FileInputStream("serviceaccountkey.json");
+                    new FileInputStream("./service-key.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.getApplicationDefault())
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     //databseURL from firebase config
                     .setDatabaseUrl("https://outfitted-database-default-rtdb.firebaseio.com")
                     .build();
