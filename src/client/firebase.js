@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import 'firebase/database';
 import 'firebase/auth';
 

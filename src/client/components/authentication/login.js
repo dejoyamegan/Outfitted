@@ -72,13 +72,13 @@ export default class Login extends Component {
     }
 
     render() {
-        if(this.state.isLoading){
-            return(
-                <View style={styles.preloader}>
-                    <ActivityIndicator size="large" color="#9E9E9E" />
-                </View>
-            )
-        }
+        //if(this.state.isLoading){
+        //    return(
+        //        <View style={styles.preloader}>
+        //            <ActivityIndicator size="large" color="#9E9E9E" />
+        //        </View>
+        //    )
+        //}
         return(
             <View style={styles.container}>
                 <TextInput 
