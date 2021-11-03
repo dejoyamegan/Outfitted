@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
+import { Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
+
 
 export default class Login extends Component {
 
@@ -19,13 +21,53 @@ export default class Login extends Component {
         state[prop] = val;
         this.setState(state);
     }
-
+/** 
+<SegmentedControl
+values={['One', 'Two']}
+selectedIndex={this.state.selectedIndex}
+onChange={(event) => {
+    this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+}}
+/>*/
 
     render() {
         return(
+            
             <View style={styles.container}>
-
-            </View>
+                 <View style={{ marginVertical: 10 }}>
+                 <Button style={styles.button} inline rounded>
+                    Add Item
+                </Button>
+                </View>
+                <View style={{ marginVertical: 10 }}>
+                <Button style={styles.button} inline rounded>
+                    Add Category
+                </Button>
+                </View>
+                <TabBar
+  tabs={[
+    {
+      icon: 'ios-shirt',
+      title: 'Closet',
+      onPress: this.selectTab,
+      isActive: this.state.activeTab === 0,
+    },
+    {
+      icon: 'ios-flash',
+      title: 'Dressing Room',
+      onPress: this.selectTab,
+      isActive: this.state.activeTab === 1,
+    },
+    {
+      icon: 'ios-body',
+      title: 'Outfit Mode',
+      onPress: this.selectTab,
+      isActive: this.state.activeTab === 2,
+    },
+  ]}
+/>
+</View>
+            
         );
     }
 }
