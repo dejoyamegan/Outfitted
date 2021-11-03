@@ -1,11 +1,9 @@
 package com.example.Outfitted.Users;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firestore.v1.Write;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
@@ -15,16 +13,22 @@ public class UserService {
 
     public static final String COL_NAME="users";
 
+    @Autowired
+    private Firestore firestore;
+
+    private CollectionReference getUserCollection() {
+        return firestore.collection(COL_NAME);
+    }
+
     public String saveUserDetails(User user) throws InterruptedException, ExecutionException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture =
-                dbFirestore.collection(COL_NAME).document(user.getName()).set((user));
+                getUserCollection().document(user.getName().toString()).set(user);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
     public User getUserDetails(String name) throws InterruptedException, ExecutionException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentReference documentReference = dbFirestore.collection(COL_NAME).document(name);
+
+        DocumentReference documentReference = getUserCollection().document(name);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
 
         DocumentSnapshot document = future.get();
@@ -41,8 +45,8 @@ public class UserService {
     }
 
     public String updateUserDetails(User person) throws InterruptedException, ExecutionException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME)
+
+        ApiFuture<WriteResult> collectionsApiFuture = getUserCollection()
                 .document(person.getName()).set(person);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
