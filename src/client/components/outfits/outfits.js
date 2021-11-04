@@ -45,7 +45,7 @@ onChange={(event) => {
                     Add Category
                 </Button>
                 </View>
-                <NavBar />
+                <NavBar navigation={this.props.navigation}/>
             </View>
 
         );

@@ -3,16 +3,27 @@ import React, {Component} from 'react';
 
 export default class NavBar extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: ''
         }
+        //this.selectClosetTab = this.selectClosetTab.bind(this);
+        //this.selectDressingRoomTab = this.selectDressingRoomTab.bind(this);
+        //this.selectDressingRoomTab = this.selectDressingRoomTab.bind(this);
     }
 
-    selectTab(name) {
-        this.props.navigation.navigate(name);
+    selectClosetTab = () => {
+        this.props.navigation.navigate('Closet');
+    }
+
+    selectDressingRoomTab = () => {
+        this.props.navigation.navigate('DressingRoom');
+    }
+
+    selectOutfitsTab = () => {
+        this.props.navigation.navigate('Outfits');
     }
 
     render() {
@@ -22,19 +33,19 @@ export default class NavBar extends Component {
                 {
                   icon: 'ios-shirt',
                   title: 'Closet',
-                  onPress: this.selectTab('Closet'),
+                  onPress: this.selectClosetTab,
                   isActive: this.state.activeTab === 0,
                 },
                 {
                   icon: 'ios-flash',
                   title: 'Dressing Room',
-                  onPress: this.selectTab('DressingRoom'),
+                  onPress: this.selectDressingRoomTab,
                   isActive: this.state.activeTab === 1,
                 },
                 {
                   icon: 'ios-body',
                   title: 'Outfits',
-                  onPress: this.selectTab('Outfits'),
+                  onPress: this.selectOutfitsTab,
                   isActive: this.state.activeTab === 2,
                 },
               ]}
