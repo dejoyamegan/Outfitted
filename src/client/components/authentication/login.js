@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { TextField } from 'react-native-ios-kit';
+import { TextField, Button } from 'react-native-ios-kit';
 
 export default class Login extends Component {
 
@@ -66,7 +66,6 @@ export default class Login extends Component {
                 />
                 <TextField
                     clearButton
-                    style={styles.inputStyle}
                     placeholder="Password"
                     value={this.state.password}
                     onValueChange={(val) => this.updateInputVal(val, 'password')}
@@ -75,13 +74,14 @@ export default class Login extends Component {
                 />
                 <View style={{ marginVertical: 10 }}>
                     <Button
-                        color="#156F26"
-                        title="Closet"
+                        center
+                        rounded
                         onPress={() => this.props.navigation.navigate('Closet')}
-                    />
+                    >
+                    Closet
+                    </Button>
                 </View>
                 <Text
-                    style={styles.loginText}
                     onPress={() => this.props.navigation.navigate('Signup')}>
                     Don't have an account? Click here to Signup
                 </Text>
@@ -98,30 +98,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 35,
         backgroundColor: '#fff'
-    },
-    inputStyle: {
-        width: '100%',
-        marginBottom: 15,
-        paddingBottom: 15,
-        alignSelf: 'center',
-        borderColor: '#ccc',
-        borderBottomWidth: 1,
-        fontFamily: 'PingFang HK'
-    },
-    loginText: {
-        color: '#636B66',
-        marginTop: 25,
-        textAlign: 'center',
-        fontFamily: 'PingFang HK'
-    },
-    preloader: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: "#fff"
     }
 })

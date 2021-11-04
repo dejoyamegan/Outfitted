@@ -2,6 +2,8 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
+import { DefaultTheme, ThemeProvider } from 'react-native-ios-kit';
+import color from 'color';
 
 import Login from './components/authentication/login';
 import Signup from './components/authentication/signup';
@@ -75,15 +77,14 @@ function MyStack() {
 
 }
 
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyStack  />
-    </NavigationContainer>
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
+    <ThemeProvider theme={DefaultTheme}>
+        <NavigationContainer>
+              <MyStack  />
+        </NavigationContainer>
+    </ThemeProvider>
   );
 }
 
