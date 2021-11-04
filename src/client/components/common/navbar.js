@@ -9,9 +9,6 @@ export default class NavBar extends Component {
             email: '',
             password: ''
         }
-        //this.selectClosetTab = this.selectClosetTab.bind(this);
-        //this.selectDressingRoomTab = this.selectDressingRoomTab.bind(this);
-        //this.selectDressingRoomTab = this.selectDressingRoomTab.bind(this);
     }
 
     selectClosetTab = () => {

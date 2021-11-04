@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { CheckBox, StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, Image } from 'react-native';
+import { CheckBox, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
-import { TextField } from 'react-native-ios-kit'
+import { TextField, Button } from 'react-native-ios-kit'
 
 export default class Signup extends Component {
 
@@ -140,11 +140,11 @@ export default class Signup extends Component {
                 />
                 <View style={{ marginVertical: 10 }}>
                     <Button
-                        style={styles.button}
-                        color="#156F26"
-                        title="Signup"
-                        onPress={()=> this.registerUser()}
-                    />
+                        center
+                        rounded
+                        onPress={()=> this.registerUser()}>
+                        Signup
+                    </Button>
                 </View>
                 <Text
                     style={styles.loginText}
