@@ -5,7 +5,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Login from './components/authentication/login';
 import Signup from './components/authentication/signup';
-import Closet from './components/closet/closet'
+import Closet from './components/closet/closet';
+import DressingRoom from './components/dressingroom/dressingroom';
+import Outfits from './components/outfits/outfits'
 
 const Stack = createStackNavigator();
 
@@ -44,6 +46,20 @@ function MyStack() {
             {title: 'Closet'}
           }
         />
+        <Stack.Screen
+                  name="DressingRoom"
+                  component={DressingRoom}
+                  options= {
+                    {title: 'DressingRoom'}
+                  }
+                />
+        <Stack.Screen
+                  name="Outfits"
+                  component={Outfits}
+                  options= {
+                    {title: 'Outfits'}
+                  }
+                />
     </Stack.Navigator>
   )
 

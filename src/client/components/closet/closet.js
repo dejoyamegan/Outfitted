@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
+import NavBar from '../common/navbar';
 import { Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 
 
-export default class Login extends Component {
+export default class Closet extends Component {
 
 
     constructor() {
@@ -44,29 +45,8 @@ onChange={(event) => {
                     Add Category
                 </Button>
                 </View>
-                <TabBar
-  tabs={[
-    {
-      icon: 'ios-shirt',
-      title: 'Closet',
-      onPress: this.selectTab,
-      isActive: this.state.activeTab === 0,
-    },
-    {
-      icon: 'ios-flash',
-      title: 'Dressing Room',
-      onPress: this.selectTab,
-      isActive: this.state.activeTab === 1,
-    },
-    {
-      icon: 'ios-body',
-      title: 'Outfit Mode',
-      onPress: this.selectTab,
-      isActive: this.state.activeTab === 2,
-    },
-  ]}
-/>
-</View>
+                <NavBar />
+            </View>
             
         );
     }

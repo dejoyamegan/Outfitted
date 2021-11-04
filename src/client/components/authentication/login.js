@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
+import { TextField } from 'react-native-ios-kit';
 
 export default class Login extends Component {
 
@@ -56,17 +57,19 @@ export default class Login extends Component {
         //}
         return(
             <View style={styles.container}>
-                <TextInput 
+                <TextField
+                    clearButton
                     style={styles.inputStyle}
                     placeholder="Email"
                     value={this.state.email}
-                    onChangeText={(val) => this.updateInputVal(val, 'email')}
+                    onValueChange={(val) => this.updateInputVal(val, 'email')}
                 />
-                <TextInput
+                <TextField
+                    clearButton
                     style={styles.inputStyle}
                     placeholder="Password"
                     value={this.state.password}
-                    onChangeText={(val) => this.updateInputVal(val, 'password')}
+                    onValueChange={(val) => this.updateInputVal(val, 'password')}
                     maxLength= {15}
                     secureTextEntry = {true}
                 />
