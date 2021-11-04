@@ -36,12 +36,14 @@ onChange={(event) => {
             
             <View style={styles.container}>
                  <View style={{ marginVertical: 10 }}>
-                 <Button style={styles.button} inline rounded>
+                 <Button style={styles.button} inline rounded
+                    onPress={() => this.props.navigation.navigate('AddItemForm')}>
                     Add Item
                 </Button>
                 </View>
                 <View style={{ marginVertical: 10 }}>
-                <Button style={styles.button} inline rounded>
+                <Button style={styles.button} inline rounded
+                    onPress={() => this.props.navigation.navigate('Signup')}>
                     Add Category
                 </Button>
                 </View>

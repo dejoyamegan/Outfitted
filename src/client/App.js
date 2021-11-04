@@ -8,6 +8,8 @@ import Signup from './components/authentication/signup';
 import Closet from './components/closet/closet';
 import DressingRoom from './components/dressingroom/dressingroom';
 import Outfits from './components/outfits/outfits'
+import AddItemForm from './components/closet/AddItemForm';
+
 
 const Stack = createStackNavigator();
 
@@ -58,6 +60,13 @@ function MyStack() {
                   component={Outfits}
                   options= {
                     {title: 'Outfits'}
+                  }
+                />
+        <Stack.Screen
+                  name="AddItemForm"
+                  component={AddItemForm}
+                  options= {
+                    {title: 'AddItemForm'}
                   }
                 />
     </Stack.Navigator>
