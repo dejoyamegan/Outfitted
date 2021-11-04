@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import { Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import data from '../../data.json'
 
 
 export default class AddItemForm extends Component {
@@ -16,6 +17,8 @@ export default class AddItemForm extends Component {
             tags: ''
         }
     }
+
+    // make a button that adds all of states props to json list
 
     updateInputVal = (val, prop) => {
         const state = this.state;
