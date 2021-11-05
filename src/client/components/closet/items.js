@@ -35,21 +35,9 @@ export default class Items extends Component {
                     Add to Dressing Room
                 </Button>
             </Card>);
-
         }
 
-
-/**
-<SegmentedControl
-values={['One', 'Two']}
-selectedIndex={this.state.selectedIndex}
-onChange={(event) => {
-    this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
-}}
-/>*/
-
     render() {
-
         const shirtData = [
               {
                link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
@@ -92,7 +80,6 @@ onChange={(event) => {
                  </View>
                 <NavBar navigation={this.props.navigation}/>
             </View>
-
         );
     }
 }

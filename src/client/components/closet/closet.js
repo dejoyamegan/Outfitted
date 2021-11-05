@@ -55,16 +55,6 @@ export default class Closet extends Component {
             </Card>);
         }
 
-
-/** 
-<SegmentedControl
-values={['One', 'Two']}
-selectedIndex={this.state.selectedIndex}
-onChange={(event) => {
-    this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
-}}
-/>*/
-
     render() {
 
         const exampleData = [
@@ -90,7 +80,6 @@ onChange={(event) => {
                  </View>
                 <NavBar navigation={this.props.navigation}/>
             </View>
-            
         );
     }
 }

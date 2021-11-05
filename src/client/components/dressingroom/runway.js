@@ -22,14 +22,6 @@ export default class DressingRoom extends Component {
         state[prop] = val;
         this.setState(state);
     }
-/**
-<SegmentedControl
-values={['One', 'Two']}
-selectedIndex={this.state.selectedIndex}
-onChange={(event) => {
-    this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
-}}
-/>*/
 
     render() {
         return(

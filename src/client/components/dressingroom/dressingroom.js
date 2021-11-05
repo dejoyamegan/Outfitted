@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Image, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
+import { Row, Image, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Stepper, Title1, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
+import { Icon, Stepper, Title1, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Card, ListItem, Container } from 'react-native-elements'
 
 
@@ -29,7 +29,12 @@ export default class DressingRoom extends Component {
             <Card.Image
                 style={{ resizeMode: 'contain' }}
                 source={{ uri: item}}/>
-            <Stepper />
+            <Button style={{ height: 43 }}centered rounded>
+                <View style={{ flexDirection: 'row'}}>
+                    <Text style={{}}>Add to Outfit</Text>
+                    <Icon style={{}} name='add-circle-outline' size={20} />
+                </View>
+            </Button>
         </Card>);
     }
 
