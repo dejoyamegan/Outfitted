@@ -29,10 +29,10 @@ export default class DressingRoom extends Component {
             <Card.Image
                 style={{ resizeMode: 'contain' }}
                 source={{ uri: item}}/>
-            <Button style={{ height: 43 }}centered rounded>
+            <Button style={{ flex: 1  }}centered rounded>
                 <View style={{ flexDirection: 'row'}}>
                     <Text style={{}}>Add to Outfit</Text>
-                    <Icon style={{}} name='add-circle-outline' size={20} />
+                    <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
                 </View>
             </Button>
         </Card>);
@@ -55,6 +55,10 @@ export default class DressingRoom extends Component {
         return(
 
             <View style={styles.container}>
+                <Button centered rounded
+                    onPress={() => this.props.navigation.navigate('Runway')}>
+                    Finalize Outfit
+                </Button>
                  <Collection
                    numberOfColumns={4}
                    data={exampleData}
@@ -62,11 +66,6 @@ export default class DressingRoom extends Component {
                    renderSectionHeader={({ section }) => <Title1>{section.title}</Title1>}
                    keyExtractor={(item, index) => `${item}_${index}`}
                  />
-                 <Button
-                    style = {styles.button} inline rounded
-                    onPress={() => this.props.navigation.navigate("Runway")}>
-                        Go to Runway
-                 </Button>
                  <NavBar navigation={this.props.navigation}/>
             </View>
         );
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: 35,
+        padding: 10,
         backgroundColor: '#fff'
     },
     inputStyle: {
