@@ -2,9 +2,17 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
+import { DefaultTheme, ThemeProvider } from 'react-native-ios-kit';
+import color from 'color';
 
 import Login from './components/authentication/login';
 import Signup from './components/authentication/signup';
+import Closet from './components/closet/closet';
+import DressingRoom from './components/dressingroom/dressingroom';
+import Outfits from './components/outfits/outfits'
+import AddItemForm from './components/closet/AddItemForm';
+import Runway from './components/dressingroom/runway';
+import Items from './components/closet/items';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +23,7 @@ function MyStack() {
       screenOptions={{
         headTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#4EA16D'
+          backgroundColor: '#97bde8'
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -36,21 +44,62 @@ function MyStack() {
             {headerLeft: null}
           }
         />
+        <Stack.Screen
+          name="Closet"
+          component={Closet}
+          options= {
+            {title: 'Closet'}
+          }
+        />
+        <Stack.Screen
+                  name="DressingRoom"
+                  component={DressingRoom}
+                  options= {
+                    {title: 'DressingRoom'}
+                  }
+                />
+        <Stack.Screen
+                  name="Outfits"
+                  component={Outfits}
+                  options= {
+                    {title: 'Outfits'}
+                  }
+                />
+        <Stack.Screen
+                  name="AddItemForm"
+                  component={AddItemForm}
+                  options= {
+                    {title: 'AddItemForm'}
+                  }
+                />
+        <Stack.Screen
+                  name="Runway"
+                  component={Runway}
+                  options= {
+                    {title: 'Runway'}
+                  }
+                />
+        <Stack.Screen
+             name="Items"
+             component={Items}
+             options= {
+               {title: 'Items'}
+             }
+        />
     </Stack.Navigator>
   )
 
 
 }
 
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyStack  />
-    </NavigationContainer>
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
+    <ThemeProvider theme={DefaultTheme}>
+        <NavigationContainer>
+              <MyStack  />
+        </NavigationContainer>
+    </ThemeProvider>
   );
 }
 

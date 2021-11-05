@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
+import { TextField, Button } from 'react-native-ios-kit';
 
 export default class Login extends Component {
 
@@ -46,71 +47,41 @@ export default class Login extends Component {
         }
     }
 
-    ownerLogin = () => {
-        if(this.state.email === '' && this.state.password === '') {
-            Alert.alert('Enter details to signin')
-        } else {
-            this.setState({
-                isLoading: true,
-            })
-            firebase
-            .auth()
-            .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then((res) => {
-                console.log(res)
-                console.log('Console logged in successfully')
-                this.setState({
-                    isLoading: true,
-                    email: '',
-                    password: '',
-                })
-                this.props.navigation.navigate('OwnerDashboard')
-
-            })
-            .catch(error => this.setState({errorMessage: error.message}))
-        }
-    }
-
     render() {
-        if(this.state.isLoading){
-            return(
-                <View style={styles.preloader}>
-                    <ActivityIndicator size="large" color="#9E9E9E" />
-                </View>
-            )
-        }
+        //if(this.state.isLoading){
+        //    return(
+        //        <View style={styles.preloader}>
+        //            <ActivityIndicator size="large" color="#9E9E9E" />
+        //        </View>
+        //    )
+        //}
         return(
             <View style={styles.container}>
-                <TextInput 
+                <TextField
+                    clearButton
                     style={styles.inputStyle}
                     placeholder="Email"
                     value={this.state.email}
-                    onChangeText={(val) => this.updateInputVal(val, 'email')}
+                    onValueChange={(val) => this.updateInputVal(val, 'email')}
                 />
-                <TextInput
-                    style={styles.inputStyle}
+                <TextField
+                    clearButton
                     placeholder="Password"
                     value={this.state.password}
-                    onChangeText={(val) => this.updateInputVal(val, 'password')}
+                    onValueChange={(val) => this.updateInputVal(val, 'password')}
                     maxLength= {15}
                     secureTextEntry = {true}
                 />
                 <View style={{ marginVertical: 10 }}>
                     <Button
-                        color="#156F26"
-                        title="Renter Signin"
-                        onPress={() => this.userLogin()}
-                    />
-                </View>
-                <View style={{ marginVertical: 10 }}>
-                    <Button
-                        color="#156F26"
-                        title="Owner Signin"
-                        onPress={() => this.ownerLogin()}
-                    />
+                        center
+                        rounded
+                        onPress={() => this.props.navigation.navigate('Closet')}
+                    >
+                    Login
+                    </Button>
                 </View>
                 <Text
-                    style={styles.loginText}
                     onPress={() => this.props.navigation.navigate('Signup')}>
                     Don't have an account? Click here to Signup
                 </Text>
@@ -127,30 +98,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 35,
         backgroundColor: '#fff'
-    },
-    inputStyle: {
-        width: '100%',
-        marginBottom: 15,
-        paddingBottom: 15,
-        alignSelf: 'center',
-        borderColor: '#ccc',
-        borderBottomWidth: 1,
-        fontFamily: 'PingFang HK'
-    },
-    loginText: {
-        color: '#636B66',
-        marginTop: 25,
-        textAlign: 'center',
-        fontFamily: 'PingFang HK'
-    },
-    preloader: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: "#fff"
     }
 })

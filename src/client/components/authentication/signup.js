@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { CheckBox, StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, Image } from 'react-native';
+import { CheckBox, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
+import { TextField, Button } from 'react-native-ios-kit'
 
 export default class Signup extends Component {
 
@@ -115,41 +116,35 @@ export default class Signup extends Component {
         }
         return(
             <View style={styles.container}>
-                <TextInput
+                <TextField
                     style={styles.inputStyle}
                     placeholder="Name"
                     value={this.state.displayName}
-                    onChangeText={(val) => this.updateInputVal(val, 'displayName')}
+                    onValueChange={(val) => this.updateInputVal(val, 'displayName')}
                 />
-                <TextInput 
+                <TextField
+                    clearButton
                     style={styles.inputStyle}
                     placeholder="Email"
                     value={this.state.email}
-                    onChangeText={(val) => this.updateInputVal(val, 'email')}
+                    onValueChange={(val) => this.updateInputVal(val, 'email')}
                 />
-                <TextInput
+                <TextField
+                    clearButton
                     style={styles.inputStyle}
                     placeholder='Password'
                     value={this.state.password}
-                    onChangeText={(val)=> this.updateInputVal(val,'password')}
+                    onValueChange={(val)=> this.updateInputVal(val,'password')}
                     maxLength={15}
                     secureTextEntry={true}
                 />
-                <View style={styles.checkboxContainer}>
-                    <CheckBox
-                        value={this.state.checkBoxSelected}
-                        onValueChange={(val) => this.updateInputVal(val, 'isOwner')}
-                        style={styles.checkbox}
-                    />
-                    <Text style={styles.label}>Check this box if you are an owner</Text>
-                </View>
                 <View style={{ marginVertical: 10 }}>
                     <Button
-                        style={styles.button}
-                        color="#156F26"
-                        title="Signup"
-                        onPress={()=> this.registerUser()}
-                    />
+                        center
+                        rounded
+                        onPress={()=> this.registerUser()}>
+                        Signup
+                    </Button>
                 </View>
                 <Text
                     style={styles.loginText}
