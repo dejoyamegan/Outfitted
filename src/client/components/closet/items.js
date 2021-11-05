@@ -30,6 +30,10 @@ export default class Items extends Component {
                         style={{ resizeMode: 'contain' }}
                         source={{ uri: item.link}}/>
                 </View>
+                <Button
+                    style={{ marginTop: 5}} centered rounded>
+                    Add to Dressing Room
+                </Button>
             </Card>);
 
         }
