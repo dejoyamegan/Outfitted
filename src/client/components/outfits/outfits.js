@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 're
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
+import { Card, ListItem, Container } from 'react-native-elements'
 
 
 export default class Outfits extends Component {
@@ -22,19 +23,23 @@ export default class Outfits extends Component {
         state[prop] = val;
         this.setState(state);
     }
-/**
-<SegmentedControl
-values={['One', 'Two']}
-selectedIndex={this.state.selectedIndex}
-onChange={(event) => {
-    this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
-}}
-/>*/
+
 
     render() {
         return(
 
             <View style={styles.container}>
+                <Card>
+                    <Card.Title></Card.Title>
+                    <Card.Divider/>
+                    <Card.Image source={{uri: 'https://i.pinimg.com/originals/12/60/32/1260325e53e9c6b8819335d2d385e8fc.jpg'}}/>
+                    <Text style={{marginBottom: 10}}>
+                        My Dinner Outfit
+                        </Text>
+                        <Button style={styles.button} inline rounded>
+                            Add to Dressing Room
+                        </Button>
+                </Card>
                  <View style={{ marginVertical: 10 }}>
                  <Button style={styles.button} inline rounded>
                     Add Item
