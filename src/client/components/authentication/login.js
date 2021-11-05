@@ -78,7 +78,7 @@ export default class Login extends Component {
                         rounded
                         onPress={() => this.props.navigation.navigate('Closet')}
                     >
-                    Closet
+                    Login
                     </Button>
                 </View>
                 <Text

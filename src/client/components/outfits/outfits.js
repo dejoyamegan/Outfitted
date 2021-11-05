@@ -4,8 +4,19 @@ import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Card, ListItem, Container } from 'react-native-elements'
+import { ReactPhotoCollage } from "react-photo-collage";
 
-
+const setting = {
+    width: '600px',
+    height: ['250px', '170px'],
+    layout: [1, 4],
+    photos: [
+      { source: 'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F07%2Fnike-dunk-high-womens-sneakers-aluminum-baby-blue-white-price-release-date-1.jpg?q=75&w=800&cbr=1&fit=max' },
+      { source: 'https://lsco.scene7.com/is/image/lsco/290370014-front-pdp?$qv_desktop_bottoms$' },
+      { source: 'https://di2ponv0v5otw.cloudfront.net/posts/2020/08/01/5f25afd9284e99d2de7607c3/m_5f25afec163df4604b30a4ca.jpg' },
+    ],
+    showNumOfRemainingPhotos: true
+  };
 export default class Outfits extends Component {
 
 
@@ -29,17 +40,7 @@ export default class Outfits extends Component {
         return(
 
             <View style={styles.container}>
-                <Card>
-                    <Card.Title></Card.Title>
-                    <Card.Divider/>
-                    <Card.Image source={{uri: 'https://i.pinimg.com/originals/12/60/32/1260325e53e9c6b8819335d2d385e8fc.jpg'}}/>
-                    <Text style={{marginBottom: 10}}>
-                        My Dinner Outfit
-                        </Text>
-                        <Button style={styles.button} inline rounded>
-                            Add to Dressing Room
-                        </Button>
-                </Card>
+                 <ReactPhotoCollage {...setting} />
                  <View style={{ marginVertical: 10 }}>
                  <Button style={styles.button} inline rounded>
                     Add Item
