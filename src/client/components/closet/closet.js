@@ -63,6 +63,17 @@ onChange={(event) => {
         return(
             
             <View style={styles.container}>
+                <Card style={{ flex: 1 }}>
+                    <Card.Title>HELLO WORLD</Card.Title>
+                    <Card.Divider/>
+                    <Card.Image source={require('../../images/drewshoe.jpg')}/>
+                    <Text style={{marginBottom: 10}}>
+                        Drew's cool shoe
+                        </Text>
+                        <Button style={styles.button} inline rounded>
+                            Add to Dressing Room
+                        </Button>
+                </Card>
                 <Card>
                     <Card.Title>HELLO WORLD</Card.Title>
                     <Card.Divider/>

@@ -57,6 +57,10 @@ export default class AddItemForm extends Component {
                     value={this.state.tags}
                     onValueChange={(val) => this.updateInputVal(val, 'tags')}
                 />
+                <Button style={styles.button} inline rounded
+                    onPress={() => this.props.navigation.navigate('Closet')}>
+                    Add Item
+                </Button>
             </View>
         );
     }
