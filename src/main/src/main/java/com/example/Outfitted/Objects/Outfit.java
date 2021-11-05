@@ -1,4 +1,6 @@
-package com.example.Outfitted.Users;
+package com.example.Outfitted.Objects;
+
+import com.example.Outfitted.Objects.Item;
 
 public class Outfit {
 	// properties of an outfit in the closet 

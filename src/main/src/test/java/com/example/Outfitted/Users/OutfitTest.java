@@ -1,5 +1,9 @@
 package com.example.Outfitted.Users;
 
+import com.example.Outfitted.Objects.Category;
+import com.example.Outfitted.Objects.Closet;
+import com.example.Outfitted.Objects.Item;
+import com.example.Outfitted.Objects.Outfit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +22,7 @@ class OutfitTest {
     // create test category
     Category shirts = new Category("Shirts");
     // create test items to go in outfit
-    Item graphicTee = new Item("green", "M", "Gap", 20, shirts);
+    Item graphicTee = new Item("graphic tee", "green", "M", "Gap", 20, shirts);
     Item pants = new Item();
     Item coat = new Item();
     Item vans = new Item();

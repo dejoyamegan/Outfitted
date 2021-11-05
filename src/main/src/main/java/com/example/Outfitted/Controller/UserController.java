@@ -1,4 +1,6 @@
-package com.example.Outfitted.Users;
+package com.example.Outfitted.Controller;
+import com.example.Outfitted.Users.User;
+import com.example.Outfitted.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

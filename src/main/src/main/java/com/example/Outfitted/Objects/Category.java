@@ -1,4 +1,4 @@
-package com.example.Outfitted.Users;
+package com.example.Outfitted.Objects;
 
 import java.util.ArrayList;
 

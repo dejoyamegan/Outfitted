@@ -1,7 +1,10 @@
-package com.example.Outfitted.Users;
+package com.example.Outfitted.Objects;
+
+import com.example.Outfitted.Objects.Category;
 
 public class Item {
 	// properties of a clothing item
+	private String name;
 	private String color;
 	private String size;
 	private String brand;
@@ -13,6 +16,7 @@ public class Item {
 	 * Default constructor
 	 */
 	public Item() {
+		this.name = "No name";
 		this.color = "No color";
 		this.size = "No size";
 		this.brand = "No brand";
@@ -23,7 +27,8 @@ public class Item {
 	/**
 	 * Constructor taking in all4 properties of a clothing item 
 	 */
-	public Item(String color, String size, String brand, double price, Category category) {
+	public Item(String name, String color, String size, String brand, double price, Category category) {
+		this.name = name;
 		this.color = color;
 		this.size = size;
 		this.brand = brand;
@@ -34,6 +39,13 @@ public class Item {
 	}
 	
 	// getters and setters
+	public void setName(String newName) {
+		this.color  = newName;
+	}
+	public String getName() {
+		return this.name;
+	}
+
 	public void setColor(String newColor) {
 		this.color  = newColor;
 	}
