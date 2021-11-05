@@ -11,7 +11,8 @@ import Closet from './components/closet/closet';
 import DressingRoom from './components/dressingroom/dressingroom';
 import Outfits from './components/outfits/outfits'
 import AddItemForm from './components/closet/AddItemForm';
-import Runway from './components/dressingroom/runway'
+import Runway from './components/dressingroom/runway';
+import Items from './components/closet/items';
 
 const Stack = createStackNavigator();
 
@@ -71,13 +72,20 @@ function MyStack() {
                     {title: 'AddItemForm'}
                   }
                 />
-                <Stack.Screen
+        <Stack.Screen
                   name="Runway"
                   component={Runway}
                   options= {
                     {title: 'Runway'}
                   }
                 />
+        <Stack.Screen
+             name="Items"
+             component={Items}
+             options= {
+               {title: 'Items'}
+             }
+        />
     </Stack.Navigator>
   )
 

@@ -6,22 +6,7 @@ import { Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'r
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 
-export default class Closet extends Component {
-    showdata = () => {
-        const jsonData = data.map((obj) => {
-            return (
-                <Card key = {obj.name}>
-                    <Card.Body>
-                        <Card.Text>
-                            {obj.description}
-                            {obj.size}
-                            {obj.tags}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-            )
-        })
-    }
+export default class Items extends Component {
 
     constructor() {
         super();
@@ -40,23 +25,17 @@ export default class Closet extends Component {
 
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
-                <Card.Title>{item.name}</Card.Title>
-                <View onStartShouldSetResponder={() => this.props.navigation.navigate('Items', { itemType: item.name })}>
+                <View>
                     <Card.Image
-                        onClick={() => this.props.navigation.navigate('Items', { itemType: item.name })}
                         style={{ resizeMode: 'contain' }}
                         source={{ uri: item.link}}/>
                 </View>
-                <Button
-                    onPress={() => this.props.navigation.navigate('AddItemForm')}
-                    style={{ marginTop: 5}} centered rounded>
-                    Add Item
-                </Button>
             </Card>);
+
         }
 
 
-/** 
+/**
 <SegmentedControl
 values={['One', 'Two']}
 selectedIndex={this.state.selectedIndex}
@@ -67,30 +46,49 @@ onChange={(event) => {
 
     render() {
 
-        const exampleData = [
-              {name: 'Shirts',
+        const shirtData = [
+              {
                link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
               },
-              {name: 'Shoes',
-               link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
+              {
+               link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
+              },
+              {
+               link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
               }
         ];
 
+        const shoeData = [
+            {
+                link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
+            },
+            {
+                link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
+            },
+            {
+                link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
+            }
+        ]
+
+        var itemData;
+        if (this.props.route.params.itemType === "Shirts") {
+            itemData = shirtData;
+        } else if (this.props.route.params.itemType === "Shoes") {
+            itemData = shoeData;
+        }
+
         return(
             <View style={styles.container}>
-                <Button style={{ margin: 10 }} centered rounded>
-                    Add Category
-                </Button>
                 <View style={styles.container}>
                       <FlatList
-                        data={exampleData}
+                        data={itemData}
                         renderItem={({item}) => this.renderImage(item)}
                         keyExtractor={(item, index) => `${item}_${index}`}
                       />
                  </View>
                 <NavBar navigation={this.props.navigation}/>
             </View>
-            
+
         );
     }
 }

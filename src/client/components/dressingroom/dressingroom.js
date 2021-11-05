@@ -64,7 +64,6 @@ export default class DressingRoom extends Component {
                  </Button>
                  <NavBar navigation={this.props.navigation}/>
             </View>
-
         );
     }
 }
