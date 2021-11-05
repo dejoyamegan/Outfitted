@@ -1,13 +1,24 @@
 package com.example.Outfitted.Users;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
     private String name;
 
-    private int age;
+    private String age;
 
     private String city;
 
-    public User(String name, int age, String city) {
+    public User() {
+        this.name ="";
+        this.age = "";
+        this.city = "";
+    }
+    public User(String name, String age, String city) {
+        this.name = name;
+        this.age = age;
+        this.city = city;
     }
 
     public String getName() {
@@ -18,11 +29,11 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

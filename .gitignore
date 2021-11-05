@@ -37,4 +37,7 @@ build/
 node_modules
 .expo
 
+
+###Firebase###
+service-key.json
 /bin/

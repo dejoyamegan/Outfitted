@@ -1,4 +1,4 @@
-package main.src.main.java.com.example.Outfitted.Users;
+package com.example.Outfitted.Users;
 
 public class Item {
 	// properties of a clothing item
