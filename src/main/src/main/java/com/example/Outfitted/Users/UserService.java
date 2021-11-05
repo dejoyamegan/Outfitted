@@ -23,8 +23,10 @@ public class UserService {
     public String saveUserDetails(User user) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getUserCollection().document(user.getName().toString()).set(user);
-        return collectionsApiFuture.get().getUpdateTime().toString();
+//        return collectionsApiFuture.get().getUpdateTime().toString();
+            return "Added";
     }
+
 
     public User getUserDetails(String name) throws InterruptedException, ExecutionException {
 
@@ -48,7 +50,8 @@ public class UserService {
 
         ApiFuture<WriteResult> collectionsApiFuture = getUserCollection()
                 .document(person.getName()).set(person);
-        return collectionsApiFuture.get().getUpdateTime().toString();
+//        return collectionsApiFuture.get().getUpdateTime().toString();
+        return "Updated";
     }
 
     public String deleteUser(String name) {
