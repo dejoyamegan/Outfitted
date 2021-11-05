@@ -37,21 +37,8 @@ onChange={(event) => {
             <View style={styles.container}>
                  <View style={{ marginVertical: 10 }}>
                  <Button style={styles.button} inline rounded>
-                    Add Item
+                    Save Outfit
                 </Button>
-                </View>
-                <View style={{ marginVertical: 10 }}>
-                <Button style={styles.button} inline rounded>
-                    Add Category
-                </Button>
-                </View>
-                 <View style={{ marginVertical: 10 }}>
-                    <Button
-                        style = {styles.button} inline rounded
-                        onPress={() => this.props.navigation.navigate("Runway")}
-                    >
-                        Go to Runway
-                    </Button>
                 </View>
                 <NavBar navigation={this.props.navigation}/>
             </View>

@@ -11,7 +11,7 @@ import Closet from './components/closet/closet';
 import DressingRoom from './components/dressingroom/dressingroom';
 import Outfits from './components/outfits/outfits'
 import AddItemForm from './components/closet/AddItemForm';
-
+import Runway from './components/dressingroom/runway'
 
 const Stack = createStackNavigator();
 
@@ -69,6 +69,13 @@ function MyStack() {
                   component={AddItemForm}
                   options= {
                     {title: 'AddItemForm'}
+                  }
+                />
+                <Stack.Screen
+                  name="Runway"
+                  component={Runway}
+                  options= {
+                    {title: 'Runway'}
                   }
                 />
     </Stack.Navigator>
