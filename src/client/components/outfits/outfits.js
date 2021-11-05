@@ -47,14 +47,16 @@ export default class Outfits extends Component {
 
             <View style={styles.container}>
                
-                <Card>
-                <StaticCollage width={400} height={400} images={photos} matrix={[1, 1, 1]} />
-                 <View style={{ marginVertical: 10 }}>
-                 <Button style={styles.button} inline rounded>
-                    Delete Outfit
-                </Button>
-                </View>
-                 </Card>
+               <Card>
+                    <Card.Divider/>
+                    <Card.Image source={require('../../images/drewshoe.jpg')}/>
+                    <Text style={{marginBottom: 10}}>
+                        Drew's Outfit
+                        </Text>
+                        <Button style={styles.button} inline rounded>
+                            Delete Outfit
+                        </Button>
+                </Card>
                  <View style={{ marginVertical: 10 }}>
                  <Button style={styles.button} inline rounded>
                     Add Item
