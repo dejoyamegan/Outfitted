@@ -1,4 +1,4 @@
-package main.src.main.java.com.example.Outfitted.Users;
+package com.example.Outfitted.Users;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ public class Closet {
 	private String owner;
 	private int numItems;
 	private ArrayList<Category> categories;
+	private ArrayList<Outfit> outfits;
 	
 	/**
 	 * Default constructor for Closet class
@@ -15,6 +16,7 @@ public class Closet {
 		this.owner = "No owner";
 		this.numItems = 0;
 		this.categories = new ArrayList<Category>();
+		this.outfits = new ArrayList<Outfit>();
 	}
 	
 	/**
@@ -25,6 +27,7 @@ public class Closet {
 		this.owner = name;
 		this.numItems = 0;
 		this.categories = new ArrayList<Category>();
+		this.outfits = new ArrayList<Outfit>();
 	}
 	
 	// getters and setters
@@ -47,6 +50,10 @@ public class Closet {
 	public ArrayList<Category> getCategories(){
 		return this.categories;
 	}
+
+	public ArrayList<Outfit> getOutfits(){
+		return this.outfits;
+	}
 	
 	// closet functions 
 	/**
@@ -68,6 +75,13 @@ public class Closet {
 	 */
 	public boolean removeItem(Category category, Item itemToRemove) {
 		return category.removeItem(itemToRemove);
+	}
+
+	public void addOutfit(Outfit outfit) {
+		outfits.add(outfit);
+	}
+	public boolean removeOutfit(Outfit outfit){
+		return outfits.remove(outfit);
 	}
 
 }
