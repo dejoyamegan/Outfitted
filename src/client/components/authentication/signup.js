@@ -43,31 +43,29 @@ export default class Signup extends Component {
         
     }
 
-    directUserSignUp(){
 
-        if (this.state['checkBoxSelected']){
-            this.props.navigation.navigate('OwnerDashboard');
-        }else{
-            this.props.navigation.navigate('RenterDashboard')
-        }
+    addNewUser() {
+        fetch("http://localhost:8080/createUser",
+            {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({ name: this.state.displayName })
+            })
+            .then((response) => response.blob())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
-    /**addNewUser = () => {
-        const database = firebase.database();
-        console.log(firebase.auth().currentUser.uid);
-        const refDb = database.ref("/Users/" + firebase.auth().currentUser.uid );
-        refDb.set({
-            full_name: this.state.displayName,
-            email_account: this.state.email,
-            admin_account: this.state.checkBoxSelected,
-            app_status: this.state.appStatus
-            
-        });
-    }**/
 
     errorHandler = (error) => {
         alert(error);
         this.props.navigation.navigate('Signup');
-        location.reload();
+        document.window.reload();
     } 
 
     registerUser = ()=> {
@@ -76,7 +74,6 @@ export default class Signup extends Component {
         }else if(this.state.password.length < 6){ 
             Alert.alert('Password Too short! Must be at least 6 Characters.')
         }
-
         else{
             this.setState({
                 isLoading: true,
@@ -89,14 +86,14 @@ export default class Signup extends Component {
                     displayName: this.state.displayName
                 })
                 console.log("User registered Successfully!");
-                //this.addNewUser();
+                this.addNewUser();
                 this.setState({
                     isLoading: false,
                     displayName: '',
                     email: '',
                     password: ''
                 })
-                this.directUserSignUp();
+                this.props.navigation.navigate("Closet");
                 
             })
             .catch((error) => {
