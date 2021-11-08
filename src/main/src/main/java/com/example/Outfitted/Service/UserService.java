@@ -1,4 +1,5 @@
-package com.example.Outfitted.Users;
+package com.example.Outfitted.Service;
+import com.example.Outfitted.Users.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -50,8 +51,8 @@ public class UserService {
 
         ApiFuture<WriteResult> collectionsApiFuture = getUserCollection()
                 .document(person.getName()).set(person);
-//        return collectionsApiFuture.get().getUpdateTime().toString();
-        return "Updated";
+        return collectionsApiFuture.get().getUpdateTime().toString();
+        //return "Updated";
     }
 
     public String deleteUser(String name) {
