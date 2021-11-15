@@ -11,10 +11,7 @@ export default class Signup extends Component {
             displayName: '',
             email: '',
             password: '',
-            isAdmin: '',
-            isLoading: false,
-            checkBoxSelected: false,
-            appStatus: "Unsubmitted"
+            isLoading: false
         }
     }
 
@@ -68,7 +65,7 @@ export default class Signup extends Component {
         document.window.reload();
     } 
 
-    registerUser = ()=> {
+    registerUser = () => {
         if(this.state.email === '' && this.state.password === ''){
             Alert.alert('Enter details to Signup!')
         }else if(this.state.password.length < 6){ 
@@ -86,7 +83,7 @@ export default class Signup extends Component {
                     displayName: this.state.displayName
                 })
                 console.log("User registered Successfully!");
-                this.addNewUser();
+                //this.addNewUser();
                 this.setState({
                     isLoading: false,
                     displayName: '',

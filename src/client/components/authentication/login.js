@@ -10,8 +10,7 @@ export default class Login extends Component {
         super();
         this.state = {
             email: '',
-            password: '',
-            isLoading: false
+            password: ''
         }
     }
 
@@ -26,9 +25,6 @@ export default class Login extends Component {
         if(this.state.email === '' && this.state.password === '') {
             Alert.alert('Enter details to signin')
         } else {
-            this.setState({
-                isLoading: true,
-            })
             firebase
             .auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -36,12 +32,10 @@ export default class Login extends Component {
                 console.log(res)
                 console.log('Console logged in successfully')
                 this.setState({
-                    isLoading: true,
                     email: '',
                     password: '',
                 })
-                this.props.navigation.navigate('RenterDashboard')
-
+                this.props.navigation.navigate('Outfits')
             })
             .catch(error => this.setState({errorMessage: error.message}))
         }
@@ -76,7 +70,7 @@ export default class Login extends Component {
                     <Button
                         center
                         rounded
-                        onPress={() => this.props.navigation.navigate('Closet')}
+                        onPress={() => this.userLogin()}
                     >
                     Login
                     </Button>
