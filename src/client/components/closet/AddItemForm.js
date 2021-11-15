@@ -74,7 +74,8 @@ export default class AddItemForm extends Component {
         };
 
     addItem() {
-        this.uploadImageToStorage('/test');
+        const result = Math.random().toString(36).substring(2,7);
+        this.uploadImageToStorage('/'+result);
     }
 
     // make a button that adds all of states props to json list
