@@ -17,6 +17,7 @@ public class FBInitialize {
         try{
             FileInputStream serviceAccount =
                     new FileInputStream("./service-key.json");
+
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     //databseURL from firebase config
@@ -24,6 +25,7 @@ public class FBInitialize {
                     .build();
 
             FirebaseApp.initializeApp(options);
+            System.out.println("Firebase Initialized!");
         }
         catch(Exception e) {
             e.printStackTrace();

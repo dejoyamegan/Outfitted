@@ -14,7 +14,8 @@ public class CategoryService {
 
     public static final String COL_NAME="category";
 
-    @Autowired
+    //Autowired only used when you have multiple constructors. Explicitly select which constructor is the bean.
+//    @Autowired
     private Firestore firestore;
 
     private CollectionReference getCategoryCollection() {

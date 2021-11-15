@@ -7,6 +7,11 @@ public class Category {
 	private String name;
 	private ArrayList<Item> items;
 
+	public Category() {
+		this.name = "";
+		items = new ArrayList<Item>();
+	}
+
 	/**
 	 * Default constructor
 	 * @param name - name of clothing category

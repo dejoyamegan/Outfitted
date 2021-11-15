@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 //@DemoController
 public class UserController {
 
-    @Autowired
+//    @Autowired
     UserService userService;
 
     @GetMapping("/getUserDetails")

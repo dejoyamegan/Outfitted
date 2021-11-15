@@ -1,4 +1,5 @@
 package com.example.Outfitted.Service;
+
 import com.example.Outfitted.Objects.Closet;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -14,7 +15,7 @@ public class ClosetService {
 
     public static final String COL_NAME="closet";
 
-    @Autowired
+//    @Autowired
     private Firestore firestore;
 
     private CollectionReference getClosetCollection() {

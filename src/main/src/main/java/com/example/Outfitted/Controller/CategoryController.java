@@ -7,28 +7,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-//@DemoController
 public class CategoryController {
 
-    @Autowired
+//    @Autowired
     CategoryService categoryService;
 
-    @GetMapping("/getUserDetails")
+    @GetMapping("/getCategoryDetails")
     public Category getCategory(@RequestParam String name) throws InterruptedException, ExecutionException {
         return categoryService.getCategoryDetails(name);
     }
 
-    @PostMapping("/createUser")
+    @PostMapping("/createCategory")
     public String createCategory(@RequestBody Category category) throws InterruptedException, ExecutionException {
         return categoryService.saveCategoryDetails(category);
     }
 
-    @PutMapping("/updateUser")
+    @PutMapping("/updateCategory")
     public String updateCategory(@RequestBody Category category) throws InterruptedException, ExecutionException {
         return categoryService.updateCategoryDetails(category);
     }
 
-    @DeleteMapping("/deleteUser")
+    @DeleteMapping("/deleteCategory ")
     public String deleteCategory(@RequestParam String name) throws InterruptedException, ExecutionException {
         return categoryService.deleteCategory(name);
     }

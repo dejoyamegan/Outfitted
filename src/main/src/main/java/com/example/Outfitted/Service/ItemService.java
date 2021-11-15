@@ -14,7 +14,7 @@ public class ItemService {
 
     public static final String COL_NAME="items";
 
-    @Autowired
+//    @Autowired
     private Firestore firestore;
 
     private CollectionReference getItemCollection() {
