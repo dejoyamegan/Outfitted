@@ -22,21 +22,21 @@ export default class AddItemForm extends Component {
         this.addItem = this.addItem.bind(this);
     }
 
-    uploadImageToStorage(imageName) {
+    uploadImageToStorage = async(imageName) => {
         var path = imageName;
-        if (Platform.OS === "ios") {
-            path = "~" + imageName.substring(path.indexOf("/Documents"));
-        }
+        const response = await fetch(this.state.imageURI);
+        const blob = await response.blob();
+
         firebase
           .storage()
           .ref(imageName)
-          .put(path)
+          .put(blob, { contentType: 'image/jpeg', })
           .then((snapshot) => {
             //You can check the image is now uploaded in the storage bucket
             console.log(`${imageName} has been successfully uploaded.`);
           })
           .catch((e) => console.log('uploading image error => ', e));
-    }
+    };
 
     pickImage = async() => {
         // Ask the user for the permission to access the media library
@@ -74,7 +74,7 @@ export default class AddItemForm extends Component {
         };
 
     addItem() {
-        this.uploadImageToStorage('hello');
+        this.uploadImageToStorage('/test');
     }
 
     // make a button that adds all of states props to json list
