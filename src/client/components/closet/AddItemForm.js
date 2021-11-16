@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
+import React, {useState, Component} from 'react';
+import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import { Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
-
+export const imgs = [];
 
 export default class AddItemForm extends Component {
 
@@ -17,7 +17,8 @@ export default class AddItemForm extends Component {
             size: '', 
             description: '',
             tags: '',
-            imageURI: null
+            imageURI: null,
+            images1: ''
         }
         this.addItem = this.addItem.bind(this);
     }
@@ -26,7 +27,7 @@ export default class AddItemForm extends Component {
         var path = imageName;
         const response = await fetch(this.state.imageURI);
         const blob = await response.blob();
-
+        
         firebase
           .storage()
           .ref(imageName)
@@ -36,7 +37,10 @@ export default class AddItemForm extends Component {
             console.log(`${imageName} has been successfully uploaded.`);
           })
           .catch((e) => console.log('uploading image error => ', e));
+
+          
     };
+    
 
     pickImage = async() => {
         // Ask the user for the permission to access the media library
@@ -76,6 +80,7 @@ export default class AddItemForm extends Component {
     addItem() {
         const result = Math.random().toString(36).substring(2,7);
         this.uploadImageToStorage('/'+result);
+        imgs.push(result)
     }
 
     // make a button that adds all of states props to json list
@@ -104,7 +109,7 @@ export default class AddItemForm extends Component {
                style={{ resizeMode: 'contain' }}
                source={{ uri: this.state.imageURI }}/>
         }
-
+        
         return(
             <View style={styles.container}>
                 <Card style={{ flex: 1 }}>
@@ -143,6 +148,8 @@ export default class AddItemForm extends Component {
                     onPress={this.addItem}>
                     Add Item to Closet
                 </Button>
+                
+                
             </View>
         );
     }
@@ -183,3 +190,4 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff"
     }
 })
+

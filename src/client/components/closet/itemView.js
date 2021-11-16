@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { InfoRow, Body, Icon, Title1, Title2, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import { Image, Card, ListItem, Container } from 'react-native-elements';
-
+import {imgs} from './AddItemForm'
 export default class ItemView extends Component {
 
     constructor() {
@@ -18,7 +18,10 @@ export default class ItemView extends Component {
     }
 
     componentDidMount() {
-        this.getImageFromStorage("test");
+        for(var i = 0; i < imgs.length; i++){
+        this.getImageFromStorage(imgs[i]);
+        }
+
     }
 
     updateInputVal = (val, prop) => {
