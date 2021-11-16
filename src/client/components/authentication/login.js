@@ -35,7 +35,7 @@ export default class Login extends Component {
                     email: '',
                     password: '',
                 })
-                this.props.navigation.navigate('Outfits')
+                this.props.navigation.navigate('Closet')
             })
             .catch(error => this.setState({errorMessage: error.message}))
         }
@@ -66,7 +66,7 @@ export default class Login extends Component {
                     maxLength= {15}
                     secureTextEntry = {true}
                 />
-                <View style={{ marginVertical: 10 }}>
+                <View style={{ marginTop: 25 }}>
                     <Button
                         center
                         rounded
@@ -75,7 +75,7 @@ export default class Login extends Component {
                     Login
                     </Button>
                 </View>
-                <Text
+                <Text style={styles.loginText}
                     onPress={() => this.props.navigation.navigate('Signup')}>
                     Don't have an account? Click here to Signup
                 </Text>
@@ -92,5 +92,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 35,
         backgroundColor: '#fff'
-    }
+    },
+    loginText: {
+            color: "#636B66",
+            marginTop: 25,
+            textAlign: "center",
+            fontFamily: 'PingFang HK'
+        },
 })

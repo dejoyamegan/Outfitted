@@ -43,7 +43,6 @@ export default class Closet extends Component {
                 <Card.Title>{item.name}</Card.Title>
                 <View onStartShouldSetResponder={() => this.props.navigation.navigate('Items', { itemType: item.name })}>
                     <Card.Image
-                        onClick={() => this.props.navigation.navigate('Items', { itemType: item.name })}
                         style={{ resizeMode: 'contain' }}
                         source={{ uri: item.link}}/>
                 </View>

@@ -25,7 +25,7 @@ export default class Items extends Component {
 
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
-                <View>
+                <View onStartShouldSetResponder={(e) => this.props.navigation.navigate('ItemView', { itemURI: item.link })}>
                     <Card.Image
                         style={{ resizeMode: 'contain' }}
                         source={{ uri: item.link}}/>

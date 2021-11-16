@@ -13,6 +13,7 @@ import Outfits from './components/outfits/outfits'
 import AddItemForm from './components/closet/AddItemForm';
 import Runway from './components/dressingroom/runway';
 import Items from './components/closet/items';
+import ItemView from './components/closet/itemView';
 
 const Stack = createStackNavigator();
 
@@ -86,6 +87,14 @@ function MyStack() {
                {title: 'Items'}
              }
         />
+        <Stack.Screen
+             name="ItemView"
+             component={ItemView}
+             options= {
+               {title: 'ItemView'}
+             }
+        />
+
     </Stack.Navigator>
   )
 
