@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { InfoRow, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
+import { InfoRow, Body, Icon, Title1, Title2, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import { Image, Card, ListItem, Container } from 'react-native-elements';
 
 export default class ItemView extends Component {
@@ -39,8 +39,6 @@ export default class ItemView extends Component {
     }
 
     render() {
-
-        const screenWidth = Dimensions.get('window').width;
         return(
             <View style={styles.container}>
                 <Title1>Megan's shirt</Title1>
@@ -48,7 +46,10 @@ export default class ItemView extends Component {
                         style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
                         source={{ uri: this.state.imageURI }}
                         PlaceholderContent={<ActivityIndicator />}/>
-                <InfoRow style={styles.infoRow} icon='pencil-outline' title='Description' info='placeholder' />
+                <View style={{ width: '%inherit' }}>
+                    <InfoRow icon="pencil-outline" title="Description" info="placeholder"/>
+                </View>
+
             </View>
         );
     }
@@ -60,11 +61,11 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         backgroundColor: '#fff',
         alignItems: 'center'
     },
     infoRow: {
-        width: Dimensions.get('window').width
+        width: 'inherit'
     }
 })
