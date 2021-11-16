@@ -46,10 +46,16 @@ export default class ItemView extends Component {
                         style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
                         source={{ uri: this.state.imageURI }}
                         PlaceholderContent={<ActivityIndicator />}/>
-                <View style={{}}>
-                    <InfoRow icon="pencil-outline" title="Description" info="placeholder"/>
+                <View style={{ justifyContent: 'stretch' }}>
+                    <InfoRow theme={{  }} icon="pencil-sharp" title="Description" info="This is the best shirt ever. I love it."/>
+                    <InfoRow icon="shirt-outline" title="Size" info="Medium"/>
+                    <InfoRow icon="color-palette-outline" title="Color" info="Pink"/>
+                    <InfoRow icon="ios-pricetag-outline" title="Tags" info="Casual, School"/>
+                    <Button center rounded style={{ marginTop: 15, flexDirection: 'row', alignSelf: 'center' }}>
+                        <Body>Delete Item</Body>
+                        <Icon size={20} name={'ios-trash-outline'} />
+                    </Button>
                 </View>
-
             </View>
         );
     }
