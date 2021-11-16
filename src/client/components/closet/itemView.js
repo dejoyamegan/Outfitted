@@ -46,7 +46,7 @@ export default class ItemView extends Component {
                         style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
                         source={{ uri: this.state.imageURI }}
                         PlaceholderContent={<ActivityIndicator />}/>
-                <View style={{ width: '%inherit' }}>
+                <View style={{}}>
                     <InfoRow icon="pencil-outline" title="Description" info="placeholder"/>
                 </View>
 
