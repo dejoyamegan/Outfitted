@@ -43,7 +43,6 @@ export default class Closet extends Component {
                 <Card.Title>{item.name}</Card.Title>
                 <View onStartShouldSetResponder={() => this.props.navigation.navigate('Items', { itemType: item.name })}>
                     <Card.Image
-                        onClick={() => this.props.navigation.navigate('Items', { itemType: item.name })}
                         style={{ resizeMode: 'contain' }}
                         source={{ uri: item.link}}/>
                 </View>
@@ -68,7 +67,8 @@ export default class Closet extends Component {
 
         return(
             <View style={styles.container}>
-                <Button style={{ margin: 10 }} centered rounded>
+                <Button style={{ margin: 10 }} centered rounded
+                    onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
                     Add Category
                 </Button>
                 <View style={styles.container}>

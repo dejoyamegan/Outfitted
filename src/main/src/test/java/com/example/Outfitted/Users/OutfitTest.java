@@ -16,7 +16,9 @@ class OutfitTest {
     void setUp() {
         // open any test files here
     }
-
+    // create test user objects
+    User defaultUser = new User();
+    User testUser = new User("Taylor Swift", "31", "New York");
     // create closet instance
     Closet testCloset = new Closet("Test Owner");
     // create test category
@@ -29,11 +31,18 @@ class OutfitTest {
     Item hairClip = new Item();
     // create outfit instance to add to closet
     Outfit outfit = new Outfit();
+    Outfit outfitWithParams = new Outfit(graphicTee, pants, coat, vans, hairClip);
 
+    // category tests
     @Test
-    void testAddItemToOutfit(){
-        outfit.setTop(graphicTee);
-        assertEquals(outfit.getTop().equals(graphicTee), true);
+    void testCreateCategory(){
+        Category testCategory = new Category();
+        assertEquals(testCategory.getName().equals(""), true);
+    }
+    @Test
+    void testChangeCategoryName(){
+        shirts.setName("Sweatshirts");
+        assertEquals(shirts.getName(), "Sweatshirts");
     }
     @Test
     void testAddItemToCategory(){
@@ -41,19 +50,141 @@ class OutfitTest {
         assertEquals(shirts.getItems().size(), 1);
     }
     @Test
+    void testRemoveItemFromCategory(){
+        shirts.removeItem(graphicTee);
+        assertEquals(shirts.getItems().size(), 0);
+    }
+
+    // outfit tests
+    @Test
+    void testAddItemToOutfit(){
+        outfit.setTop(graphicTee);
+        assertEquals(outfit.getTop().equals(graphicTee), true);
+    }
+    @Test
     void testRemoveItemFromOutfit(){
         outfit.setTop(new Item());
         assertEquals(outfit.getTop().equals(graphicTee), false);
     }
     @Test
-    void testRemoveItemFromCategory(){
-        shirts.removeItem(graphicTee);
-        assertEquals(shirts.getItems().size(), 0);
+    void testOutfitBottom(){
+        outfit.setBottom(new Item());
+        assertEquals(outfit.getBottom().equals(pants), false);
     }
+    @Test
+    void testOutfitTopLayer(){
+        outfit.setTopLayer(new Item());
+        assertEquals(outfit.getTopLayer().equals(coat), false);
+    }
+    @Test
+    void testOutfitShoes(){
+        outfit.setShoes(new Item());
+        assertEquals(outfit.getShoes().equals(vans), false);
+    }
+    @Test
+    void testOutfitAccessory(){
+        outfit.setAccessory(new Item());
+        assertEquals(outfit.getAccessory().equals(hairClip), false);
+    }
+
+    // closet tests
     @Test
     void testAddOutfitToCloset(){
         testCloset.addOutfit(outfit);
         assertEquals(testCloset.getOutfits().size(), 1);
+    }
+    @Test
+    void testRemoveOutfitFromCloset(){
+        testCloset.addOutfit(outfit);
+        testCloset.removeOutfit(outfit);
+        assertEquals(testCloset.getOutfits().size(), 0);
+    }
+    @Test
+    void testCreateCloset(){
+        Closet testClosetDefault = new Closet();
+        assertEquals(testCloset.equals(testClosetDefault), false);
+    }
+    @Test
+    void testSetClosetOwner(){
+        testCloset.setOwner("Test Owner Name");
+        assertEquals(testCloset.getOwner(), "Test Owner Name");
+    }
+    @Test
+    void testAClosetNumItems(){
+        testCloset.setNumItems(5);
+        assertEquals(testCloset.getNumItems(), 5);
+    }
+    @Test
+    void testAddClosetCategories(){
+        testCloset.addCategory("Jeans");
+        assertEquals(testCloset.getCategories().size(), 1);
+    }
+    @Test
+    void testAddItemToCloset(){
+        Item workShirt = new Item();
+        testCloset.addItem(shirts, workShirt);
+        assertEquals(shirts.getItems().size(), 1);
+    }
+    @Test
+    void testRemoveItemFromCloset(){
+        Item workShirt = new Item();
+        testCloset.addItem(shirts, workShirt);
+        testCloset.removeItem(shirts, workShirt);
+        assertEquals(shirts.getItems().size(), 0);
+    }
+
+    // item tests
+    @Test
+    void testItemName(){
+        graphicTee.setName("t shirt"); // should not change
+        assertEquals(graphicTee.getName(), "graphic tee");
+    }
+    @Test
+    void testItemColor(){
+        graphicTee.setColor("blue");
+        assertEquals(graphicTee.getColor(), "blue");
+    }
+    @Test
+    void testItemSize(){
+        graphicTee.setSize("8");
+        assertEquals(graphicTee.getSize(), "8");
+    }
+    @Test
+    void testItemBrand(){
+        graphicTee.setBrand("Nike");
+        assertEquals(graphicTee.getBrand(), "Nike");
+    }
+    @Test
+    void testItemPrice(){
+        graphicTee.setPrice(24.99);
+        assertEquals(graphicTee.getPrice(), 24.99);
+    }
+    @Test
+    void testItemTimesWorn(){
+        graphicTee.addTimesWorn();
+        graphicTee.addTimesWorn();
+        assertEquals(graphicTee.getTimesWorn(), 2);
+    }
+    @Test
+    void testItemCategory(){
+        assertEquals(graphicTee.getCategory(), shirts);
+    }
+
+    // user tests
+    @Test
+    void testUserName(){
+        testUser.setName("T Swift");
+        assertEquals(testUser.getName(), "T Swift");
+    }
+    @Test
+    void testUserAge(){
+        testUser.setAge("22");
+        assertEquals(testUser.getAge(), "22");
+    }
+    @Test
+    void testUserCity(){
+        testUser.setCity("Nashville");
+        assertEquals(testUser.getCity(), "Nashville");
     }
 
     @AfterEach

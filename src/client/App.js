@@ -13,6 +13,9 @@ import Outfits from './components/outfits/outfits'
 import AddItemForm from './components/closet/AddItemForm';
 import Runway from './components/dressingroom/runway';
 import Items from './components/closet/items';
+import ItemView from './components/closet/itemView';
+import AddCategoryForm from './components/closet/AddCategoryForm';
+import OutfitView from './components/dressingroom/outfitview';
 
 const Stack = createStackNavigator();
 
@@ -86,6 +89,28 @@ function MyStack() {
                {title: 'Items'}
              }
         />
+        <Stack.Screen
+             name="ItemView"
+             component={ItemView}
+             options= {
+               {title: 'ItemView'}
+             }
+        />
+        <Stack.Screen
+             name="OutfitView"
+             component={OutfitView}
+             options= {
+               {title: 'OutfitView'}
+             }
+        />
+        <Stack.Screen
+             name="AddCategoryForm"
+             component={AddCategoryForm}
+             options= {
+               {title: 'AddCategoryForm'}
+             }
+        />
+
     </Stack.Navigator>
   )
 

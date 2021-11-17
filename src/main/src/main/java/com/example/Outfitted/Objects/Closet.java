@@ -35,26 +35,32 @@ public class Closet {
 	
 	// getters and setters
 	public void setOwner(String newOwner) {
+
 		this.owner = newOwner;
 	}
 	
 	public String getOwner() {
+
 		return this.owner;
 	}
 	
 	public void setNumItems(int newNumItems) {
+
 		this.numItems = newNumItems;
 	}
 	
 	public int getNumItems() {
+
 		return this.numItems;
 	}
 	
 	public ArrayList<Category> getCategories(){
+
 		return this.categories;
 	}
 
 	public ArrayList<Outfit> getOutfits(){
+
 		return this.outfits;
 	}
 	
@@ -64,12 +70,14 @@ public class Closet {
 	 * @param categoryName - name of new category to add
 	 */
 	public void addCategory(String categoryName) {
+
 		this.categories.add(new Category(categoryName));
 	}
 	/**
 	 * Adds a new clothing item to this user's closet in the specified category 
 	 */
 	public void addItem(Category category, Item newItem) {
+
 		category.addItem(newItem);
 	}
 	
@@ -77,13 +85,16 @@ public class Closet {
 	 * Removes and returns specified clothing item from closet 
 	 */
 	public boolean removeItem(Category category, Item itemToRemove) {
+
 		return category.removeItem(itemToRemove);
 	}
 
 	public void addOutfit(Outfit outfit) {
+
 		outfits.add(outfit);
 	}
 	public boolean removeOutfit(Outfit outfit){
+
 		return outfits.remove(outfit);
 	}
 

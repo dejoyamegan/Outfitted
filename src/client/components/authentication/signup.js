@@ -15,19 +15,6 @@ export default class Signup extends Component {
         }
     }
 
-    DisplayAnImage = () => {
-        return (
-          <View style={styles.container}>
-            <Image
-              style={styles.logo}
-              source={{
-                uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
-              }}
-            />
-          </View>
-        );
-      }
-
     
     updateInputVal = (val, prop) => {
         
@@ -48,7 +35,7 @@ export default class Signup extends Component {
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify({ name: this.state.displayName })
+                body: JSON.stringify({ name: this.state.displayName, age: "21", city: "madison" })
             })
             .then((response) => response.blob())
             .then(data => {
@@ -83,7 +70,7 @@ export default class Signup extends Component {
                     displayName: this.state.displayName
                 })
                 console.log("User registered Successfully!");
-                //this.addNewUser();
+                this.addNewUser();
                 this.setState({
                     isLoading: false,
                     displayName: '',
@@ -132,7 +119,7 @@ export default class Signup extends Component {
                     maxLength={15}
                     secureTextEntry={true}
                 />
-                <View style={{ marginVertical: 10 }}>
+                <View style={{ marginTop: 25 }}>
                     <Button
                         center
                         rounded

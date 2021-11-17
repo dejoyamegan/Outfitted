@@ -6,21 +6,18 @@ import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 export const imgs = [];
-const imgs2 = []
-export default class AddItemForm extends Component {
+
+export default class AddCategoryForm extends Component {
 
 
     constructor() {
         super();
         this.state = {
             name: '',
-            size: '', 
-            description: '',
-            tags: '',
             imageURI: null,
             images1: '',
-            validSubmission: true,
-            invalidMessages: []
+            invalidMessages: [],
+            validSubmission: true
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.acknowledgeError = this.acknowledgeError.bind(this);
@@ -37,14 +34,6 @@ export default class AddItemForm extends Component {
             result = false;
             messages.push("-Name");
         }
-        if (this.state.size == null || this.state.size == "") {
-            result = false;
-            messages.push("-Size");
-        }
-        if (this.state.color == null || this.state.color == "") {
-            result = false;
-            messages.push("-Color");
-        }
         if (!result) {
             this.setState({
                 invalidMessages: messages,
@@ -54,11 +43,12 @@ export default class AddItemForm extends Component {
         return result;
     }
 
+
     uploadImageToStorage = async(imageName) => {
         var path = imageName;
         const response = await fetch(this.state.imageURI);
         const blob = await response.blob();
-        
+
         firebase
           .storage()
           .ref(imageName)
@@ -69,9 +59,9 @@ export default class AddItemForm extends Component {
           })
           .catch((e) => console.log('uploading image error => ', e));
 
-          
+
     };
-    
+
 
     pickImage = async() => {
         // Ask the user for the permission to access the media library
@@ -108,22 +98,11 @@ export default class AddItemForm extends Component {
             }
         };
 
-
-    // make a button that adds all of states props to json list
-
-    updateInputVal = (val, prop) => {
-        const state = this.state;
-        state[prop] = val;
-        this.setState(state);
-    }
-
     onSubmit() {
         if (this.validSubmission()) {
             const result = Math.random().toString(36).substring(2,7);
             this.uploadImageToStorage('/'+result);
-            imgs2.push(result)
-            imgs.push(imgs2)
-            console.log(imgs)
+            imgs.push(result)
         }
     }
 
@@ -132,6 +111,14 @@ export default class AddItemForm extends Component {
             validSubmission: true,
             invalidMessages: []
         });
+    }
+
+    // make a button that adds all of states props to json list
+
+    updateInputVal = (val, prop) => {
+        const state = this.state;
+        state[prop] = val;
+        this.setState(state);
     }
 
     render() {
@@ -162,34 +149,13 @@ export default class AddItemForm extends Component {
                 <TextField
                     clearButton
                     style={styles.inputStyle}
-                    placeholder="Name"
+                    placeholder="Category Name"
                     value={this.state.name}
                     onValueChange={(val) => this.updateInputVal(val, 'name')}
                 />
-                <TextField
-                    clearButton
-                    style={styles.inputStyle}
-                    placeholder="Size"
-                    value={this.state.size}
-                    onValueChange={(val) => this.updateInputVal(val, 'size')}
-                />
-                <TextField
-                    clearButton
-                    style={styles.inputStyle}
-                    placeholder="Description"
-                    value={this.state.description}
-                    onValueChange={(val) => this.updateInputVal(val, 'description')}
-                />
-                <TextField
-                    clearButton
-                    style={styles.inputStyle}
-                    placeholder="Tags (Optional)"
-                    value={this.state.tags}
-                    onValueChange={(val) => this.updateInputVal(val, 'tags')}
-                />
                 <Button style={{ marginTop: 15 }} centered inline rounded
                     onPress={this.onSubmit}>
-                    Add Item to Closet
+                    Add Category
                 </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2 style={{ paddingBottom: 10 }}>Please fill in the following fields:</Title2>
@@ -240,3 +206,4 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff"
     }
 })
+
