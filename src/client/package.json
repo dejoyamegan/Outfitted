@@ -5,7 +5,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest",
+    "type": "module"
   },
   "dependencies": {
     "@react-navigation/native": "^6.0.2",
@@ -30,10 +32,18 @@
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
-    "react-table-6": "^6.11.0"
+    "react-table-6": "^6.11.0",
+    "ts-jest": "^27.0.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "babel-jest": "^27.3.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "jest": "^27.3.1",
+    "react-test-renderer": "^17.0.2"
   },
   "private": true
 }
