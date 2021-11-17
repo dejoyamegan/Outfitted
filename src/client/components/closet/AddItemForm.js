@@ -6,7 +6,7 @@ import data from '../../data.json'
 import { Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 export const imgs = [];
-
+const imgs2 = []
 export default class AddItemForm extends Component {
 
 
@@ -80,7 +80,9 @@ export default class AddItemForm extends Component {
     addItem() {
         const result = Math.random().toString(36).substring(2,7);
         this.uploadImageToStorage('/'+result);
-        imgs.push(result)
+        imgs2.push(result)
+        imgs.push(imgs2)
+        console.log(imgs)
     }
 
     // make a button that adds all of states props to json list

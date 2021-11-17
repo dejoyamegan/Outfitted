@@ -18,8 +18,17 @@ export default class ItemView extends Component {
     }
 
     componentDidMount() {
+        
+        console.log(imgs[0]);
         for(var i = 0; i < imgs.length; i++){
-        this.getImageFromStorage(imgs[i]);
+            for(var j = 0; j < imgs[i].length; j++){
+                console.log(imgs[i][j]);
+                this.getImageFromStorage(imgs[i][j]);
+                
+            }
+        
+        
+        
         }
 
     }
