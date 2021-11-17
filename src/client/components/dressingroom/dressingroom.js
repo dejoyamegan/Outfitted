@@ -29,7 +29,8 @@ export default class DressingRoom extends Component {
             <Card.Image
                 style={{ resizeMode: 'contain' }}
                 source={{ uri: item}}/>
-            <Button style={{ flex: 1  }}centered rounded>
+            <Button style={{ flex: 1  }}centered rounded
+            onPress={() => this.props.navigation.navigate('OutfitView')}>
                 <View style={{ flexDirection: 'row'}}>
                     <Text style={{}}>Add to Outfit</Text>
                     <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
