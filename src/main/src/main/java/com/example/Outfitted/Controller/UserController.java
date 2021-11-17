@@ -8,9 +8,9 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 //@DemoController
-public class UserController {
+public class UserController extends UserService {
 
-//    @Autowired
+    @Autowired
     UserService userService;
 
     @GetMapping("/getUserDetails")

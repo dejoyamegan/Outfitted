@@ -16,12 +16,12 @@ public class ClosetService {
     public static final String COL_NAME="closet";
 
 //    @Autowired
-    private Firestore firestore;
+//    private Firestore firestore;
 
     private CollectionReference getClosetCollection() {
-        return firestore.collection(COL_NAME);
+        Firestore db = FirestoreClient.getFirestore();
+        return db.collection(COL_NAME);
     }
-
     public String saveClosetDetails(Closet closet) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getClosetCollection().document(closet.getOwner().toString()).set(closet);

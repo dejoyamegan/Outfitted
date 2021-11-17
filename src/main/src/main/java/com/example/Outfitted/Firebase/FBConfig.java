@@ -1,15 +1,16 @@
 package com.example.Outfitted.Firebase;
-
-import com.google.cloud.firestore.Firestore;
-import com.google.firebase.cloud.FirestoreClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
+//
+//import com.google.cloud.firestore.Firestore;
+//import com.google.firebase.cloud.FirestoreClient;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.stereotype.Component;
+//
+//@Configuration
 public class FBConfig {
-
-    @Bean
-    public Firestore getDb() {
-        return FirestoreClient.getFirestore();
-    }
+//
+//    @Bean
+//    public Firestore getDb() {
+//        return FirestoreClient.getFirestore();
+//    }
 }

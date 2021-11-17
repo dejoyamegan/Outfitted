@@ -16,12 +16,12 @@ public class CategoryService {
 
     //Autowired only used when you have multiple constructors. Explicitly select which constructor is the bean.
 //    @Autowired
-    private Firestore firestore;
+//    private Firestore firestore;
 
     private CollectionReference getCategoryCollection() {
-        return firestore.collection(COL_NAME);
+        Firestore db = FirestoreClient.getFirestore();
+        return db.collection(COL_NAME);
     }
-
     public String saveCategoryDetails(Category category) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getCategoryCollection().document(category.getName().toString()).set(category);

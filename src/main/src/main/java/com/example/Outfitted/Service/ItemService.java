@@ -15,12 +15,12 @@ public class ItemService {
     public static final String COL_NAME="items";
 
 //    @Autowired
-    private Firestore firestore;
+//    private Firestore firestore;
 
     private CollectionReference getItemCollection() {
-        return firestore.collection(COL_NAME);
+        Firestore db = FirestoreClient.getFirestore();
+        return db.collection(COL_NAME);
     }
-
     public String saveItemDetails(Item item) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getItemCollection().document(item.getName().toString()).set(item);

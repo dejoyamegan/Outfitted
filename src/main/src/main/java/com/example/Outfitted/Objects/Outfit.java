@@ -1,7 +1,9 @@
 package com.example.Outfitted.Objects;
 
 import com.example.Outfitted.Objects.Item;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Outfit {
 	// properties of an outfit in the closet 
 	private Item top;

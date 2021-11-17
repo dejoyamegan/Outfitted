@@ -1,7 +1,10 @@
 package com.example.Outfitted.Objects;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
+@Component
 public class Category {
 	// properties of a clothing category
 	private String name;
