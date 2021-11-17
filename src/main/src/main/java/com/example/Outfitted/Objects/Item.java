@@ -1,16 +1,16 @@
 package com.example.Outfitted.Objects;
 
-import com.example.Outfitted.Objects.Category;
+//import com.example.Outfitted.Objects.Category;
 
 public class Item {
 	// properties of a clothing item
-	private String name;
+	private final String name;
 	private String color;
 	private String size;
 	private String brand;
 	private double price;
 	private int timesWorn;
-	private Category category;
+	private final Category category;
 
 	/**
 	 * Default constructor
@@ -40,45 +40,61 @@ public class Item {
 	
 	// getters and setters
 	public void setName(String newName) {
+
 		this.color  = newName;
 	}
 	public String getName() {
+
 		return this.name;
 	}
 
 	public void setColor(String newColor) {
+
 		this.color  = newColor;
 	}
 	public String getColor() {
+
 		return this.color;
 	}
 	
 	public void setSize(String newSize) {
+
 		this.size  = newSize;
 	}
 	public String getSize() {
+
 		return this.size;
 	}
 	
 	public void setBrand(String newBrand) {
+
 		this.brand  = newBrand;
 	}
 	public String getBrand() {
+
 		return this.brand;
 	}
 	
 	public void setPrice(double newPrice) {
+
 		this.price  = newPrice;
 	}
 	public double getPrice() {
+
 		return this.price;
 	}
-	
+
+	public void addTimesWorn() {
+
+		this.timesWorn++;
+	}
 	public int getTimesWorn() {
+
 		return this.timesWorn;
 	}
 	
 	public Category getCategory() {
+
 		return this.category;
 	}
 	
