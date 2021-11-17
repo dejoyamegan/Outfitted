@@ -67,7 +67,8 @@ export default class Closet extends Component {
 
         return(
             <View style={styles.container}>
-                <Button style={{ margin: 10 }} centered rounded>
+                <Button style={{ margin: 10 }} centered rounded
+                    onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
                     Add Category
                 </Button>
                 <View style={styles.container}>
