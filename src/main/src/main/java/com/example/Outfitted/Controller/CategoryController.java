@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 public class CategoryController {
 
-//    @Autowired
+    @Autowired
     CategoryService categoryService;
 
     @GetMapping("/getCategoryDetails")

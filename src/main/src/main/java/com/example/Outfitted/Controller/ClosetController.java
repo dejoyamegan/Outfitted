@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 //@DemoController
 public class ClosetController {
 
-//    @Autowired
+    @Autowired
     ClosetService closetService;
 
     @GetMapping("/getClosetDetails")
