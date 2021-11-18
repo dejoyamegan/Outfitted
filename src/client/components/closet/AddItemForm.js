@@ -16,6 +16,7 @@ export default class AddItemForm extends Component {
             name: '',
             size: '', 
             description: '',
+            color: '',
             tags: '',
             imageURI: null,
             images1: '',
@@ -118,13 +119,36 @@ export default class AddItemForm extends Component {
     }
 
     onSubmit() {
-        if (this.validSubmission()) {
-            const result = Math.random().toString(36).substring(2,7);
-            this.uploadImageToStorage('/'+result);
-            imgs2.push(result)
-            imgs.push(imgs2)
-            console.log(imgs)
-        }
+        const result = Math.random().toString(36).substring(2,7);
+        this.uploadImageToStorage('/'+result);
+
+        //currently storing image name under "brand" -- need to change once db is restructured
+        const raw = JSON.stringify({
+            "name": this.state.name,
+            "size": this.state.size,
+            "brand": result
+        });
+
+        fetch("http://localhost:8080/createItem",
+            {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: raw,
+                mode: 'no-cors'
+            })
+            .then((response) => response.blob())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        imgs2.push(result)
+        imgs.push(imgs2)
+        console.log(imgs)
     }
 
     acknowledgeError() {
@@ -179,6 +203,13 @@ export default class AddItemForm extends Component {
                     placeholder="Description"
                     value={this.state.description}
                     onValueChange={(val) => this.updateInputVal(val, 'description')}
+                />
+                <TextField
+                    clearButton
+                    style={styles.inputStyle}
+                    placeholder="Color"
+                    value={this.state.color}
+                    onValueChange={(val) => this.updateInputVal(val, 'color')}
                 />
                 <TextField
                     clearButton

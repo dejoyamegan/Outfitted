@@ -35,7 +35,8 @@ export default class Signup extends Component {
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify({ name: this.state.displayName, age: "21", city: "madison" })
+                body: JSON.stringify({ name: this.state.displayName, age: "21", city: "madison" }),
+                mode: 'no-cors'
             })
             .then((response) => response.blob())
             .then(data => {
