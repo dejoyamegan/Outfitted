@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class User {
-    private String name;
-    private String age;
-    private String city;
+    private static String name;
+    private static String age;
+    private static String city;
 
     public User() {
         this.name ="";
@@ -47,6 +47,12 @@ public class User {
     public void setCity(String city) {
 
         this.city = city;
+    }
+
+    @Override
+    public String toString(){
+        String userString = "name: " + this.name + " city: " + this.city + " age: " + this.age;
+        return userString;
     }
 }
 

@@ -16,6 +16,8 @@ public class UserService  extends FBInitialize {
 
     public static final String COL_NAME="users";
 
+    public static User currentUser = new User();
+
     private CollectionReference getUserCollection() {
         Firestore db = FirestoreClient.getFirestore();
         return db.collection(COL_NAME);
@@ -24,6 +26,7 @@ public class UserService  extends FBInitialize {
     public String saveUserDetails(User user) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getUserCollection().document(user.getName().toString()).set(user);
+
 
 //        return collectionsApiFuture.get().getUpdateTime().toString();
             return "Added";
@@ -36,11 +39,12 @@ public class UserService  extends FBInitialize {
 
         DocumentSnapshot document = future.get();
 
-        new User("No user found", "1", "None");
         User user;
 
         if(document.exists()) {
             user = document.toObject(User.class);
+            currentUser = user;
+            System.out.println(user.toString());
             return user;
         }
         else {
