@@ -18,7 +18,7 @@ public class CategoryController {
     }
 
     @PostMapping("/createCategory")
-    public String createCategory(@RequestBody Category category) throws InterruptedException, ExecutionException {
+    public String createCategory(@RequestBody Category category, String id) throws InterruptedException, ExecutionException {
         return categoryService.saveCategoryDetails(category);
     }
 

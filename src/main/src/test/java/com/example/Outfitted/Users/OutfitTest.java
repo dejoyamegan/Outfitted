@@ -177,14 +177,14 @@ class OutfitTest {
         assertEquals(testUser.getName(), "T Swift");
     }
     @Test
-    void testUserAge(){
-        testUser.setAge("22");
-        assertEquals(testUser.getAge(), "22");
+    void testUserUid(){
+        testUser.setUid("22");
+        assertEquals(testUser.getUid(), "22");
     }
     @Test
-    void testUserCity(){
-        testUser.setCity("Nashville");
-        assertEquals(testUser.getCity(), "Nashville");
+    void testUserClosetId(){
+        testUser.setClosetId("Nashville");
+        assertEquals(testUser.getClosetId(), "Nashville");
     }
 
     @AfterEach
