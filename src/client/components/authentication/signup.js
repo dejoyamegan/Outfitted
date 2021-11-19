@@ -35,12 +35,11 @@ export default class Signup extends Component {
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify({ name: this.state.displayName, age: "21", city: "madison" }),
-                mode: 'no-cors'
+                body: JSON.stringify({ name: this.state.displayName, age: "21", city: "madison" })
             })
-            .then((response) => response.blob())
+            .then((response) => response.text())
             .then(data => {
-                return data;
+                console.log(data);
             })
             .catch(error => {
                 console.error(error);
@@ -124,7 +123,7 @@ export default class Signup extends Component {
                     <Button
                         center
                         rounded
-                        onPress={()=> this.registerUser()}>
+                        onPress={()=> this.addNewUser()}>
                         Signup
                     </Button>
                 </View>

@@ -135,12 +135,11 @@ export default class AddItemForm extends Component {
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: raw,
-                mode: 'no-cors'
+                body: raw
             })
-            .then((response) => response.blob())
+            .then((response) => response.text())
             .then(data => {
-                return data;
+                console.log(data);
             })
             .catch(error => {
                 console.error(error);
