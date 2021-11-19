@@ -15,7 +15,7 @@ public class ClosetService {
 
 //    public static final String COL_NAME="closet";
     //Testing collection path
-    public static final String COL_NAME= "users/I2 Will/closet";
+    public static String COL_NAME = null;
 
 
 
@@ -23,7 +23,13 @@ public class ClosetService {
         Firestore db = FirestoreClient.getFirestore();
         return db.collection(COL_NAME);
     }
-    public String saveClosetDetails(Closet closet) throws InterruptedException, ExecutionException {
+    private void getPath(String uid) {
+        COL_NAME = "users/" + uid + "/closet";
+        System.out.println("FIRESTORE PATH: " + COL_NAME);
+    }
+
+    public String saveClosetDetails(Closet closet, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getClosetCollection().document(closet.getOwner().toString()).set(closet);
         return collectionsApiFuture.get().getUpdateTime().toString();
@@ -31,7 +37,8 @@ public class ClosetService {
     }
 
 
-    public Closet getClosetDetails(Closet closet) throws InterruptedException, ExecutionException {
+    public Closet getClosetDetails(Closet closet, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
 
         DocumentReference documentReference = getClosetCollection().document(String.valueOf(closet));
         ApiFuture<DocumentSnapshot> future = documentReference.get();
@@ -49,7 +56,8 @@ public class ClosetService {
         }
     }
 
-    public String updateClosetDetails(Closet closet) throws InterruptedException, ExecutionException {
+    public String updateClosetDetails(Closet closet, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
 
         ApiFuture<WriteResult> collectionsApiFuture = getClosetCollection()
                 .document(closet.getOwner()).set(closet);
@@ -58,11 +66,13 @@ public class ClosetService {
         //return "Updated";
     }
 
-    public String deleteCloset(String owner) {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(owner).delete();
+    public String deleteCloset(String uid) {
+        getPath(uid);
 
-        return "Closet for "+owner+" has been deleted";
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(uid).delete();
+
+        return "Closet for "+uid+" has been deleted";
     }
 }
 

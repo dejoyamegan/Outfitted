@@ -13,23 +13,23 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping("/getCategoryDetails")
-    public Category getCategory(@RequestParam String name) throws InterruptedException, ExecutionException {
-        return categoryService.getCategoryDetails(name);
+    public Category getCategory(@RequestParam String name, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return categoryService.getCategoryDetails(name, uid);
     }
 
     @PostMapping("/createCategory")
-    public String createCategory(@RequestBody Category category, String id) throws InterruptedException, ExecutionException {
-        return categoryService.saveCategoryDetails(category);
+    public String createCategory(@RequestBody Category category, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return categoryService.saveCategoryDetails(category, uid);
     }
 
     @PutMapping("/updateCategory")
-    public String updateCategory(@RequestBody Category category) throws InterruptedException, ExecutionException {
-        return categoryService.updateCategoryDetails(category);
+    public String updateCategory(@RequestBody Category category, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return categoryService.updateCategoryDetails(category, uid);
     }
 
     @DeleteMapping("/deleteCategory ")
-    public String deleteCategory(@RequestParam String name) throws InterruptedException, ExecutionException {
-        return categoryService.deleteCategory(name);
+    public String deleteCategory(@RequestParam String name, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return categoryService.deleteCategory(name, uid);
     }
 
 }

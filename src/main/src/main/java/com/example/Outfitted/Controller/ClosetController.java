@@ -13,24 +13,24 @@ public class ClosetController {
     @Autowired
     ClosetService closetService;
 
-    @GetMapping("/getClosetDetails")
-    public Closet getCloset(@RequestParam Closet closet) throws InterruptedException, ExecutionException {
-        return closetService.getClosetDetails(closet);
+    @GetMapping("/getClosetDetails/")
+    public Closet getCloset(@RequestParam Closet closet, @PathVariable String uid) throws InterruptedException, ExecutionException {
+        return closetService.getClosetDetails(closet, uid);
     }
 
-    @PostMapping("/createCloset")
-    public String createCloset(@RequestBody Closet closet) throws InterruptedException, ExecutionException {
-        return closetService.saveClosetDetails(closet);
+    @PostMapping("/createCloset/")
+    public String createCloset(@RequestBody Closet closet, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return closetService.saveClosetDetails(closet, uid);
     }
 
-    @PutMapping("/updateCloset")
-    public String updateCloset(@RequestBody Closet closet) throws InterruptedException, ExecutionException {
-        return closetService.updateClosetDetails(closet);
+    @PutMapping("/updateCloset/")
+    public String updateCloset(@RequestBody Closet closet, @PathVariable String uid) throws InterruptedException, ExecutionException {
+        return closetService.updateClosetDetails(closet, uid);
     }
 
-    @DeleteMapping("/deleteCloset")
-    public String deleteCloset(@RequestParam String owner) throws InterruptedException, ExecutionException {
-        return closetService.deleteCloset(owner);
+    @DeleteMapping("/deleteCloset/")
+    public String deleteCloset(@PathVariable String uid) throws InterruptedException, ExecutionException {
+        return closetService.deleteCloset(uid);
     }
 
 }

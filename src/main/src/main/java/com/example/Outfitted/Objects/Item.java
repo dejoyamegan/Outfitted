@@ -12,6 +12,7 @@ public class Item {
 	private String brand;
 	private double price;
 	private int timesWorn;
+	//TODO: Item can be in multiple categories to array, plus not final
 	private final Category category;
 
 	/**

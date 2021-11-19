@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Category {
 	// properties of a clothing category
 	private String name;
+	//TODO: Change this to reference items rather than array list of item objects
 	private ArrayList<Item> items;
 
 	public Category() {

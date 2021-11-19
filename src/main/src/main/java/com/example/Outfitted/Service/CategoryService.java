@@ -1,40 +1,36 @@
 package com.example.Outfitted.Service;
 import com.example.Outfitted.Objects.Category;
-import com.example.Outfitted.Users.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.firestore.v1.Write;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
 
 @Service
 public class CategoryService {
-    //TODO How do we get user info. A get call?
-    public static final String PATH="users/Jason/category";
-    public static final String COL_NAME="category";
 
+    public static String COL_NAME= null;
 
-    //Autowired only used when you have multiple constructors. Explicitly select which constructor is the bean.
-//    @Autowired
-//    private Firestore firestore;
+    private void getPath(String uid) {
+        COL_NAME = "users/" + uid + "/closet/" + uid + "/category";
+        System.out.println("FIRESTORE PATH: " + COL_NAME);
+    }
 
     private CollectionReference getCategoryCollection() {
         Firestore db = FirestoreClient.getFirestore();
-        System.out.println("Current Path: " + PATH);
-        return db.collection(PATH);
+        System.out.println("Current Path: " + COL_NAME);
+        return db.collection(COL_NAME);
     }
-    public String saveCategoryDetails(Category category) throws InterruptedException, ExecutionException {
+    public String saveCategoryDetails(Category category, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getCategoryCollection().document(category.getName().toString()).set(category);
         return collectionsApiFuture.get().getUpdateTime().toString();
-//        return "Added";
     }
 
-
-    public Category getCategoryDetails(String name) throws InterruptedException, ExecutionException {
+    public Category getCategoryDetails(String name, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
 
         DocumentReference documentReference = getCategoryCollection().document(name);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
@@ -52,7 +48,8 @@ public class CategoryService {
         }
     }
 
-    public String updateCategoryDetails(Category category) throws InterruptedException, ExecutionException {
+    public String updateCategoryDetails(Category category, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
 
         ApiFuture<WriteResult> collectionsApiFuture = getCategoryCollection()
                 .document(category.getName()).set(category);
@@ -60,7 +57,9 @@ public class CategoryService {
         //return "Updated";
     }
 
-    public String deleteCategory(String name) {
+    public String deleteCategory(String name, String uid) {
+        getPath(uid);
+
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = getCategoryCollection().document(name).delete();
 
