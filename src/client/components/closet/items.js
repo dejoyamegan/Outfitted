@@ -25,15 +25,20 @@ export default class Items extends Component {
 
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
-                <View onStartShouldSetResponder={(e) => this.props.navigation.navigate('ItemView', { itemURI: item.link })}>
-                    <Card.Image
-                        style={{ resizeMode: 'contain' }}
-                        source={{ uri: item.link}}/>
+                <Card.Image
+                    style={{ resizeMode: 'contain' }}
+                    source={{ uri: item.link}}/>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Button
+                        style={{ marginTop: 5}} centered rounded>
+                        Add to Dressing Room
+                    </Button>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('ItemView', { itemURI: item.link })}
+                        style={{ marginTop: 5}} centered rounded>
+                        View Item
+                    </Button>
                 </View>
-                <Button
-                    style={{ marginTop: 5}} centered rounded>
-                    Add to Dressing Room
-                </Button>
             </Card>);
         }
 

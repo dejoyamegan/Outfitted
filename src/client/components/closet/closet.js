@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
+import { Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 
@@ -41,16 +41,31 @@ export default class Closet extends Component {
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
                 <Card.Title>{item.name}</Card.Title>
-                <View onStartShouldSetResponder={() => this.props.navigation.navigate('Items', { itemType: item.name })}>
-                    <Card.Image
-                        style={{ resizeMode: 'contain' }}
-                        source={{ uri: item.link}}/>
+                <Card.Image
+                    style={{ resizeMode: 'contain' }}
+                    source={{ uri: item.link}}/>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('AddItemForm')}
+                        style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{}}>Add Item</Text>
+                            <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                        </View>
+                    </Button>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('Items', { itemType: item.name })}
+                        style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{}}>View Items</Text>
+                            <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                        </View>
+                    </Button>
+                    </View>
                 </View>
-                <Button
-                    onPress={() => this.props.navigation.navigate('AddItemForm')}
-                    style={{ marginTop: 5}} centered rounded>
-                    Add Item
-                </Button>
             </Card>);
         }
 
@@ -67,9 +82,12 @@ export default class Closet extends Component {
 
         return(
             <View style={styles.container}>
-                <Button style={{ margin: 10 }} centered rounded
+                <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
                     onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
-                    Add Category
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{alignSelf: 'center'}}>Add Category</Text>
+                        <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
+                    </View>
                 </Button>
                 <View style={styles.container}>
                       <FlatList

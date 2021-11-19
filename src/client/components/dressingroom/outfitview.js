@@ -37,9 +37,6 @@ export default class Outfits extends Component {
                 this.getImageFromStorage(imgs[i][j]);
                 
             }
-        
-        
-        
         }
 
     }
