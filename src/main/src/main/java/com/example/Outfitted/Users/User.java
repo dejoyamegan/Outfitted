@@ -4,19 +4,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class User {
-    private String name;
-    private String age;
-    private String city;
+    private static String name;
+    private static String uid;
+    private static String closetId;
 
     public User() {
         this.name ="";
-        this.age = "";
-        this.city = "";
+        this.uid = "";
+        this.closetId = "";
     }
     public User(String name, String age, String city) {
         this.name = name;
-        this.age = age;
-        this.city = city;
+        this.uid = age;
+        this.closetId = city;
     }
 
     public String getName() {
@@ -29,24 +29,30 @@ public class User {
         this.name = name;
     }
 
-    public String getAge() {
+    public String getUid() {
 
-        return age;
+        return uid;
     }
 
-    public void setAge(String age) {
+    public void setUid(String uid) {
 
-        this.age = age;
+        this.uid = uid;
     }
 
-    public String getCity() {
+    public String getClosetId() {
 
-        return city;
+        return closetId;
     }
 
-    public void setCity(String city) {
+    public void setClosetId(String city) {
 
-        this.city = city;
+        this.closetId = city;
+    }
+
+    @Override
+    public String toString(){
+        String userString = "name: " + this.name + " city: " + this.closetId + " age: " + this.uid;
+        return userString;
     }
 }
 

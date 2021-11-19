@@ -13,10 +13,11 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class ClosetService {
 
-    public static final String COL_NAME="closet";
+//    public static final String COL_NAME="closet";
+    //Testing collection path
+    public static final String COL_NAME= "users/I2 Will/closet";
 
-//    @Autowired
-//    private Firestore firestore;
+
 
     private CollectionReference getClosetCollection() {
         Firestore db = FirestoreClient.getFirestore();
@@ -25,8 +26,8 @@ public class ClosetService {
     public String saveClosetDetails(Closet closet) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getClosetCollection().document(closet.getOwner().toString()).set(closet);
-//        return collectionsApiFuture.get().getUpdateTime().toString();
-        return "Added";
+        return collectionsApiFuture.get().getUpdateTime().toString();
+//        return "Added";
     }
 
 

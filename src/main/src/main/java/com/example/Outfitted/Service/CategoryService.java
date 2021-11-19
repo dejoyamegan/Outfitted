@@ -1,5 +1,6 @@
 package com.example.Outfitted.Service;
 import com.example.Outfitted.Objects.Category;
+import com.example.Outfitted.Users.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -11,8 +12,10 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class CategoryService {
-
+    //TODO How do we get user info. A get call?
+    public static final String PATH="users/Jason/category";
     public static final String COL_NAME="category";
+
 
     //Autowired only used when you have multiple constructors. Explicitly select which constructor is the bean.
 //    @Autowired
@@ -20,13 +23,14 @@ public class CategoryService {
 
     private CollectionReference getCategoryCollection() {
         Firestore db = FirestoreClient.getFirestore();
-        return db.collection(COL_NAME);
+        System.out.println("Current Path: " + PATH);
+        return db.collection(PATH);
     }
     public String saveCategoryDetails(Category category) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
                 getCategoryCollection().document(category.getName().toString()).set(category);
-//        return collectionsApiFuture.get().getUpdateTime().toString();
-        return "Added";
+        return collectionsApiFuture.get().getUpdateTime().toString();
+//        return "Added";
     }
 
 
@@ -58,7 +62,7 @@ public class CategoryService {
 
     public String deleteCategory(String name) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(name).delete();
+        ApiFuture<WriteResult> writeResult = getCategoryCollection().document(name).delete();
 
         return "Document with User ID "+name+" has been deleted";
     }

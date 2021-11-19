@@ -29,7 +29,7 @@ public class FBInitialize {
                     .setDatabaseUrl("https://outfitted-database-default-rtdb.firebaseio.com")
                     .build();
 
-            FirebaseApp.initializeApp(options);
+//            FirebaseApp.initializeApp(options);
 //            System.out.println("Firebase Initialized!");
 
 //            firestore = FirestoreClient.getFirestore();

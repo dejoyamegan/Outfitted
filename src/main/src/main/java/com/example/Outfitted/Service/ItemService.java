@@ -12,10 +12,10 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class ItemService {
 
-    public static final String COL_NAME="items";
+//    public static final String COL_NAME="items";
+    public static final String USER="I2 Will";
+    public static final String COL_NAME="users/"+USER+"/closet/Will/items";
 
-//    @Autowired
-//    private Firestore firestore;
 
     private CollectionReference getItemCollection() {
         Firestore db = FirestoreClient.getFirestore();
