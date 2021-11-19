@@ -41,19 +41,31 @@ export default class Closet extends Component {
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
                 <Card.Title>{item.name}</Card.Title>
-                <View onStartShouldSetResponder={() => this.props.navigation.navigate('Items', { itemType: item.name })}>
-                    <Card.Image
-                        style={{ resizeMode: 'contain' }}
-                        source={{ uri: item.link}}/>
-                </View>
-                <Button
-                    onPress={() => this.props.navigation.navigate('AddItemForm')}
-                    style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={{}}>Add Item</Text>
-                        <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                <Card.Image
+                    style={{ resizeMode: 'contain' }}
+                    source={{ uri: item.link}}/>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('AddItemForm')}
+                        style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{}}>Add Item</Text>
+                            <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                        </View>
+                    </Button>
                     </View>
-                </Button>
+                    <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('Items', { itemType: item.name })}
+                        style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{}}>View Items</Text>
+                            <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                        </View>
+                    </Button>
+                    </View>
+                </View>
             </Card>);
         }
 
