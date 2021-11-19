@@ -15,23 +15,23 @@ public class ItemController {
     ItemService itemService;
 
     @GetMapping("/getItemDetails")
-    public Item getItem(@RequestParam Item item) throws InterruptedException, ExecutionException {
-        return itemService.getItemDetails(item);
+    public Item getItem(@RequestParam Item item, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return itemService.getItemDetails(item, uid);
     }
 
     @PostMapping("/createItem")
-    public String createItem(@RequestBody Item item) throws InterruptedException, ExecutionException {
-        return itemService.saveItemDetails(item);
+    public String createItem(@RequestBody Item item, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return itemService.saveItemDetails(item, uid);
     }
 
     @PutMapping("/updateItem")
-    public String updateItem(@RequestBody Item item) throws InterruptedException, ExecutionException {
-        return itemService.updateItemDetails(item);
+    public String updateItem(@RequestBody Item item, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return itemService.updateItemDetails(item, uid);
     }
 
     @DeleteMapping("/deleteItem")
-    public String deleteItem(@RequestParam Item item) throws InterruptedException, ExecutionException {
-        return itemService.deleteItem(item);
+    public String deleteItem(@RequestParam Item item, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return itemService.deleteItem(item, uid);
     }
 
 }

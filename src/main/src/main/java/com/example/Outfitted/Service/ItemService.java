@@ -13,24 +13,31 @@ import java.util.concurrent.ExecutionException;
 public class ItemService {
 
 //    public static final String COL_NAME="items";
-    public static final String USER="I2 Will";
-    public static final String COL_NAME="users/"+USER+"/closet/Will/items";
+   // public static final String USER="I2 Will";
+    public static String COL_NAME= null;
 
 
     private CollectionReference getItemCollection() {
         Firestore db = FirestoreClient.getFirestore();
         return db.collection(COL_NAME);
     }
-    public String saveItemDetails(Item item) throws InterruptedException, ExecutionException {
+
+    private void getPath(String uid) {
+        COL_NAME = "users/" + uid + "/closet/" +uid+ "/items";
+        System.out.println("FIRESTORE PATH: " + COL_NAME);
+    }
+
+    public String saveItemDetails(Item item, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
         ApiFuture<WriteResult> collectionsApiFuture =
-                getItemCollection().document(item.getName().toString()).set(item);
+                getItemCollection().document(item.getName()).set(item);
 //        return collectionsApiFuture.get().getUpdateTime().toString();
         return "Added";
     }
 
 
-    public Item getItemDetails(Item item) throws InterruptedException, ExecutionException {
-
+    public Item getItemDetails(Item item, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
         DocumentReference documentReference = getItemCollection().document(String.valueOf(item));
         ApiFuture<DocumentSnapshot> future = documentReference.get();
 
@@ -47,15 +54,16 @@ public class ItemService {
         }
     }
 
-    public String updateItemDetails(Item item) throws InterruptedException, ExecutionException {
-
+    public String updateItemDetails(Item item, String uid) throws InterruptedException, ExecutionException {
+        getPath(uid);
         ApiFuture<WriteResult> collectionsApiFuture = getItemCollection()
                 .document(item.getName()).set(item);
         return collectionsApiFuture.get().getUpdateTime().toString();
         //return "Updated";
     }
 
-    public String deleteItem(Item item) {
+    public String deleteItem(Item item, String uid) {
+        getPath(uid);
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(String.valueOf(item)).delete();
 
