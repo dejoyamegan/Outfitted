@@ -26,10 +26,12 @@ export default class DressingRoom extends Component {
 
     renderImage(item) {
         return (<Card style={{ flex: 1 }}>
-            <Card.Image
-                style={{ resizeMode: 'contain' }}
-                source={{ uri: item}}/>
-            <Button style={{ flex: 1  }}centered rounded
+            <View onStartShouldSetResponder={() => this.props.navigation.navigate('ItemView')}>
+                <Card.Image
+                    style={{ resizeMode: 'contain' }}
+                    source={{ uri: item}}/>
+            </View>
+            <Button style={{ flex: 1  }} centered rounded
             onPress={() => this.props.navigation.navigate('OutfitView')}>
                 <View style={{ flexDirection: 'row'}}>
                     <Text style={{}}>Add to Outfit</Text>
@@ -56,9 +58,12 @@ export default class DressingRoom extends Component {
         return(
 
             <View style={styles.container}>
-                <Button centered rounded
+                <Button style={{ alignItems: 'center' }} centered rounded
                     onPress={() => this.props.navigation.navigate('Runway')}>
-                    Finalize Outfit
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{alignSelf: 'center'}}>Finalize Outfit</Text>
+                        <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
+                    </View>
                 </Button>
                  <Collection
                    numberOfColumns={4}
