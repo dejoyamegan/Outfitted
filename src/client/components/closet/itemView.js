@@ -24,11 +24,7 @@ export default class ItemView extends Component {
             for(var j = 0; j < imgs[i].length; j++){
                 console.log(imgs[i][j]);
                 this.getImageFromStorage(imgs[i][j]);
-                
             }
-        
-        
-        
         }
 
     }
