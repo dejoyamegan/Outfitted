@@ -41,10 +41,10 @@ export default class AddItemForm extends Component {
             result = false;
             messages.push("-Size");
         }
-        if (this.state.color == null || this.state.color == "") {
+        /**if (this.state.color == null || this.state.color == "") {
             result = false;
             messages.push("-Color");
-        }
+        }**/
         if (!result) {
             this.setState({
                 invalidMessages: messages,
