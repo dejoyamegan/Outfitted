@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Item {
 	// properties of a clothing item
-	private final String name;
+	private String name;
 	private String color;
 	private String size;
 	private String brand;
@@ -44,7 +44,7 @@ public class Item {
 	// getters and setters
 	public void setName(String newName) {
 
-		this.color  = newName;
+		this.name  = newName;
 	}
 	public String getName() {
 
