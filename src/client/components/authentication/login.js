@@ -29,17 +29,36 @@ export default class Login extends Component {
             .auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             .then((res) => {
-                console.log(res)
-                console.log('Console logged in successfully')
+                // console.log(res)
+                console.log("Consoled logged in!")
+                userAuth = firebase.auth().currentUser;
+
+                fetchDbUser(userAuth);
+                
                 this.setState({
                     email: '',
                     password: '',
                 })
+                console.log("Before navigate!")
                 this.props.navigation.navigate('Closet')
             })
             .catch(error => this.setState({errorMessage: error.message}))
         }
     }
+
+    fetchDbUser = (userAuth) => {
+        var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+        };
+        let query = "uid=" + userAuth.email;
+        let url = "http://localhost:8080/getUserDetails?" + query;
+        fetch(url, requestOptions)
+            // .then(response => response.text())
+            // .then(result => console.log(result))
+            // .catch(error => console.log('error', error));
+        }
+        
 
     render() {
         //if(this.state.isLoading){

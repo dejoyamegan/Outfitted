@@ -25,11 +25,11 @@ public class UserService  extends FBInitialize {
 
     public String saveUserDetails(User user) throws InterruptedException, ExecutionException {
         ApiFuture<WriteResult> collectionsApiFuture =
-                getUserCollection().document(user.getUid().toString()).set(user);
+                getUserCollection().document(user.getEmail().toString()).set(user);
 
 
-//        return collectionsApiFuture.get().getUpdateTime().toString();
-            return "Added";
+        return collectionsApiFuture.get().getUpdateTime().toString();
+//            return "Added";
     }
 
 

@@ -27,24 +27,30 @@ export default class Signup extends Component {
         
     }
 
+    //Will's API TESTING
+    fetchAuthUser = (userAuth) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-    addNewUser() {
-        fetch("http://localhost:8080/createUser",
-            {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify({ name: this.state.displayName, age: "21", city: "madison" })
-            })
-            .then((response) => response.text())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+        var raw = JSON.stringify({
+            "name": userAuth.name,
+            "uid": userAuth.uid,
+            "email": userAuth.email
+          });
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow',
+        body: raw
+};
+
+        fetch("http://localhost:8080/createUser", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+        }
+        // Will's API TESTING
 
     errorHandler = (error) => {
         alert(error);
@@ -70,12 +76,12 @@ export default class Signup extends Component {
                     displayName: this.state.displayName
                 })
                 console.log("User registered Successfully!");
-                this.addNewUser();
+                // this.addNewUser();
+                this.fetchAuthUser(res.user)
                 this.setState({
                     isLoading: false,
-                    displayName: '',
-                    email: '',
-                    password: ''
+                    displayName: res.user,
+                    email: res.user.email
                 })
                 this.props.navigation.navigate("Closet");
                 
@@ -123,7 +129,7 @@ export default class Signup extends Component {
                     <Button
                         center
                         rounded
-                        onPress={()=> this.addNewUser()}>
+                        onPress={()=> this.registerUser()}>
                         Signup
                     </Button>
                 </View>

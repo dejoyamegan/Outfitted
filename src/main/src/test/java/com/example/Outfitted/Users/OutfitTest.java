@@ -182,9 +182,9 @@ class OutfitTest {
         assertEquals(testUser.getUid(), "22");
     }
     @Test
-    void testUserClosetId(){
-        testUser.setClosetId("Nashville");
-        assertEquals(testUser.getClosetId(), "Nashville");
+    void testUserEmail(){
+        testUser.setEmail("123@gmail.com");
+        assertEquals(testUser.getEmail(), "123@gmail.com");
     }
 
     @AfterEach
