@@ -6,22 +6,22 @@ import org.springframework.stereotype.Component;
 public class User {
     private static String name;
     private static String uid;
-    private static String closetId;
+    private static String email;
 
     public User() {
         this.name ="";
         this.uid = "";
-        this.closetId = "";
+        this.email = "";
     }
-    public User(String name, String age, String city) {
+    public User(String name, String uid, String email) {
         this.name = name;
-        this.uid = age;
-        this.closetId = city;
+        this.uid = uid;
+        this.email = email;
     }
 
     public String getName() {
 
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -31,7 +31,7 @@ public class User {
 
     public String getUid() {
 
-        return uid;
+        return this.uid;
     }
 
     public void setUid(String uid) {
@@ -39,19 +39,19 @@ public class User {
         this.uid = uid;
     }
 
-    public String getClosetId() {
+    public String getEmail() {
 
-        return closetId;
+        return this.email;
     }
 
-    public void setClosetId(String city) {
+    public void setEmail(String email) {
 
-        this.closetId = city;
+        this.email = email;
     }
 
     @Override
     public String toString(){
-        String userString = "name: " + this.name + " city: " + this.closetId + " age: " + this.uid;
+        String userString = "name: " + this.name + " uid: " + this.uid + " email: " + this.email;
         return userString;
     }
 }
