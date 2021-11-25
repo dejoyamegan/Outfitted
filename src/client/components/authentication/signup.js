@@ -28,6 +28,14 @@ export default class Signup extends Component {
     }
 
     //Will's API TESTING
+    //Create user
+    //create an empty closet
+    // Do we have demo dummy items to show users how to use app?
+    //if yes 
+    // Animation on how the items work, how to add item, category, outfit etc.
+    // if no
+    // Empty closet with simple modals with arrows pointing at buttons
+    // No items or categories displaying at first
     fetchAuthUser = (userAuth) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -121,6 +129,7 @@ export default class Signup extends Component {
                     style={styles.inputStyle}
                     placeholder='Password'
                     value={this.state.password}
+                    //TODO No password storing in frontend
                     onValueChange={(val)=> this.updateInputVal(val,'password')}
                     maxLength={15}
                     secureTextEntry={true}

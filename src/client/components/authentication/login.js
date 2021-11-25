@@ -10,7 +10,8 @@ export default class Login extends Component {
         super();
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            user: ''
         }
     }
 
@@ -31,32 +32,34 @@ export default class Login extends Component {
             .then((res) => {
                 // console.log(res)
                 console.log("Consoled logged in!")
-                userAuth = firebase.auth().currentUser;
-
-                fetchDbUser(userAuth);
+                let userAuth = firebase.auth().currentUser;
                 
                 this.setState({
                     email: '',
                     password: '',
+                    user: JSON.stringify(userAuth)
                 })
-                console.log("Before navigate!")
-                this.props.navigation.navigate('Closet')
+               
+                
             })
+            .then(this.fetchDbUser())
+            .then(this.props.navigation.navigate('Closet'))
             .catch(error => this.setState({errorMessage: error.message}))
         }
     }
 
-    fetchDbUser = (userAuth) => {
-        var requestOptions = {
+    fetchDbUser = () => {
+        let requestOptions = {
         method: 'GET',
         redirect: 'follow'
         };
-        let query = "uid=" + userAuth.email;
+        // console.log(this.state.user)
+        let query = "uid=" + this.state.email;
         let url = "http://localhost:8080/getUserDetails?" + query;
         fetch(url, requestOptions)
-            // .then(response => response.text())
-            // .then(result => console.log(result))
-            // .catch(error => console.log('error', error));
+            .then(response => response.text())
+            .then(result => console.log("Fetch result: " + result + "is the Firestore user"))
+            .catch(error => console.log('error', error));
         }
         
 
