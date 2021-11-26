@@ -137,7 +137,7 @@ class OutfitTest {
     @Test
     void testItemName(){
         graphicTee.setName("t shirt"); // should not change
-        assertEquals(graphicTee.getName(), "graphic tee");
+        assertEquals(graphicTee.getName(), "t shirt");
     }
     @Test
     void testItemColor(){

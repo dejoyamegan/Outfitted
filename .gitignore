@@ -42,4 +42,5 @@ node_modules
 
 ###Firebase###
 service-key.json
+serviceaccountkey.json
 /bin/
