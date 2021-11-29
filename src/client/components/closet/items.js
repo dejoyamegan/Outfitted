@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
+import { SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 
@@ -28,14 +28,14 @@ export default class Items extends Component {
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
                     source={{ uri: item.link}}/>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <Button
-                        style={{ marginTop: 5}} centered rounded>
+                        style={{ margin: 5 }} centered rounded>
                         Add to Dressing Room
                     </Button>
                     <Button
                         onPress={() => this.props.navigation.navigate('ItemView', { itemURI: item.link })}
-                        style={{ marginTop: 5}} centered rounded>
+                        style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>
                 </View>
@@ -76,6 +76,13 @@ export default class Items extends Component {
 
         return(
             <View style={styles.container}>
+                <SearchBar
+                        style={{ marginTop: 10 }}
+                        value={this.state.text}
+                        onValueChange={text => this.setState({ text })}
+                        withCancel
+                        animated
+                        />
                 <View style={styles.container}>
                       <FlatList
                         data={itemData}

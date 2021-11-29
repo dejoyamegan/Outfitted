@@ -11,7 +11,8 @@ export default class Signup extends Component {
             displayName: '',
             email: '',
             password: '',
-            isLoading: false
+            isLoading: false,
+            uid: ''
         }
     }
 
@@ -36,22 +37,22 @@ export default class Signup extends Component {
     // if no
     // Empty closet with simple modals with arrows pointing at buttons
     // No items or categories displaying at first
-    fetchAuthUser = (userAuth) => {
+    fetchAuthUser = () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "name": userAuth.name,
-            "uid": userAuth.uid,
-            "email": userAuth.email
+            "name": this.state.displayName,
+            "uid": this.state.uid,
+            "email": this.state.email.toLowerCase()
           });
 
         var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow',
-        body: raw
-};
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow',
+            body: raw
+        };
 
         fetch("http://localhost:8080/createUser", requestOptions)
             .then(response => response.text())
@@ -78,21 +79,18 @@ export default class Signup extends Component {
             })
             firebase
             .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .createUserWithEmailAndPassword(this.state.email.toLowerCase(), this.state.password)
             .then( (res) => {
                 res.user.updateProfile({
                     displayName: this.state.displayName
                 })
-                console.log("User registered Successfully!");
-                // this.addNewUser();
-                this.fetchAuthUser(res.user)
                 this.setState({
-                    isLoading: false,
-                    displayName: res.user,
-                    email: res.user.email
+                     isLoading: false,
+                     uid: res.user.uid
                 })
+                this.fetchAuthUser();
+                console.log("User registered Successfully!");
                 this.props.navigation.navigate("Closet");
-                
             })
             .catch((error) => {
                 this.errorHandler(error);

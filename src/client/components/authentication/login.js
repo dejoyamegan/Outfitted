@@ -11,7 +11,8 @@ export default class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            user: ''
+            user: '',
+            uid: ''
         }
     }
 
@@ -33,16 +34,15 @@ export default class Login extends Component {
                 // console.log(res)
                 console.log("Consoled logged in!")
                 let userAuth = firebase.auth().currentUser;
-                
+                //console.log(userAuth.uid);
                 this.setState({
-                    email: '',
-                    password: '',
+                    email: userAuth.email,
+                    uid: userAuth.uid,
                     user: JSON.stringify(userAuth)
-                })
-               
-                
+                });
+                this.fetchDbUser();
             })
-            .then(this.fetchDbUser())
+            //.then(this.fetchDbUser())
             .then(this.props.navigation.navigate('Closet'))
             .catch(error => this.setState({errorMessage: error.message}))
         }
@@ -50,27 +50,28 @@ export default class Login extends Component {
 
     fetchDbUser = () => {
         let requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
+            method: 'GET',
+            redirect: 'follow',
+            accept: 'application/json'
         };
-        // console.log(this.state.user)
+        //var params = new URLSearchParams();
+        //params.append("uid", this.state.uid);
+
+        console.log(this.state.email)
         let query = "uid=" + this.state.email;
         let url = "http://localhost:8080/getUserDetails?" + query;
+        console.log(url);
         fetch(url, requestOptions)
-            .then(response => response.text())
+            .then((response) =>  {
+                console.log(JSON.stringify(response));
+                return response.text();
+            })
             .then(result => console.log("Fetch result: " + result + "is the Firestore user"))
             .catch(error => console.log('error', error));
         }
         
 
     render() {
-        //if(this.state.isLoading){
-        //    return(
-        //        <View style={styles.preloader}>
-        //            <ActivityIndicator size="large" color="#9E9E9E" />
-        //        </View>
-        //    )
-        //}
         return(
             <View style={styles.container}>
                 <TextField

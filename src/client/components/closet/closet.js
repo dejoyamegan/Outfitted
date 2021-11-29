@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
+import { ScrollView, FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
@@ -44,27 +44,23 @@ export default class Closet extends Component {
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
                     source={{ uri: item.link}}/>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={styles.buttonContainer}>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('AddItemForm')}
-                        style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{}}>Add Item</Text>
-                            <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
-                        </View>
-                    </Button>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('Items', { itemType: item.name })}
-                        style={{ marginTop: 5, alignItems: 'center'}} centered rounded>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{}}>View Items</Text>
-                            <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
-                        </View>
-                    </Button>
-                    </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Button
+                            onPress={() => this.props.navigation.navigate('AddItemForm')}
+                            style={{ margin: 10, alignItems: 'center'}} centered rounded>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text>Add Item</Text>
+                                <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                            </View>
+                        </Button>
+                        <Button
+                            onPress={() => this.props.navigation.navigate('Items', { itemType: item.name })}
+                            style={{ margin: 10, alignItems: 'center'}} centered rounded>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text>View Items</Text>
+                                <Icon style={{ marginLeft: 4}} name={'shirt-outline'} size={20} />
+                            </View>
+                        </Button>
                 </View>
             </Card>);
         }
@@ -81,23 +77,24 @@ export default class Closet extends Component {
         ];
 
         return(
-            <View style={styles.container}>
-                <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
-                    onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={{alignSelf: 'center'}}>Add Category</Text>
-                        <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
-                    </View>
-                </Button>
                 <View style={styles.container}>
-                      <FlatList
-                        data={exampleData}
-                        renderItem={({item}) => this.renderImage(item)}
-                        keyExtractor={(item, index) => `${item}_${index}`}
-                      />
-                 </View>
-                <NavBar navigation={this.props.navigation}/>
-            </View>
+                    <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
+                        onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{alignSelf: 'center'}}>Add Category</Text>
+                            <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
+                        </View>
+                    </Button>
+                        <View style={styles.container}>
+                              <FlatList
+                                data={exampleData}
+                                renderItem={({item}) => this.renderImage(item)}
+                                keyExtractor={(item, index) => `${item}_${index}`}
+                              />
+                         </View>
+                    <NavBar navigation={this.props.navigation}/>
+                </View>
+
         );
     }
 }
