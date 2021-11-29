@@ -15,23 +15,23 @@ public class ClosetController {
     ClosetService closetService;
 
     @GetMapping("/getClosetDetails/")
-    public Closet getCloset(@RequestParam Closet closet, @PathVariable String uid) throws InterruptedException, ExecutionException {
-        return closetService.getClosetDetails(closet, uid);
+    public Closet getCloset(@RequestParam String closet, @PathVariable String email) throws InterruptedException, ExecutionException {
+        return closetService.getClosetDetails(closet, email);
     }
 
     @PostMapping("/createCloset/")
-    public String createCloset(@RequestBody Closet closet, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
-        return closetService.saveClosetDetails(closet, uid);
+    public String createCloset(@RequestBody Closet closet, @RequestParam("email") String email) throws InterruptedException, ExecutionException {
+        return closetService.saveClosetDetails(closet, email);
     }
 
     @PutMapping("/updateCloset/")
-    public String updateCloset(@RequestBody Closet closet, @PathVariable String uid) throws InterruptedException, ExecutionException {
-        return closetService.updateClosetDetails(closet, uid);
+    public String updateCloset(@RequestBody Closet closet, @PathVariable String email) throws InterruptedException, ExecutionException {
+        return closetService.updateClosetDetails(closet, email);
     }
 
     @DeleteMapping("/deleteCloset/")
-    public String deleteCloset(@PathVariable String uid) throws InterruptedException, ExecutionException {
-        return closetService.deleteCloset(uid);
+    public String deleteCloset(@PathVariable String email) throws InterruptedException, ExecutionException {
+        return closetService.deleteCloset(email);
     }
 
 }

@@ -16,8 +16,8 @@ public class UserController extends UserService {
     UserService userService;
 
     @GetMapping("/getUserDetails")
-    public User getUser(@RequestParam String uid) throws InterruptedException, ExecutionException {
-        return userService.getUserDetails(uid);
+    public User getUser(@RequestParam String email) throws InterruptedException, ExecutionException {
+        return userService.getUserDetails(email);
     }
 
     @PostMapping("/createUser")
@@ -31,8 +31,8 @@ public class UserController extends UserService {
     }
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser(@RequestParam String uid) throws InterruptedException, ExecutionException {
-        return userService.deleteUser(uid);
+    public String deleteUser(@RequestParam String email) throws InterruptedException, ExecutionException {
+        return userService.deleteUser(email);
     }
 
 }

@@ -12,8 +12,8 @@ public class CategoryService {
 
     public static String COL_NAME= null;
 
-    private void getPath(String uid) {
-        COL_NAME = "users/" + uid + "/closet/" + uid + "/category";
+    private void getPath(String email) {
+        COL_NAME = "users/" + email + "/closet/" + email + "/category";
         System.out.println("FIRESTORE PATH: " + COL_NAME);
     }
 
@@ -22,15 +22,15 @@ public class CategoryService {
         System.out.println("Current Path: " + COL_NAME);
         return db.collection(COL_NAME);
     }
-    public String saveCategoryDetails(Category category, String uid) throws InterruptedException, ExecutionException {
-        getPath(uid);
+    public String saveCategoryDetails(Category category, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
-                getCategoryCollection().document(category.getName().toString()).set(category);
+                getCategoryCollection().document(category.toString()).set(category);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public Category getCategoryDetails(String name, String uid) throws InterruptedException, ExecutionException {
-        getPath(uid);
+    public Category getCategoryDetails(String name, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
 
         DocumentReference documentReference = getCategoryCollection().document(name);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
@@ -48,8 +48,8 @@ public class CategoryService {
         }
     }
 
-    public String updateCategoryDetails(Category category, String uid) throws InterruptedException, ExecutionException {
-        getPath(uid);
+    public String updateCategoryDetails(Category category, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
 
         ApiFuture<WriteResult> collectionsApiFuture = getCategoryCollection()
                 .document(category.getName()).set(category);
@@ -57,8 +57,8 @@ public class CategoryService {
         //return "Updated";
     }
 
-    public String deleteCategory(String name, String uid) {
-        getPath(uid);
+    public String deleteCategory(String name, String email) {
+        getPath(email);
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = getCategoryCollection().document(name).delete();

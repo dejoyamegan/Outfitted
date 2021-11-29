@@ -30,8 +30,8 @@ public class UserService  extends FBInitialize {
     }
 
 
-    public User getUserDetails(String uid) throws InterruptedException, ExecutionException {
-        DocumentReference documentReference = getUserCollection().document(uid);
+    public User getUserDetails(String email) throws InterruptedException, ExecutionException {
+        DocumentReference documentReference = getUserCollection().document(email);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
 
         DocumentSnapshot document = future.get();
@@ -58,10 +58,10 @@ public class UserService  extends FBInitialize {
         //return "Updated";
     }
 
-    public String deleteUser(String uid) throws InterruptedException, ExecutionException {
+    public String deleteUser(String email) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(uid).delete();
+        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(email).delete();
 
-        return "Document with User ID "+uid+" has been deleted";
+        return "Document with User ID "+email+" has been deleted";
     }
 }

@@ -27,8 +27,8 @@ public class ItemService {
         System.out.println("FIRESTORE PATH: " + COL_NAME);
     }
 
-    public String saveItemDetails(Item item, String uid) throws InterruptedException, ExecutionException {
-        getPath(uid);
+    public String saveItemDetails(Item item, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getItemCollection().document(item.getName()).set(item);
 //        return collectionsApiFuture.get().getUpdateTime().toString();
@@ -36,8 +36,8 @@ public class ItemService {
     }
 
 
-    public Item getItemDetails(Item item, String uid) throws InterruptedException, ExecutionException {
-        getPath(uid);
+    public Item getItemDetails(String item, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
         DocumentReference documentReference = getItemCollection().document(String.valueOf(item));
         ApiFuture<DocumentSnapshot> future = documentReference.get();
 
@@ -54,16 +54,16 @@ public class ItemService {
         }
     }
 
-    public String updateItemDetails(Item item, String uid) throws InterruptedException, ExecutionException {
-        getPath(uid);
+    public String updateItemDetails(Item item, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture = getItemCollection()
                 .document(item.getName()).set(item);
         return collectionsApiFuture.get().getUpdateTime().toString();
         //return "Updated";
     }
 
-    public String deleteItem(Item item, String uid) {
-        getPath(uid);
+    public String deleteItem(String item, String email) {
+        getPath(email);
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(String.valueOf(item)).delete();
 
