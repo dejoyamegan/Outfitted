@@ -1,4 +1,5 @@
 com/example/Outfitted/Firebase/FBInitialize.class
 com/example/Outfitted/OutfittedApplication.class
 com/example/Outfitted/Users/User.class
+com/example/Outfitted/Filters.class
 com/example/Outfitted/Firebase/FBConfig.class

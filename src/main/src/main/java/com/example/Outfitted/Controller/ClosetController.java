@@ -14,22 +14,22 @@ public class ClosetController {
     @Autowired
     ClosetService closetService;
 
-    @GetMapping("/getClosetDetails/")
+    @GetMapping("/getClosetDetails")
     public Closet getCloset(@RequestParam String closet, @PathVariable String email) throws InterruptedException, ExecutionException {
         return closetService.getClosetDetails(closet, email);
     }
 
-    @PostMapping("/createCloset/")
-    public String createCloset(@RequestBody Closet closet, @RequestParam("email") String email) throws InterruptedException, ExecutionException {
-        return closetService.saveClosetDetails(closet, email);
+    @PostMapping("/createCloset")
+    public String createCloset(@RequestBody Closet closet, @RequestParam("uid") String uid) throws InterruptedException, ExecutionException {
+        return closetService.saveClosetDetails(closet, uid);
     }
 
-    @PutMapping("/updateCloset/")
+    @PutMapping("/updateCloset")
     public String updateCloset(@RequestBody Closet closet, @PathVariable String email) throws InterruptedException, ExecutionException {
         return closetService.updateClosetDetails(closet, email);
     }
 
-    @DeleteMapping("/deleteCloset/")
+    @DeleteMapping("/deleteCloset")
     public String deleteCloset(@PathVariable String email) throws InterruptedException, ExecutionException {
         return closetService.deleteCloset(email);
     }

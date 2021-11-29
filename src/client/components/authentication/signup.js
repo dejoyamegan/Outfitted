@@ -37,35 +37,48 @@ export default class Signup extends Component {
     // if no
     // Empty closet with simple modals with arrows pointing at buttons
     // No items or categories displaying at first
-    fetchAuthUser = () => {
+    addUser = () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-            "name": this.state.displayName,
-            "uid": this.state.uid,
-            "email": this.state.email.toLowerCase()
-          });
+        var userRaw = JSON.stringify({
+           "name": this.state.displayName,
+           "uid": this.state.uid,
+           "email": this.state.email.toLowerCase()
+        });
 
-        var requestOptions = {
+        var options = {
             method: 'POST',
             headers: myHeaders,
             redirect: 'follow',
-            body: raw
+            body: userRaw
         };
 
-        fetch("http://localhost:8080/createUser", requestOptions)
+        // create new user in db
+        fetch("http://localhost:8080/createUser", options)
             .then(response => response.text())
             .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-        }
-        // Will's API TESTING
+            .catch(error => this.errorHandler(error));
 
-    errorHandler = (error) => {
+        var closetRaw = JSON.stringify({
+            "owner": this.state.email.toLowerCase()
+        });
+
+        options.body = closetRaw;
+
+        //create empty closet for new user
+        var query = "uid=" + this.state.email.toLowerCase();
+        fetch("http://localhost:8080/createCloset?" + query, options)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => this.errorHandler(error));
+    }
+
+
+    errorHandler(error) {
         alert(error);
-        this.props.navigation.navigate('Signup');
-        document.window.reload();
-    } 
+        //document.location.reload(true);
+    }
 
     registerUser = () => {
         if(this.state.email === '' && this.state.password === ''){
@@ -88,7 +101,7 @@ export default class Signup extends Component {
                      isLoading: false,
                      uid: res.user.uid
                 })
-                this.fetchAuthUser();
+                this.addUser();
                 console.log("User registered Successfully!");
                 this.props.navigation.navigate("Closet");
             })

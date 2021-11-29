@@ -124,7 +124,7 @@ export default function App() {
   return (
     <ThemeProvider theme={ProjectTheme}>
         <NavigationContainer>
-              <MyStack  />
+              <MyStack />
         </NavigationContainer>
     </ThemeProvider>
   );
