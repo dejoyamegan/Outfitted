@@ -31,7 +31,7 @@ public class ClosetService {
     public String saveClosetDetails(Closet closet, String email) throws InterruptedException, ExecutionException {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
-                getClosetCollection().document(closet.toString()).set(closet);
+                getClosetCollection().document(email).set(closet);
         return collectionsApiFuture.get().getUpdateTime().toString();
 //        return "Added";
     }
