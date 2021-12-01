@@ -31,7 +31,7 @@ class OutfitTest {
     Item hairClip = new Item();
     // create outfit instance to add to closet
     Outfit outfit = new Outfit();
-    Outfit outfitWithParams = new Outfit(graphicTee, pants, coat, vans, hairClip);
+    Outfit outfitWithParams = new Outfit("casual outfit", graphicTee, pants, coat, vans, hairClip);
 
     // category tests
     @Test

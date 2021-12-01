@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Outfit {
-	// properties of an outfit in the closet 
+	// properties of an outfit in the closet
+	private String name;
 	private Item top;
 	private Item bottom;
 	private Item topLayer;
@@ -16,6 +17,7 @@ public class Outfit {
 	 * Default constructor
 	 */
 	public Outfit() {
+		this.name = "Outfit";
 		this.top = new Item();
 		this.bottom = new Item();
 		this.topLayer = new Item();
@@ -27,7 +29,8 @@ public class Outfit {
 	/**
 	 * Constructor with all outfit properties
 	 */
-	public Outfit(Item top, Item bottom, Item topLayer, Item shoes, Item accessory) {
+	public Outfit(String name, Item top, Item bottom, Item topLayer, Item shoes, Item accessory) {
+		this.name = name;
 		this.top = top;
 		this.bottom = bottom;
 		this.topLayer = topLayer;
@@ -37,6 +40,13 @@ public class Outfit {
 	}
 	
 	// getters and setters
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return this.name;
+	}
+
 	public void setTop(Item top) {
 		this.top = top;
 	}
