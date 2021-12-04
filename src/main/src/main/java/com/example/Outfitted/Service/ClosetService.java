@@ -31,7 +31,7 @@ public class ClosetService {
     public String saveClosetDetails(Closet closet, String email) throws InterruptedException, ExecutionException {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
-                getClosetCollection().document(email).set(closet);
+                getClosetCollection().document(closet.getOwner()).set(closet);
         return collectionsApiFuture.get().getUpdateTime().toString();
 //        return "Added";
     }
@@ -66,13 +66,13 @@ public class ClosetService {
         //return "Updated";
     }
 
-    public String deleteCloset(String email) {
+    public String deleteCloset(String email, String name) {
         getPath(email);
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(email).delete();
+        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(name).delete();
 
-        return "Closet for "+email+" has been deleted";
+        return "Closet "+name+ " for "+email+" has been deleted";
     }
 }
 

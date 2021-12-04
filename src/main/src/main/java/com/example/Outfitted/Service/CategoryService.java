@@ -25,7 +25,7 @@ public class CategoryService {
     public String saveCategoryDetails(Category category, String email) throws InterruptedException, ExecutionException {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
-                getCategoryCollection().document(category.toString()).set(category);
+                getCategoryCollection().document(category.getName()).set(category);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 

@@ -53,7 +53,7 @@ public class UserService  extends FBInitialize {
     public String updateUserDetails(User person) throws InterruptedException, ExecutionException {
 
         ApiFuture<WriteResult> collectionsApiFuture = getUserCollection()
-                .document(person.getName()).set(person);
+                .document(person.getEmail()).set(person);
         return collectionsApiFuture.get().getUpdateTime().toString();
         //return "Updated";
     }

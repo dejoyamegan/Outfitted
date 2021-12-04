@@ -28,7 +28,7 @@ public class CategoryController {
         return categoryService.updateCategoryDetails(category, email);
     }
 
-    @DeleteMapping("/deleteCategory ")
+    @DeleteMapping("/deleteCategory")
     public String deleteCategory(@RequestParam String name, @RequestParam("email") String email) throws InterruptedException, ExecutionException {
         return categoryService.deleteCategory(name, email);
     }
