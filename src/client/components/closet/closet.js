@@ -5,6 +5,7 @@ import NavBar from '../common/navbar';
 import { Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
+import userDetails from '../userDetails.js';
 
 export default class Closet extends Component {
     showdata = () => {
@@ -26,10 +27,12 @@ export default class Closet extends Component {
     constructor() {
         super();
         this.state = {
-            email: '',
+            email: userDetails.email,
             password: '',
             isLoading: false
         }
+        console.log(userDetails.closet);
+        console.log(userDetails.email);
     }
 
     updateInputVal = (val, prop) => {

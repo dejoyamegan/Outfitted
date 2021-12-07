@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import { TextField, Button } from 'react-native-ios-kit';
+import userDetails from '../userDetails.js';
 
 export default class Login extends Component {
 
@@ -12,7 +13,8 @@ export default class Login extends Component {
             email: '',
             password: '',
             user: '',
-            uid: ''
+            uid: '',
+            closet: null
         }
     }
 
@@ -42,32 +44,43 @@ export default class Login extends Component {
                 });
                 this.fetchDbUser();
             })
-            //.then(this.fetchDbUser())
-            .then(this.props.navigation.navigate('Closet'))
-            .catch(error => this.setState({errorMessage: error.message}))
+            .then(() => {
+                userDetails.closet = this.state.closet;
+                userDetails.email = this.state.email;
+                this.props.navigation.navigate('Closet');
+            })
+            .catch(error => this.errorHandler(error))
         }
     }
 
-    fetchDbUser = () => {
+    fetchDbUser() {
         let requestOptions = {
-            method: 'GET',
-            redirect: 'follow',
-            accept: 'application/json'
+            method: 'GET'
         };
-        //var params = new URLSearchParams();
-        //params.append("uid", this.state.uid);
+        var json_user = JSON.parse(this.state.user);
+        var displayName = json_user["displayName"];
 
-        console.log(this.state.email)
-        let query = "uid=" + this.state.email;
-        let url = "http://localhost:8080/getUserDetails?" + query;
-        console.log(url);
+        let query = "closet=" + displayName + "&email=" + this.state.email;
+
+        let url = "http://localhost:8080/getClosetDetails?" + query;
+        //console.log(url);
+
         fetch(url, requestOptions)
             .then((response) =>  {
-                console.log(JSON.stringify(response));
+                //console.log(response);
                 return response.text();
             })
-            .then(result => console.log("Fetch result: " + result + "is the Firestore user"))
-            .catch(error => console.log('error', error));
+            .then(result => {
+                //console.log(result);
+                var json_closet = JSON.parse(result);
+                this.setState({ closet: json_closet });
+            })
+            .catch(error => this.errorHandler(error));
+        }
+
+    errorHandler(error) {
+            alert(error);
+            //document.location.reload(true);
         }
         
 
