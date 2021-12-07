@@ -58,26 +58,24 @@ export default class Items extends Component {
     uriFunc(images){
         for(var i = 0; i < images.length; i++){
             if(picCount[i] != 1){
-                console.log(picCount[i])
                 picCount.push(1)
-                console.log(picCount[i])
                 return images[i]
             }
         }
     }
     
-    renderImage(images) {
+    renderImage(item) {
             return (<Card style={{ flex: 1 }}>
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
-                    source={{ uri: this.state.imageURI }}/>
+                    source={{ uri: item.key}}/>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <Button
                         style={{ margin: 5 }} centered rounded>
                         Add to Dressing Room
                     </Button>
                     <Button
-                        onPress={() => this.props.navigation.navigate('ItemView', { itemURI: this.state.imageURI })}
+                        onPress={() => this.props.navigation.navigate('ItemView', { itemURI: item.key })}
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>
@@ -132,7 +130,7 @@ export default class Items extends Component {
                 <View style={styles.container}>
                       <FlatList
                         data={images}
-                        renderItem={({item}) => this.renderImage(images)}
+                        renderItem={({item}) => this.renderImage(item)}
                         keyExtractor={(item, index) => `${item}_${index}`}
                       />
                  </View>
