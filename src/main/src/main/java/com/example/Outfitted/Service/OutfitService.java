@@ -25,7 +25,7 @@ public class OutfitService {
     public String saveOutfitDetails(Outfit outfit, String email) throws InterruptedException, ExecutionException {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
-                getOutfitCollection().document(outfit.toString()).set(outfit);
+                getOutfitCollection().document(outfit.getName()).set(outfit);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
