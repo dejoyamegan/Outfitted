@@ -5,7 +5,8 @@ import NavBar from '../common/navbar';
 import { SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
-
+import {imgs} from './AddItemForm'
+const pics = []
 export default class Items extends Component {
 
     constructor() {
@@ -22,6 +23,37 @@ export default class Items extends Component {
         state[prop] = val;
         this.setState(state);
     }
+
+    componentDidMount() {
+        
+        console.log(imgs[0]);
+        for(var i = 0; i < imgs.length; i++){
+            for(var j = 0; j < imgs[i].length; j++){
+                console.log(imgs[i]);
+                this.getImageFromStorage(imgs[i][j]);
+            }
+        }
+        
+
+    }
+
+    getImageFromStorage(imageName) {
+        let imageRef = firebase.storage().ref('/' + imageName);
+        imageRef
+          .getDownloadURL()
+          .then((url) => {
+            //from url you can fetched the uploaded image easily
+            this.setState({ imageURI: url });
+            if(!pics.includes(url)){
+            pics.push(url)
+            this.setState({photoz: pics})
+          }
+            
+            
+          })
+          .catch((e) => console.log('getting downloadURL of image error => ', e));
+    }
+
 
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
@@ -71,9 +103,9 @@ export default class Items extends Component {
         if (this.props.route.params.itemType === "Shirts") {
             itemData = shirtData;
         } else if (this.props.route.params.itemType === "Shoes") {
-            itemData = shoeData;
+           itemData = shoeData;
         }
-
+        
         return(
             <View style={styles.container}>
                 <SearchBar
@@ -85,7 +117,7 @@ export default class Items extends Component {
                         />
                 <View style={styles.container}>
                       <FlatList
-                        data={itemData}
+                        data={pics}
                         renderItem={({item}) => this.renderImage(item)}
                         keyExtractor={(item, index) => `${item}_${index}`}
                       />
