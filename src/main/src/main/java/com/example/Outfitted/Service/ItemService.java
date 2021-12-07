@@ -1,4 +1,5 @@
 package com.example.Outfitted.Service;
+import com.example.Outfitted.Objects.Category;
 import com.example.Outfitted.Objects.Item;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -27,10 +28,19 @@ public class ItemService {
         System.out.println("FIRESTORE PATH: " + COL_NAME);
     }
 
+    private void getCategoryPath(String uid) {
+        COL_NAME = "users/" + uid + "/closet/" + uid + "/category";
+        System.out.println("FIRESTORE PATH: " + COL_NAME);
+    }
+
     public String saveItemDetails(Item item, String email) throws InterruptedException, ExecutionException {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getItemCollection().document(item.getName()).set(item);
+        getCategoryPath(email);
+        ApiFuture<WriteResult> collectionsApiFuture2 =
+                getItemCollection().document(item.getCategory().getName()).update(item.getName(), item);
+
 //        return collectionsApiFuture.get().getUpdateTime().toString();
         return "Added";
     }
