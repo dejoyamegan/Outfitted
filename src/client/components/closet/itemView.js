@@ -62,8 +62,11 @@ export default class ItemView extends Component {
 
     render() {
         const images = pics.map(index => {
-            return <img key={index} src={index}/>
+            return <img key={index} src={index} onClick={() => imageClick()}/>
          }); //Displays all the images the user has uploaded
+         const imageClick = () => {
+            console.log('Click');
+          } 
         return(
             <View style={styles.container}>
                 <Title1>Megan's shirt</Title1>
@@ -82,8 +85,9 @@ export default class ItemView extends Component {
                     </Button>
                 </View>
                 <View><div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                       { images }
-                    </div></View>
+                        {images}
+                    </div>
+                    </View>
             </View>
         );
     }

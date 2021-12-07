@@ -7,6 +7,7 @@ import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
 const pics = []
+const picCount = []
 export default class Items extends Component {
 
     constructor() {
@@ -14,7 +15,8 @@ export default class Items extends Component {
         this.state = {
             email: '',
             password: '',
-            isLoading: false
+            isLoading: false,
+            imageURI: null
         }
     }
 
@@ -53,20 +55,29 @@ export default class Items extends Component {
           })
           .catch((e) => console.log('getting downloadURL of image error => ', e));
     }
-
-
-    renderImage(item) {
+    uriFunc(images){
+        for(var i = 0; i < images.length; i++){
+            if(picCount[i] != 1){
+                console.log(picCount[i])
+                picCount.push(1)
+                console.log(picCount[i])
+                return images[i]
+            }
+        }
+    }
+    
+    renderImage(images) {
             return (<Card style={{ flex: 1 }}>
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
-                    source={{ uri: item.link}}/>
+                    source={{ uri: this.state.imageURI }}/>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <Button
                         style={{ margin: 5 }} centered rounded>
                         Add to Dressing Room
                     </Button>
                     <Button
-                        onPress={() => this.props.navigation.navigate('ItemView', { itemURI: item.link })}
+                        onPress={() => this.props.navigation.navigate('ItemView', { itemURI: this.state.imageURI })}
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>
@@ -105,7 +116,10 @@ export default class Items extends Component {
         } else if (this.props.route.params.itemType === "Shoes") {
            itemData = shoeData;
         }
-        
+        const images = pics.map(index => {
+            return <img key={index} src={index} onClick={() => imageClick()}/>
+         }); //Displays all the images the user has uploaded
+         console.log(images)
         return(
             <View style={styles.container}>
                 <SearchBar
@@ -117,8 +131,8 @@ export default class Items extends Component {
                         />
                 <View style={styles.container}>
                       <FlatList
-                        data={pics}
-                        renderItem={({item}) => this.renderImage(item)}
+                        data={images}
+                        renderItem={({item}) => this.renderImage(images)}
                         keyExtractor={(item, index) => `${item}_${index}`}
                       />
                  </View>
