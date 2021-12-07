@@ -5,6 +5,8 @@ import NavBar from '../common/navbar';
 import { InfoRow, Body, Icon, Title1, Title2, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import { Image, Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
+import { index } from 'cheerio/lib/api/traversing';
+const pics = []
 export default class ItemView extends Component {
 
     constructor() {
@@ -13,7 +15,8 @@ export default class ItemView extends Component {
             email: '',
             password: '',
             isLoading: false,
-            imageURI: null
+            imageURI: null,
+            photoz: []
         }
     }
 
@@ -42,11 +45,20 @@ export default class ItemView extends Component {
           .then((url) => {
             //from url you can fetched the uploaded image easily
             this.setState({ imageURI: url });
+            pics.push(url)
+            this.setState({photoz: pics})
+            
           })
           .catch((e) => console.log('getting downloadURL of image error => ', e));
     }
 
+    
+
+
     render() {
+        const images = this.state.photoz.map(index => {
+            return <img key={index} src={index}/>
+         }); //Displays all the images the user has uploaded
         return(
             <View style={styles.container}>
                 <Title1>Megan's shirt</Title1>
@@ -64,6 +76,9 @@ export default class ItemView extends Component {
                         <Icon size={20} name={'ios-trash-outline'} />
                     </Button>
                 </View>
+                <View><div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                       { images }
+                    </div></View>
             </View>
         );
     }
