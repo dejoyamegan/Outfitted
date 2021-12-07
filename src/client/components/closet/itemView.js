@@ -6,7 +6,8 @@ import { InfoRow, Body, Icon, Title1, Title2, Button, Collection, SegmentedContr
 import { Image, Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
 import { index } from 'cheerio/lib/api/traversing';
-const pics = []
+export const pics = []
+const pics2 = []
 export default class ItemView extends Component {
 
     constructor() {
@@ -25,10 +26,11 @@ export default class ItemView extends Component {
         console.log(imgs[0]);
         for(var i = 0; i < imgs.length; i++){
             for(var j = 0; j < imgs[i].length; j++){
-                console.log(imgs[i][j]);
+                console.log(imgs[i]);
                 this.getImageFromStorage(imgs[i][j]);
             }
         }
+        
 
     }
 
@@ -45,8 +47,11 @@ export default class ItemView extends Component {
           .then((url) => {
             //from url you can fetched the uploaded image easily
             this.setState({ imageURI: url });
+            if(!pics.includes(url)){
             pics.push(url)
             this.setState({photoz: pics})
+          }
+            
             
           })
           .catch((e) => console.log('getting downloadURL of image error => ', e));
@@ -56,7 +61,7 @@ export default class ItemView extends Component {
 
 
     render() {
-        const images = this.state.photoz.map(index => {
+        const images = pics.map(index => {
             return <img key={index} src={index}/>
          }); //Displays all the images the user has uploaded
         return(
