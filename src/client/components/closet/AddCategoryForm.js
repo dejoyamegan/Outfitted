@@ -98,11 +98,36 @@ export default class AddCategoryForm extends Component {
             }
         };
 
+//    addCategoryToDb() {
+//        var myHeaders = new Headers();
+//        myHeaders.append("Content-Type", "application/json");
+//
+//        var raw = JSON.stringify({
+//           "name": this.state.name
+//        });
+//
+//        var options = {
+//            method: 'POST',
+//            headers: myHeaders,
+//            redirect: 'follow',
+//            body: raw
+//        };
+//
+//        var query = "email=" + this.state.email;
+//
+//        // create new user in db
+//        fetch("http://localhost:8080/createCloset", options)
+//            .then(response => response.text())
+//            .then(result => console.log(result))
+//            .catch(error => this.errorHandler(error));
+//    }
+
     onSubmit() {
         if (this.validSubmission()) {
             const result = Math.random().toString(36).substring(2,7);
             this.uploadImageToStorage('/'+result);
             imgs.push(result)
+
         }
     }
 

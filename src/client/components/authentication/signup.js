@@ -61,13 +61,13 @@ export default class Signup extends Component {
             .catch(error => this.errorHandler(error));
 
         var closetRaw = JSON.stringify({
-            "owner": this.state.email.toLowerCase()
+            "owner": this.state.displayName
         });
 
         options.body = closetRaw;
 
         //create empty closet for new user
-        var query = "uid=" + this.state.email.toLowerCase();
+        var query = "email=" + this.state.email.toLowerCase();
         fetch("http://localhost:8080/createCloset?" + query, options)
             .then(response => response.text())
             .then(result => console.log(result))
