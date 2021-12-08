@@ -26,7 +26,7 @@ public class Category {
 	public Category(String name, String uri) {
 		this.name = name;
 		items = new ArrayList<String>();
-		this.uri = "";
+		this.uri = uri;
 	}
 	
 	// getters and setters

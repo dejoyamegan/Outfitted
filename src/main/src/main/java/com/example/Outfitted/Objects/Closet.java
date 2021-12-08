@@ -71,7 +71,7 @@ public class Closet {
 	 */
 	public void addCategory(String categoryName) {
 
-		this.categories.add(new Category(categoryName));
+//		this.categories.add(new Category(categoryName));
 	}
 	/**
 	 * Adds a new clothing item to this user's closet in the specified category 

@@ -22,7 +22,7 @@ class OutfitTest {
     // create closet instance
     Closet testCloset = new Closet("Test Owner");
     // create test category
-    Category shirts = new Category("Shirts");
+    Category shirts = new Category("Shirts", "/path");
     // create test items to go in outfit
 //    Item graphicTee = new Item("graphic tee", "green", "M", "Gap", 20.0, shirts);
     Item pants = new Item();
