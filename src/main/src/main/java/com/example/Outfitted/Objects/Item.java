@@ -12,9 +12,11 @@ public class Item {
 	private String brand;
 	private double price;
 	private int timesWorn;
+	private String uri;
 	//TODO: Item can be in multiple categories to array, plus not final
 	//TODO URL for image
 	private Category category;
+
 
 
 	/**
@@ -27,18 +29,20 @@ public class Item {
 		this.brand = "No brand";
 		this.price = 0;
 		this.timesWorn = 0;
+		this.uri = "";
 		this.category = null;
 	}
 	/**
 	 * Constructor taking in all4 properties of a clothing item 
 	 */
-	public Item(String name, String color, String size, String brand, double price, Category category) {
+	public Item(String name, String color, String size, String brand, double price, Category category, String uri) {
 		this.name = name;
 		this.color = color;
 		this.size = size;
 		this.brand = brand;
 		this.price = price;
 		this.timesWorn = 0;
+		this.uri = uri;
 		this.category = category;
 
 	}
