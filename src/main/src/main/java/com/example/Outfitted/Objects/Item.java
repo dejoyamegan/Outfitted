@@ -13,8 +13,10 @@ public class Item {
 	private double price;
 	private int timesWorn;
 	//TODO: Item can be in multiple categories to array, plus not final
+
 	//TODO URL for image
 	private final Category category;
+
 
 	/**
 	 * Default constructor

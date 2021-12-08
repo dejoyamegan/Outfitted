@@ -119,10 +119,6 @@ export default class Outfits extends Component {
                     />
                 <ScrollView>
                     {data.map((outfit) => this.renderOutfitCard(outfit))}
-                                    <Image
-                                            style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
-                                            source={{ uri: this.state.imageURI }}
-                                            PlaceholderContent={<ActivityIndicator />}/>
                 </ScrollView>
                 <NavBar navigation={this.props.navigation}/>
             </View>
