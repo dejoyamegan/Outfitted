@@ -14,6 +14,7 @@ public class Category {
 	public Category() {
 		this.name = "";
 		items = new ArrayList<Item>();
+		//TODO URL image field
 	}
 
 	/**

@@ -12,6 +12,7 @@ public class Outfit {
 	private Item topLayer;
 	private Item shoes;
 	private Item accessory;
+	//TODO REFERENCE objects
 	
 	/**
 	 * Default constructor
