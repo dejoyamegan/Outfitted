@@ -78,7 +78,7 @@ public class Closet {
 	 */
 	public void addItem(Category category, Item newItem) {
 
-		category.addItem(newItem);
+//		category.addItem(newItem);
 	}
 	
 	/**

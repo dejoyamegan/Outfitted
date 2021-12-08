@@ -9,11 +9,13 @@ public class Category {
 	// properties of a clothing category
 	private String name;
 	//TODO: Change this to reference items rather than array list of item objects
-	private ArrayList<Item> items;
+	private ArrayList<String> items;
+	private String uri;
 
 	public Category() {
 		this.name = "";
-		items = new ArrayList<Item>();
+		items = new ArrayList<String>();
+		this.uri = "";
 		//TODO URL image field
 	}
 
@@ -21,9 +23,10 @@ public class Category {
 	 * Default constructor
 	 * @param name - name of clothing category
 	 */
-	public Category(String name) {
+	public Category(String name, String uri) {
 		this.name = name;
-		items = new ArrayList<Item>();
+		items = new ArrayList<String>();
+		this.uri = "";
 	}
 	
 	// getters and setters
@@ -35,13 +38,13 @@ public class Category {
 
 		return this.name;
 	}
-	public ArrayList<Item> getItems(){
+	public ArrayList<String> getItems(){
 
 		return items;
 	}
 	
 	// clothing category functions
-	public void addItem(Item newItem) {
+	public void addItem(String newItem) {
 
 		items.add(newItem);
 	}

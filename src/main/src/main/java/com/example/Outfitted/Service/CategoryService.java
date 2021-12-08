@@ -5,6 +5,8 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -32,20 +34,36 @@ public class CategoryService {
     public Category getCategoryDetails(String name, String email) throws InterruptedException, ExecutionException {
         getPath(email);
 
-        DocumentReference documentReference = getCategoryCollection().document(name);
-        ApiFuture<DocumentSnapshot> future = documentReference.get();
+            DocumentReference documentReference = getCategoryCollection().document(name);
+            ApiFuture<DocumentSnapshot> future = documentReference.get();
 
-        DocumentSnapshot document = future.get();
+            DocumentSnapshot document = future.get();
 
-        Category category = null;
 
-        if(document.exists()) {
-            category = document.toObject(Category.class);
-            return category;
-        }
-        else {
-            return null;
-        }
+            Category category = null;
+
+            if (document.exists()) {
+                category = document.toObject(Category.class);
+                return category;
+            } else {
+                return null;
+            }
+
+    }
+
+    public ArrayList<Category> getAllCategories(String email)throws InterruptedException, ExecutionException {
+
+            getPath(email);
+
+            List<QueryDocumentSnapshot> documents = getCategoryCollection().get().get().getDocuments();
+
+            ArrayList<Category> categories = new ArrayList<Category>();;
+            for (DocumentSnapshot document : documents) {
+                categories.add(document.toObject(Category.class));
+            }
+            return categories;
+
+
     }
 
     public String updateCategoryDetails(Category category, String email) throws InterruptedException, ExecutionException {
