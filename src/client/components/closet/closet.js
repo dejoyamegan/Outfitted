@@ -42,7 +42,8 @@ export default class Closet extends Component {
     }
 
     renderImage(item) {
-            return (<Card style={{ flex: 1 }}>
+            return (
+                <Card style={{ flex: 1 }}>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
@@ -81,6 +82,7 @@ export default class Closet extends Component {
 
         return(
                 <View style={styles.container}>
+                    
                     <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
                         onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
                         <View style={{ flexDirection: 'row' }}>

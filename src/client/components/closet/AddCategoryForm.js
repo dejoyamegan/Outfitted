@@ -5,6 +5,7 @@ import { Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextFiel
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
+import userDetails from '../userDetails';
 export const imgs = [];
 
 export default class AddCategoryForm extends Component {
@@ -98,37 +99,44 @@ export default class AddCategoryForm extends Component {
             }
         };
 
-//    addCategoryToDb() {
-//        var myHeaders = new Headers();
-//        myHeaders.append("Content-Type", "application/json");
-//
-//        var raw = JSON.stringify({
-//           "name": this.state.name
-//        });
-//
-//        var options = {
-//            method: 'POST',
-//            headers: myHeaders,
-//            redirect: 'follow',
-//            body: raw
-//        };
-//
-//        var query = "email=" + this.state.email;
-//
-//        // create new user in db
-//        fetch("http://localhost:8080/createCloset", options)
-//            .then(response => response.text())
-//            .then(result => console.log(result))
-//            .catch(error => this.errorHandler(error));
-//    }
+    addCategoryToDB() {
+       var myHeaders = new Headers();
+       myHeaders.append("Content-Type", "application/json");
+
+       var raw = JSON.stringify({
+          "name": this.state.name,
+          "items": []
+       });
+
+       var options = {
+           method: 'POST',
+           headers: myHeaders,
+           redirect: 'follow',
+           body: raw
+       };
+
+       var query = "email=" + userDetails.email;
+
+       // create new category in db
+       fetch("http://localhost:8080/createCategory?" + query, options)
+           .then(response => response.text())
+           .then(result => console.log(result))
+           .then(this.props.navigation.navigate('Closet'))
+           .catch(error => this.errorHandler(error));
+   }
 
     onSubmit() {
         if (this.validSubmission()) {
             const result = Math.random().toString(36).substring(2,7);
-            this.uploadImageToStorage('/'+result);
-            imgs.push(result)
-
+            //this.uploadImageToStorage('/'+result);
+            //imgs.push(result)
+            this.addCategoryToDB();
         }
+    }
+
+    errorHandler(error) {
+        alert(error);
+        //document.location.reload(true);
     }
 
     acknowledgeError() {

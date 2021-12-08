@@ -5,7 +5,7 @@ import NavBar from '../common/navbar';
 import { Title2, TextField, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Overlay } from 'react-native-elements';
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
-
+import { outfits1 } from './dressingroom';
 const photos = [
    'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F07%2Fnike-dunk-high-womens-sneakers-aluminum-baby-blue-white-price-release-date-1.jpg?q=75&w=800&cbr=1&fit=max' ,
     'https://lsco.scene7.com/is/image/lsco/290370014-front-pdp?$qv_desktop_bottoms$' ,
@@ -69,6 +69,9 @@ export default class DressingRoom extends Component {
     }
 
     render() {
+        const images = outfits1.map(index => {
+            return <img key={index} src={index} onClick={() => imageClick()}/>
+         });
         return(
 
             <View style={styles.container}>
@@ -76,7 +79,7 @@ export default class DressingRoom extends Component {
                     <DynamicCollage
                         width={350}
                         height={350}
-                        images={ photos }
+                        images={ outfits1 }
                         matrix={ [ 1, 1, 1] } />
                 </View>
                 <TextField

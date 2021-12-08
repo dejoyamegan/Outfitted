@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { Row, Image, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
+import { FlatList, Row, Image, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Icon, Stepper, Title1, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Card, ListItem, Container } from 'react-native-elements'
-
-
+import {imgs} from '../closet/AddItemForm'
+const pics = []
+export const outfits1 = []
 export default class DressingRoom extends Component {
 
 
@@ -24,20 +25,59 @@ export default class DressingRoom extends Component {
         this.setState(state);
     }
 
+    componentDidMount() {
+        
+        console.log(imgs[0]);
+        for(var i = 0; i < imgs.length; i++){
+            for(var j = 0; j < imgs[i].length; j++){
+                console.log(imgs[i]);
+                this.getImageFromStorage(imgs[i][j]);
+            }
+        }
+        
+
+    }
+
+    getImageFromStorage(imageName) {
+        let imageRef = firebase.storage().ref('/' + imageName);
+        imageRef
+          .getDownloadURL()
+          .then((url) => {
+            //from url you can fetched the uploaded image easily
+            //this.setState({ imageURI: url });
+            if(!pics.includes(url)){
+            pics.push(url)
+            this.setState({photoz: pics})
+            console.log(this.state.imageURI)
+          }
+            
+            
+          })
+          .catch((e) => console.log('getting downloadURL of image error => ', e));
+    }
+
+    addToOutfit(key){
+        outfits1.push(key)
+    }
+
+    //<View onStartShouldSetResponder={() => this.props.navigation.navigate('ItemView')}>
     renderImage(item) {
         return (<Card style={{ flex: 1 }}>
-            <View onStartShouldSetResponder={() => this.props.navigation.navigate('ItemView')}>
-                <Card.Image
-                    style={{ resizeMode: 'contain' }}
-                    source={{ uri: item}}/>
+            <Card.Image
+                style={{ resizeMode: 'contain' }}
+                source={{ uri: item.key}}/>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Button
+                    style={{ margin: 5 }} centered rounded
+                    onPress={() =>this.addToOutfit(item.key)}>
+                    Add to Outfit
+                </Button>
+                <Button
+                    onPress={() => this.props.navigation.navigate('ItemView', { imageURI: item.key })}
+                    style={{ margin: 5 }} centered rounded>
+                    View Item
+                </Button>
             </View>
-            <Button style={{ flex: 1  }} centered rounded
-            onPress={() => this.props.navigation.navigate('OutfitView')}>
-                <View style={{ flexDirection: 'row'}}>
-                    <Text style={{}}>Add to Outfit</Text>
-                    <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
-                </View>
-            </Button>
         </Card>);
     }
 
@@ -54,6 +94,9 @@ export default class DressingRoom extends Component {
                             "https://imgprd19.hobbylobby.com/9/5f/26/95f264323ae49e65b2a53a909fcd7d9ee659f3c7/350Wx350H-422519-0320.jpg"]
                 }
             ]
+            const images = pics.map(index => {
+                return <img key={index} src={index} onClick={() => imageClick()}/>
+             }); //Displays all the images the user has uploaded
 
         return(
 
@@ -65,13 +108,13 @@ export default class DressingRoom extends Component {
                         <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
                     </View>
                 </Button>
-                 <Collection
-                   numberOfColumns={4}
-                   data={exampleData}
-                   renderItem={item => this.renderImage(item)}
-                   renderSectionHeader={({ section }) => <Title1>{section.title}</Title1>}
-                   keyExtractor={(item, index) => `${item}_${index}`}
-                 />
+                <View style={styles.container}>
+                      <FlatList
+                        data={images}
+                        renderItem={({item}) => this.renderImage(item)}
+                        keyExtractor={(item, index) => `${item}_${index}`}
+                      />
+                 </View>
                  <NavBar navigation={this.props.navigation}/>
             </View>
         );

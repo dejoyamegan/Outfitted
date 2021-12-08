@@ -60,7 +60,11 @@ export default class ItemView extends Component {
 
     
 
-
+/** 
+<View><div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+{images}
+</div>
+</View>*/
     render() {
         const images = pics.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
@@ -86,10 +90,6 @@ export default class ItemView extends Component {
                         <Icon size={20} name={'ios-trash-outline'} />
                     </Button>
                 </View>
-                <View><div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        {images}
-                    </div>
-                    </View>
             </View>
         );
     }
