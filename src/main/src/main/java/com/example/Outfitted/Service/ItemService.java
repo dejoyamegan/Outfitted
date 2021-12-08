@@ -37,9 +37,9 @@ public class ItemService {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getItemCollection().document(item.getName()).set(item);
-        getCategoryPath(email);
-        ApiFuture<WriteResult> collectionsApiFuture2 =
-                getItemCollection().document(item.getCategory().getName()).update(item.getName(), item);
+//        getCategoryPath(email);
+//        ApiFuture<WriteResult> collectionsApiFuture2 =
+//                getItemCollection().document(item.getCategory().getName()).update(item.getName(), item);
 
 //        return collectionsApiFuture.get().getUpdateTime().toString();
         return "Added";
