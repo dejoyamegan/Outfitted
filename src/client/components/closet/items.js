@@ -75,7 +75,7 @@ export default class Items extends Component {
                         Add to Dressing Room
                     </Button>
                     <Button
-                        onPress={() => this.props.navigation.navigate('ItemView', { itemURI: item.key })}
+                        onPress={() => this.props.navigation.navigate('ItemView', { imageURI: item.key })}
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>

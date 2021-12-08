@@ -46,10 +46,11 @@ export default class ItemView extends Component {
           .getDownloadURL()
           .then((url) => {
             //from url you can fetched the uploaded image easily
-            this.setState({ imageURI: url });
+            //this.setState({ imageURI: url });
             if(!pics.includes(url)){
             pics.push(url)
             this.setState({photoz: pics})
+            console.log(this.state.imageURI)
           }
             
             
@@ -67,12 +68,13 @@ export default class ItemView extends Component {
          const imageClick = () => {
             console.log('Click');
           } 
+        
         return(
             <View style={styles.container}>
                 <Title1>Megan's shirt</Title1>
                 <Image
                         style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
-                        source={{ uri: this.state.imageURI }}
+                        source={{ uri: this.props.route.params.imageURI}}
                         PlaceholderContent={<ActivityIndicator />}/>
                 <View style={{ justifyContent: 'stretch' }}>
                     <InfoRow theme={{  }} icon="pencil-sharp" title="Description" info="This is the best shirt ever. I love it."/>
