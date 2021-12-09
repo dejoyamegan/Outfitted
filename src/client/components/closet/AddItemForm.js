@@ -7,6 +7,7 @@ import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 export const imgs = [];
 const imgs2 = []
+import userDetails from '../userDetails';
 export default class AddItemForm extends Component {
 
 
@@ -42,10 +43,10 @@ export default class AddItemForm extends Component {
             result = false;
             messages.push("-Size");
         }
-        /**if (this.state.color == null || this.state.color == "") {
+        if (this.state.color == null || this.state.color == "") {
             result = false;
             messages.push("-Color");
-        }**/
+        }
         if (!result) {
             this.setState({
                 invalidMessages: messages,
@@ -121,35 +122,38 @@ export default class AddItemForm extends Component {
     onSubmit() {
         const result = Math.random().toString(36).substring(2,7);
         this.uploadImageToStorage('/'+result);
-
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
         //currently storing image name under "brand" -- need to change once db is restructured
-        const raw = JSON.stringify({
+        var raw = JSON.stringify({
             "name": this.state.name,
+            "color": this.state.color,
             "size": this.state.size,
-            "brand": result
+            "brand": result,
+            "price": 4.0,
+            "timesWorn": 1,
+            "uri": this.state.imageURI,
+            "category": {"name": "category name"}
         });
 
-        fetch("http://localhost:8080/createItem",
-            {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: raw
-            })
-            .then((response) => response.text())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+          };
+          var query = "email=" + userDetails.email;
+
+          fetch("http://localhost:8080/createItem?" + query, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
 
         imgs2.push(result)
         imgs.push(imgs2)
         console.log(imgs)
     }
-
+    
     acknowledgeError() {
         this.setState({
             validSubmission: true,
