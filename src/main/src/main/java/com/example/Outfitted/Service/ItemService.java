@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class ItemService {
 
 //    public static final String COL_NAME="items";
-   // public static final String USER="I2 Will";
+//    public static final String USER="I2 Will";
     public static String COL_NAME= null;
 
 
@@ -37,9 +37,9 @@ public class ItemService {
         getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getItemCollection().document(item.getName()).set(item);
-//        getCategoryPath(email);
-//        ApiFuture<WriteResult> collectionsApiFuture2 =
-//                getItemCollection().document(item.getCategory().getName()).update(item.getName(), item);
+        getCategoryPath(email);
+        ApiFuture<WriteResult> collectionsApiFuture2 =
+                getItemCollection().document(item.getCategory().getName()).update(item.getName(), item);
 
 //        return collectionsApiFuture.get().getUpdateTime().toString();
         return "Added";
