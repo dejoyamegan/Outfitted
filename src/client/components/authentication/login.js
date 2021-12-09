@@ -45,8 +45,7 @@ export default class Login extends Component {
                 this.fetchDbUser();
             })
             .then(() => {
-                userDetails.closet = this.state.closet;
-                userDetails.email = this.state.email;
+
                 this.props.navigation.navigate('Closet');
             })
             .catch(error => this.errorHandler(error))
@@ -74,6 +73,8 @@ export default class Login extends Component {
                 //console.log(result);
                 var json_closet = JSON.parse(result);
                 this.setState({ closet: json_closet });
+                userDetails.closet = json_closet;
+                userDetails.email = this.state.email;
             })
             .catch(error => this.errorHandler(error));
         }

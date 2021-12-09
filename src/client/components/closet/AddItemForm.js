@@ -5,6 +5,7 @@ import { Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextFiel
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
+import userDetails from '../userDetails.js';
 export const imgs = [];
 const imgs2 = []
 export default class AddItemForm extends Component {
@@ -129,7 +130,8 @@ export default class AddItemForm extends Component {
             "brand": result
         });
 
-        fetch("http://localhost:8080/createItem",
+        var query = "?email=" + userDetails.email;
+        fetch("http://localhost:8080/createItem" + query,
             {
                 method: "POST",
                 headers: {

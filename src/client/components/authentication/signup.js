@@ -72,6 +72,7 @@ export default class Signup extends Component {
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => this.errorHandler(error));
+        userDetails.email = this.state.email;
     }
 
 
@@ -79,6 +80,7 @@ export default class Signup extends Component {
         alert(error);
         //document.location.reload(true);
     }
+
 
     registerUser = () => {
         if(this.state.email === '' && this.state.password === ''){
@@ -162,7 +164,6 @@ export default class Signup extends Component {
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({

@@ -99,10 +99,10 @@ export default class Closet extends Component {
                          </View>
                     <NavBar navigation={this.props.navigation}/>
                 </View>
-
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
-import { DarkTheme, ThemeProvider } from 'react-native-ios-kit';
-import { ProjectTheme } from './components/styles/ProjectTheme'
+import { DarkTheme, ThemeProvider, DefaultTheme } from 'react-native-ios-kit';
 import color from 'color';
 
 import Login from './components/authentication/login';
@@ -122,7 +121,7 @@ function MyStack() {
 
 export default function App() {
   return (
-    <ThemeProvider theme={ProjectTheme}>
+    <ThemeProvider theme={DefaultTheme}>
         <NavigationContainer>
               <MyStack />
         </NavigationContainer>
