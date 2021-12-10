@@ -1,17 +1,17 @@
 package com.example.Outfitted.Objects;
 
-import com.example.Outfitted.Objects.Item;
+import com.google.cloud.firestore.DocumentReference;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Outfit {
 	// properties of an outfit in the closet
 	private String name;
-	private Item top;
-	private Item bottom;
-	private Item topLayer;
-	private Item shoes;
-	private Item accessory;
+	private String top; // maybe change these types to DocumentReference
+	private String bottom;
+	private String topLayer;
+	private String shoes;
+	private String accessory;
 	//TODO REFERENCE objects
 	
 	/**
@@ -19,18 +19,23 @@ public class Outfit {
 	 */
 	public Outfit() {
 		this.name = "Outfit";
-		this.top = new Item();
-		this.bottom = new Item();
-		this.topLayer = new Item();
-		this.shoes = new Item();
-		this.accessory = new Item();
+//		this.top = new Item();
+//		this.bottom = new Item();
+//		this.topLayer = new Item();
+//		this.shoes = new Item();
+//		this.accessory = new Item();
+		this.top = "top";
+		this.bottom = "bottom";
+		this.topLayer = "top layer";
+		this.shoes = "shoes";
+		this.accessory = "accessory";
 
 	}
 	
 	/**
 	 * Constructor with all outfit properties
 	 */
-	public Outfit(String name, Item top, Item bottom, Item topLayer, Item shoes, Item accessory) {
+	public Outfit(String name, String top, String bottom, String topLayer, String shoes, String accessory) {
 		this.name = name;
 		this.top = top;
 		this.bottom = bottom;
@@ -48,38 +53,38 @@ public class Outfit {
 		return this.name;
 	}
 
-	public void setTop(Item top) {
+	public void setTop(String top) {
 		this.top = top;
 	}
-	public Item getTop() {
+	public String getTop() {
 		return this.top;
 	}
 	
-	public void setBottom(Item bottom) {
+	public void setBottom(String bottom) {
 		this.bottom = bottom;
 	}
-	public Item getBottom() {
+	public String getBottom() {
 		return this.bottom;
 	}
 	
-	public void setTopLayer(Item topLayer) {
+	public void setTopLayer(String topLayer) {
 		this.topLayer = topLayer;
 	}
-	public Item getTopLayer() {
+	public String getTopLayer() {
 		return this.topLayer;
 	}
 	
-	public void setShoes(Item shoes) {
+	public void setShoes(String shoes) {
 		this.shoes = shoes;
 	}
-	public Item getShoes() {
+	public String getShoes() {
 		return this.shoes;
 	}
 	
-	public void setAccessory(Item accessory) {
+	public void setAccessory(String accessory) {
 		this.accessory = accessory;
 	}
-	public Item getAccessory() {
+	public String getAccessory() {
 		return this.accessory;
 	}
 }

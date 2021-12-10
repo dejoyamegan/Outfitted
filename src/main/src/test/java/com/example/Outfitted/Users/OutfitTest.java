@@ -61,31 +61,31 @@ class OutfitTest {
 //        outfit.setTop(graphicTee);
 //        assertEquals(outfit.getTop().equals(graphicTee), true);
     }
-    @Test
-    void testRemoveItemFromOutfit(){
-        outfit.setTop(new Item());
-//        assertEquals(outfit.getTop().equals(graphicTee), false);
-    }
-    @Test
-    void testOutfitBottom(){
-        outfit.setBottom(new Item());
-        assertEquals(outfit.getBottom().equals(pants), false);
-    }
-    @Test
-    void testOutfitTopLayer(){
-        outfit.setTopLayer(new Item());
-        assertEquals(outfit.getTopLayer().equals(coat), false);
-    }
-    @Test
-    void testOutfitShoes(){
-        outfit.setShoes(new Item());
-        assertEquals(outfit.getShoes().equals(vans), false);
-    }
-    @Test
-    void testOutfitAccessory(){
-        outfit.setAccessory(new Item());
-        assertEquals(outfit.getAccessory().equals(hairClip), false);
-    }
+//    @Test
+//    void testRemoveItemFromOutfit(){
+//        outfit.setTop(new Item());
+////        assertEquals(outfit.getTop().equals(graphicTee), false);
+//    }
+//    @Test
+//    void testOutfitBottom(){
+//        outfit.setBottom(new Item());
+//        assertEquals(outfit.getBottom().equals(pants), false);
+//    }
+//    @Test
+//    void testOutfitTopLayer(){
+//        outfit.setTopLayer(new Item());
+//        assertEquals(outfit.getTopLayer().equals(coat), false);
+//    }
+//    @Test
+//    void testOutfitShoes(){
+//        outfit.setShoes(new Item());
+//        assertEquals(outfit.getShoes().equals(vans), false);
+//    }
+//    @Test
+//    void testOutfitAccessory(){
+//        outfit.setAccessory(new Item());
+//        assertEquals(outfit.getAccessory().equals(hairClip), false);
+//    }
 
     // closet tests
     @Test
