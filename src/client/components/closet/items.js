@@ -6,6 +6,7 @@ import { SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBa
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
+import userDetails from '../userDetails';
 const pics = []
 const picCount = []
 export default class Items extends Component {
@@ -16,7 +17,8 @@ export default class Items extends Component {
             email: '',
             password: '',
             isLoading: false,
-            imageURI: null
+            imageURI: null,
+            name: ''
         }
     }
 
@@ -79,10 +81,26 @@ export default class Items extends Component {
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>
+
+                 <Button style={{ marginTop: 15 }} centered inline rounded
+                    onPress={this.getItems()}>
+                    Add Item to Closet
+                </Button>
                 </View>
             </Card>);
         }
-
+        getItems(){
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          var query = "email=" + userDetails.email;
+          var item = this.props.route.params.name;
+          fetch("http://localhost:8080/getItemDetails?" + query + "&item=" + item, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+        }
     render() {
         const shirtData = [
               {

@@ -233,6 +233,12 @@ export default class AddItemForm extends Component {
                     <Button onPress={this.acknowledgeError} inline centered rounded>
                         OK
                     </Button>
+
+            <Button
+                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name})}
+                        style={{ margin: 5 }} centered rounded>
+                        View Item
+                    </Button>
                 </Overlay>
             </View>
         );
