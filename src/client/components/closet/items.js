@@ -9,6 +9,10 @@ import {imgs} from './AddItemForm'
 import userDetails from '../userDetails';
 const pics = []
 const picCount = []
+let obj2 = '';
+let sendUri = '';
+let readPic = [];
+const im2 = []
 export default class Items extends Component {
 
     constructor() {
@@ -38,8 +42,32 @@ export default class Items extends Component {
             }
         }
         
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+              };
+              var query = "email=" + userDetails.email;
+              var item = this.props.route.params.name;
+              fetch("http://localhost:8080/getItemDetails?" + query + "&item=" + item, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(JSON.parse(result))
+                    obj2 = JSON.parse(result)
+                    sendUri = obj2.uri
+                    //Object.defineProperty(obj2, "uri", {
+                    //    writable: true
+                    //});
+    
+                    console.log(obj2.uri)
+                    readPic.push(sendUri)
+                    console.log(readPic)
+                })
+                .catch(error => console.log('error', error));
+            
+        
 
     }
+    
 
     getImageFromStorage(imageName) {
         let imageRef = firebase.storage().ref('/' + imageName);
@@ -81,26 +109,10 @@ export default class Items extends Component {
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>
-
-                 <Button style={{ marginTop: 15 }} centered inline rounded
-                    onPress={this.getItems()}>
-                    Add Item to Closet
-                </Button>
                 </View>
             </Card>);
         }
-        getItems(){
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-          };
-          var query = "email=" + userDetails.email;
-          var item = this.props.route.params.name;
-          fetch("http://localhost:8080/getItemDetails?" + query + "&item=" + item, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-        }
+        
     render() {
         const shirtData = [
               {
@@ -132,10 +144,15 @@ export default class Items extends Component {
         } else if (this.props.route.params.itemType === "Shoes") {
            itemData = shoeData;
         }
-        const images = pics.map(index => {
+        
+        
+        
+        
+        const images = readPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
          }); //Displays all the images the user has uploaded
          console.log(images)
+         console.log(readPic)
         return(
             <View style={styles.container}>
                 <SearchBar

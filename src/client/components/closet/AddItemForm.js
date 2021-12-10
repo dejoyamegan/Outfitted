@@ -152,6 +152,7 @@ export default class AddItemForm extends Component {
         imgs2.push(result)
         imgs.push(imgs2)
         console.log(imgs)
+        
     }
     
     acknowledgeError() {
@@ -225,6 +226,11 @@ export default class AddItemForm extends Component {
                     onPress={this.onSubmit}>
                     Add Item to Closet
                 </Button>
+                <Button
+                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name})}
+                        style={{ margin: 5 }} centered rounded>
+                        View Item
+                    </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2 style={{ paddingBottom: 10 }}>Please fill in the following fields:</Title2>
                     {this.state.invalidMessages.map((message) => {
@@ -232,12 +238,6 @@ export default class AddItemForm extends Component {
                     })}
                     <Button onPress={this.acknowledgeError} inline centered rounded>
                         OK
-                    </Button>
-
-            <Button
-                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name})}
-                        style={{ margin: 5 }} centered rounded>
-                        View Item
                     </Button>
                 </Overlay>
             </View>
