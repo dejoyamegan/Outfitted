@@ -1,8 +1,10 @@
 com/example/Outfitted/Firebase/FBInitialize.class
+com/example/Outfitted/Controller/ItemController.class
 com/example/Outfitted/Service/OutfitService.class
 com/example/Outfitted/Controller/UserController.class
 com/example/Outfitted/Controller/OutfitController.class
 com/example/Outfitted/OutfittedApplication.class
+com/example/Outfitted/Service/ItemService.class
 com/example/Outfitted/Service/UserService.class
 com/example/Outfitted/Controller/ClosetController.class
 com/example/Outfitted/Users/User.class

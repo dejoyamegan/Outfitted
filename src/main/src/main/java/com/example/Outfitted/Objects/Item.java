@@ -32,6 +32,20 @@ public class Item {
 		this.uri = "";
 		this.category = null;
 	}
+
+	/**
+	 * Constructor taking in only the Item's name
+	 */
+	public Item(String name) {
+		this.name = name;
+		this.color = "No color";
+		this.size = "No size";
+		this.brand = "No brand";
+		this.price = 0;
+		this.timesWorn = 0;
+		this.uri = "";
+		this.category = null;
+	}
 	/**
 	 * Constructor taking in all4 properties of a clothing item 
 	 */

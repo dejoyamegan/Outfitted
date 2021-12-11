@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 public class Outfit {
 	// properties of an outfit in the closet
 	private String name;
-	private String top; // maybe change these types to DocumentReference
-	private String bottom;
-	private String topLayer;
-	private String shoes;
-	private String accessory;
+	private Item top; // maybe change these types to DocumentReference
+	private Item bottom;
+	private Item topLayer;
+	private Item shoes;
+	private Item accessory;
 	//TODO REFERENCE objects
 	
 	/**
@@ -19,23 +19,23 @@ public class Outfit {
 	 */
 	public Outfit() {
 		this.name = "Outfit";
-//		this.top = new Item();
-//		this.bottom = new Item();
-//		this.topLayer = new Item();
-//		this.shoes = new Item();
-//		this.accessory = new Item();
-		this.top = "top";
-		this.bottom = "bottom";
-		this.topLayer = "top layer";
-		this.shoes = "shoes";
-		this.accessory = "accessory";
+		this.top = new Item();
+		this.bottom = new Item();
+		this.topLayer = new Item();
+		this.shoes = new Item();
+		this.accessory = new Item();
+//		this.top = "top";
+//		this.bottom = "bottom";
+//		this.topLayer = "top layer";
+//		this.shoes = "shoes";
+//		this.accessory = "accessory";
 
 	}
 	
 	/**
-	 * Constructor with all outfit properties
+	 * Constructor with all outfit properties as strings
 	 */
-	public Outfit(String name, String top, String bottom, String topLayer, String shoes, String accessory) {
+	public Outfit(String name, Item top, Item bottom, Item topLayer, Item shoes, Item accessory) {
 		this.name = name;
 		this.top = top;
 		this.bottom = bottom;
@@ -53,38 +53,38 @@ public class Outfit {
 		return this.name;
 	}
 
-	public void setTop(String top) {
+	public void setTop(Item top) {
 		this.top = top;
 	}
-	public String getTop() {
+	public Item getTop() {
 		return this.top;
 	}
 	
-	public void setBottom(String bottom) {
+	public void setBottom(Item bottom) {
 		this.bottom = bottom;
 	}
-	public String getBottom() {
+	public Item getBottom() {
 		return this.bottom;
 	}
 	
-	public void setTopLayer(String topLayer) {
+	public void setTopLayer(Item topLayer) {
 		this.topLayer = topLayer;
 	}
-	public String getTopLayer() {
+	public Item getTopLayer() {
 		return this.topLayer;
 	}
 	
-	public void setShoes(String shoes) {
+	public void setShoes(Item shoes) {
 		this.shoes = shoes;
 	}
-	public String getShoes() {
+	public Item getShoes() {
 		return this.shoes;
 	}
 	
-	public void setAccessory(String accessory) {
+	public void setAccessory(Item accessory) {
 		this.accessory = accessory;
 	}
-	public String getAccessory() {
+	public Item getAccessory() {
 		return this.accessory;
 	}
 }

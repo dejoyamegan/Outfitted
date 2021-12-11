@@ -21,25 +21,31 @@ public class OutfitService {
         System.out.println("FIRESTORE PATH: " + COL_NAME);
     }
 
+    private void getItemPath(String uid) {
+        COL_NAME = "users/" + uid + "/closet/" +uid+ "/items";
+        System.out.println("FIRESTORE PATH: " + COL_NAME);
+    }
+
     private CollectionReference getOutfitCollection() {
         Firestore db = FirestoreClient.getFirestore();
         System.out.println("Current Path: " + COL_NAME);
         return db.collection(COL_NAME);
     }
     public String saveOutfitDetails(Outfit outfit, String email) throws InterruptedException, ExecutionException {
+        getItemPath(email);
+
+        var topRef = getOutfitCollection().document(outfit.getTop().getName()).get().get().toObject(Item.class);
+        var bottomRef = getOutfitCollection().document(outfit.getBottom().getName()).get().get().toObject(Item.class);
+        var topLayerRef = getOutfitCollection().document(outfit.getTopLayer().getName()).get().get().toObject(Item.class);
+        var shoesRef = getOutfitCollection().document(outfit.getShoes().getName()).get().get().toObject(Item.class);
+        var accessoryRef = getOutfitCollection().document(outfit.getAccessory().getName()).get().get().toObject(Item.class);
+
         getPath(email);
-
-        var topRef = getOutfitCollection().document(outfit.getTop());
-        var bottomRef = getOutfitCollection().document(outfit.getBottom());
-        var topLayerRef = getOutfitCollection().document(outfit.getTopLayer());
-        var shoesRef = getOutfitCollection().document(outfit.getShoes());
-        var accessoryRef = getOutfitCollection().document(outfit.getAccessory());
-
-        outfit.setTop(topRef.toString());
-        outfit.setBottom(bottomRef.toString());
-        outfit.setTopLayer(topLayerRef.toString());
-        outfit.setShoes(shoesRef.toString());
-        outfit.setAccessory(accessoryRef.toString());
+        outfit.setTop(topRef);
+        outfit.setBottom(bottomRef);
+        outfit.setTopLayer(topLayerRef);
+        outfit.setShoes(shoesRef);
+        outfit.setAccessory(accessoryRef);
 
         ApiFuture<WriteResult> collectionsApiFuture =
                 getOutfitCollection().document(outfit.getName()).set(outfit);
@@ -56,10 +62,10 @@ public class OutfitService {
 
         Outfit outfit = null;
 
+        getItemPath(email);
+
         if(document.exists()) {
             outfit = document.toObject(Outfit.class);
-//            var bottom = getOutfitCollection().document(outfit.getBottom()).get().get().getData();
-//            System.out.println(bottom);
             return outfit;
         }
         else {
