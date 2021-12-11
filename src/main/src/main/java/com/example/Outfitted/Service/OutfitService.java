@@ -27,6 +27,8 @@ public class OutfitService {
         return db.collection(COL_NAME);
     }
     public String saveOutfitDetails(Outfit outfit, String email) throws InterruptedException, ExecutionException {
+        getPath(email);
+
         var topRef = getOutfitCollection().document(outfit.getTop());
         var bottomRef = getOutfitCollection().document(outfit.getBottom());
         var topLayerRef = getOutfitCollection().document(outfit.getTopLayer());
@@ -39,7 +41,6 @@ public class OutfitService {
         outfit.setShoes(shoesRef.toString());
         outfit.setAccessory(accessoryRef.toString());
 
-        getPath(email);
         ApiFuture<WriteResult> collectionsApiFuture =
                 getOutfitCollection().document(outfit.getName()).set(outfit);
         return collectionsApiFuture.get().getUpdateTime().toString();
