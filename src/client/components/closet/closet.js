@@ -6,6 +6,7 @@ import { Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } f
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 import userDetails from '../userDetails.js';
+var categories = [];
 
 export default class Closet extends Component {
     showdata = () => {
@@ -68,6 +69,68 @@ export default class Closet extends Component {
                 </View>
             </Card>);
         }
+
+    componentDidMount() {
+        this.getAllCategories()
+        cardInfo = categories.map((name) => {
+            return 
+        });
+    }
+
+    getCategory(name){
+        //getCategoryDetails 
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+        });
+
+        var options = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow',
+            //body: raw
+        };
+
+        var query = "name=" + name + "&email=" + userDetails.email;
+        console.log("http://localhost:8080/getCategoryDetails?" + query)
+
+        // add list of category names to categories field
+        fetch("http://localhost:8080/getCategoryDetails?" + query, options)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(result => categories = result)
+            .catch(error => this.errorHandler(error));
+    }
+
+    getAllCategories = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+        });
+
+        var options = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow',
+            //body: raw
+        };
+
+        var query = "email=" + userDetails.email;
+
+        // add list of category names to categories field
+        fetch("http://localhost:8080/getAllCategories?" + query, options)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(result => categories = result)
+            .catch(error => this.errorHandler(error));
+    }
+
+    errorHandler(error) {
+        alert(error);
+        //document.location.reload(true);
+    }
 
     render() {
 
