@@ -5,7 +5,9 @@ import NavBar from '../common/navbar';
 import { Title2, TextField, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Overlay } from 'react-native-elements';
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
-import { outfits1 } from './dressingroom';
+//import { outfits1 } from './dressingroom';
+import userDetails from '../userDetails';
+let arrPic = []
 const photos = [
    'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F07%2Fnike-dunk-high-womens-sneakers-aluminum-baby-blue-white-price-release-date-1.jpg?q=75&w=800&cbr=1&fit=max' ,
     'https://lsco.scene7.com/is/image/lsco/290370014-front-pdp?$qv_desktop_bottoms$' ,
@@ -33,7 +35,17 @@ export default class DressingRoom extends Component {
             name: '',
             tags: '',
             isLoading: false,
-            validSubmission: true
+            validSubmission: true,
+            top: '',
+            bottom: '',
+            topLayer: '',
+            accessory: '',
+            shoes: '',
+            pic1: '',
+            pic2: '',
+            pic3: '',
+            pic4: '',
+            pic5: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.acknowledgeError = this.acknowledgeError.bind(this);
@@ -57,32 +69,69 @@ export default class DressingRoom extends Component {
     }
 
     onSubmit() {
-        if (this.validSubmission()) {
-
-        }
-    }
-
-    acknowledgeError() {
-        this.setState({
-            validSubmission: true
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({
+        "name": this.state.name,
+        "top": this.props.route.params.top,
+        "bottom": this.props.route.params.bottom,
+        "topLayer": this.props.route.params.topLayer,
+        "shoes": this.props.route.params.shoes,
+        "accessory": this.props.route.params.accessory
         });
-    }
 
-    render() {
-        const images = outfits1.map(index => {
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+        var query = "email=" + userDetails.email;
+        fetch("http://localhost:8080/createOutfit?" + query, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+         }
+
+         acknowledgeError() {
+            this.setState({
+            validSubmission: true
+         });
+        }
+        renderImage() {
+            arrPic = []
+            arrPic.push(this.props.route.params.pic1)
+            arrPic.push(this.props.route.params.pic2)
+            arrPic.push(this.props.route.params.pic3)
+            arrPic.push(this.props.route.params.pic4)
+            arrPic.push(this.props.route.params.pic5)
+            const images = arrPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
          });
-        return(
+            console.log(images)
+            return images
+        }
 
-            <View style={styles.container}>
-                <View style={{ alignSelf: 'center' }}>
+    render() {
+        //const images = outfits1.map(index => {
+         //   return <img key={index} src={index} onClick={() => imageClick()}/>
+         //});
+         /**
                     <DynamicCollage
                         width={350}
                         height={350}
-                        images={ outfits1 }
-                        matrix={ [ 1, 1, 1] } />
+                        images={ this.renderImage() }
+                        matrix={ [ 1, 2] } /> */
+         
+        return(
+                
+            <View style={styles.container}>
+                    <View style={{ alignSelf: 'center' }}>
+                    <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        {this.renderImage()}
+                    </div>
                 </View>
-                <TextField
+                    <TextField
                     clearButton
                     style={styles.inputStyle}
                     placeholder="Name"
@@ -107,10 +156,10 @@ export default class DressingRoom extends Component {
                     </Button>
                 </Overlay>
                 <NavBar navigation={this.props.navigation}/>
-            </View>
+                </View>
         );
-    }
-}
+    }}
+
 
 const styles = StyleSheet.create({
     container: {

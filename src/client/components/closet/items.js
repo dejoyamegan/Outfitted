@@ -11,7 +11,9 @@ const pics = []
 const picCount = []
 let obj2 = '';
 let sendUri = '';
-let readPic = [];
+let sendName = '';
+export let readNames = [];
+export let readPic = [];
 const im2 = []
 export default class Items extends Component {
 
@@ -54,13 +56,16 @@ export default class Items extends Component {
                     console.log(JSON.parse(result))
                     obj2 = JSON.parse(result)
                     sendUri = obj2.uri
+                    sendName = obj2.name
                     //Object.defineProperty(obj2, "uri", {
                     //    writable: true
                     //});
     
                     console.log(obj2.uri)
                     readPic.push(sendUri)
+                    readNames.push(sendName)
                     console.log(readPic)
+                    console.log(readNames)
                 })
                 .catch(error => console.log('error', error));
             

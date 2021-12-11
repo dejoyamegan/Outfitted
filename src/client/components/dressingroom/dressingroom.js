@@ -7,6 +7,8 @@ import { Card, ListItem, Container } from 'react-native-elements'
 import {imgs} from '../closet/AddItemForm'
 const pics = []
 export const outfits1 = []
+import { readPic } from '../closet/items';
+import { readNames } from '../closet/items';
 export default class DressingRoom extends Component {
 
 
@@ -15,7 +17,17 @@ export default class DressingRoom extends Component {
         this.state = {
             email: '',
             password: '',
-            isLoading: false
+            isLoading: false,
+            top: '',
+            bottom: '',
+            shoes: '',
+            topLayer: '',
+            accessory: '',
+            pic1: '',
+            pic2: '',
+            pic3: '',
+            pic4: '',
+            pic5: ''
         }
     }
 
@@ -58,11 +70,50 @@ export default class DressingRoom extends Component {
 
     addToOutfit(key){
         outfits1.push(key)
-    }
+        console.log(key)
+        console.log(readPic[0])
+        const indexPic = readPic.indexOf(key)
+                if(this.state.top == null || this.state.top == ''){
+                this.updateInputVal(readNames[indexPic], 'top')
+                console.log(this.state.top)
+                }
+                else if(this.state.bottom == null || this.state.bottom == ''){
+                    this.updateInputVal(readNames[indexPic], 'bottom')
+                }
+                else if(this.state.shoes == null || this.state.shoes == ''){
+                    this.updateInputVal(readNames[indexPic], 'shoes')
+                }
+                else if(this.state.topLayer == null || this.state.topLayer== ''){
+                    this.updateInputVal(readNames[indexPic], 'topLayer')
+                }
+                else if(this.state.accessory == null || this.state.accessory == ''){
+                    this.updateInputVal(readNames[indexPic], 'accessory')
+                }
+                if(this.state.pic1 == null || this.state.pic1 == ''){
+                    this.updateInputVal(readPic[indexPic], 'pic1')
+                    console.log(this.state.top)
+                }
+                else if(this.state.pic2 == null || this.state.pic2 == ''){
+                        this.updateInputVal(readPic[indexPic], 'pic2')
+                }
+                else if(this.state.pic3 == null || this.state.pic3 == ''){
+                        this.updateInputVal(readPic[indexPic], 'pic3')
+                }
+                else if(this.state.pic4 == null || this.state.pic4 == ''){
+                    this.updateInputVal(readPic[indexPic], 'pic4')
+                }
+                else if(this.state.pic5 == null || this.state.pic5 == ''){
+                    this.updateInputVal(readPic[indexPic], 'pic5')
+                }
+
+            }
+        
+    
 
     //<View onStartShouldSetResponder={() => this.props.navigation.navigate('ItemView')}>
     renderImage(item) {
-        return (<Card style={{ flex: 1 }}>
+        return (
+        <Card style={{ flex: 1 }}>
             <Card.Image
                 style={{ resizeMode: 'contain' }}
                 source={{ uri: item.key}}/>
@@ -94,20 +145,28 @@ export default class DressingRoom extends Component {
                             "https://imgprd19.hobbylobby.com/9/5f/26/95f264323ae49e65b2a53a909fcd7d9ee659f3c7/350Wx350H-422519-0320.jpg"]
                 }
             ]
-            const images = pics.map(index => {
+            const images = readPic.map(index => {
                 return <img key={index} src={index} onClick={() => imageClick()}/>
              }); //Displays all the images the user has uploaded
+            
 
         return(
 
             <View style={styles.container}>
                 <Button style={{ alignItems: 'center' }} centered rounded
-                    onPress={() => this.props.navigation.navigate('Runway')}>
+                    onPress={() => this.props.navigation.navigate('Runway', {top: this.state.top, bottom: this.state.bottom, shoes: this.state.shoes, 
+                    pic1: this.state.pic1, pic2: this.state.pic2, pic3: this.state.pic3, pic4: this.state.pic4, pic5: this.state.pic5, topLayer: this.state.topLayer, accessory: this.state.accessory})}>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{alignSelf: 'center'}}>Finalize Outfit</Text>
                         <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
                     </View>
                 </Button>
+                <Button style={{ alignItems: 'center' }} centered rounded>
+                <View style={{ flexDirection: 'row' }}>
+                        <Text style={{alignSelf: 'center'}}>Add 5 items to make an outfit!</Text>
+                        <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
+                    </View>
+                    </Button>
                 <View style={styles.container}>
                       <FlatList
                         data={images}
@@ -119,6 +178,7 @@ export default class DressingRoom extends Component {
             </View>
         );
     }
+    
 }
 
 const styles = StyleSheet.create({
