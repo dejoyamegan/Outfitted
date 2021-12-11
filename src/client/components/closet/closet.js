@@ -72,9 +72,9 @@ export default class Closet extends Component {
 
     componentDidMount() {
         this.getAllCategories()
-        cardInfo = categories.map((name) => {
-            return 
-        });
+        // cardInfo = categories.map((name) => {
+        //     return 
+        // });
     }
 
     getCategory(name){
