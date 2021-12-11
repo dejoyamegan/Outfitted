@@ -53,4 +53,12 @@ public class Category {
 
 		return items.remove(itemToRemove);
 	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 }
