@@ -121,16 +121,22 @@ export default class DressingRoom extends Component {
                         width={350}
                         height={350}
                         images={ this.renderImage() }
-                        matrix={ [ 1, 2] } /> */
-         
-        return(
-                
-            <View style={styles.container}>
+                        matrix={ [ 1, 2] } /> 
+                        
                     <View style={{ alignSelf: 'center' }}>
                     <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         {this.renderImage()}
                     </div>
-                </View>
+                </View>*/
+         this.renderImage()
+        return(
+                
+            <View style={styles.container}>
+                <DynamicCollage
+                        width={350}
+                        height={350}
+                        images={ arrPic }
+                        matrix={ [ 1, 4] } /> 
                     <TextField
                     clearButton
                     style={styles.inputStyle}
