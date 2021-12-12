@@ -16,9 +16,10 @@ export default class AddItemForm extends Component {
         this.state = {
             name: '',
             size: '', 
-            description: '',
             color: '',
             tags: '',
+            price: '',
+            timesWorn: '',
             imageURI: null,
             images1: '',
             validSubmission: true,
@@ -130,8 +131,8 @@ export default class AddItemForm extends Component {
             "color": this.state.color,
             "size": this.state.size,
             "brand": result,
-            "price": 4.0,
-            "timesWorn": 1,
+            "price": this.state.price,
+            "timesWorn": this.state.timesWorn,
             "uri": this.state.imageURI,
             "category": {"name": "category name"}
         });
@@ -204,13 +205,6 @@ export default class AddItemForm extends Component {
                 <TextField
                     clearButton
                     style={styles.inputStyle}
-                    placeholder="Description"
-                    value={this.state.description}
-                    onValueChange={(val) => this.updateInputVal(val, 'description')}
-                />
-                <TextField
-                    clearButton
-                    style={styles.inputStyle}
                     placeholder="Color"
                     value={this.state.color}
                     onValueChange={(val) => this.updateInputVal(val, 'color')}
@@ -222,14 +216,28 @@ export default class AddItemForm extends Component {
                     value={this.state.tags}
                     onValueChange={(val) => this.updateInputVal(val, 'tags')}
                 />
+                <TextField
+                    clearButton
+                    style={styles.inputStyle}
+                    placeholder="Price"
+                    value={this.state.price}
+                    onValueChange={(val) => this.updateInputVal(val, 'price')}
+                />
+                <TextField
+                    clearButton
+                    style={styles.inputStyle}
+                    placeholder="Times Worn"
+                    value={this.state.timesWorn}
+                    onValueChange={(val) => this.updateInputVal(val, 'timesWorn')}
+                />
                 <Button style={{ marginTop: 15 }} centered inline rounded
                     onPress={this.onSubmit}>
                     Add Item to Closet
                 </Button>
                 <Button
-                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name})}
+                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name, size: this.state.size, color: this.state.color, price: this.state.price, timesWorn: this.state.timesWorn})}
                         style={{ margin: 5 }} centered rounded>
-                        View Item
+                        View Items
                     </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2 style={{ paddingBottom: 10 }}>Please fill in the following fields:</Title2>

@@ -24,7 +24,12 @@ export default class Items extends Component {
             password: '',
             isLoading: false,
             imageURI: null,
-            name: ''
+            name: '',
+            size: '', 
+            color: '',
+            tags: '',
+            price: '',
+            timesWorn: '',
         }
     }
 
@@ -110,7 +115,7 @@ export default class Items extends Component {
                         Add to Dressing Room
                     </Button>
                     <Button
-                        onPress={() => this.props.navigation.navigate('ItemView', { imageURI: item.key })}
+                        onPress={() => this.props.navigation.navigate('ItemView', { imageURI: item.key, name: this.props.route.params.name, size: this.props.route.params.size, color: this.props.route.params.color, price: this.props.route.params.price, timesWorn: this.props.route.params.timesWorn })}
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>

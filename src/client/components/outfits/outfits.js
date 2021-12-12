@@ -7,7 +7,7 @@ import { Card, ListItem, Container } from 'react-native-elements'
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
 //import { ReactPhotoCollage } from "react-photo-collage";
 import {imgs} from '../closet/AddItemForm'
-
+import userDetails from '../userDetails';
 const photos = [
    'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F07%2Fnike-dunk-high-womens-sneakers-aluminum-baby-blue-white-price-release-date-1.jpg?q=75&w=800&cbr=1&fit=max' ,
     'https://lsco.scene7.com/is/image/lsco/290370014-front-pdp?$qv_desktop_bottoms$' ,
@@ -60,6 +60,7 @@ export default class Outfits extends Component {
             password: '',
             isLoading: false,
             imageURI: null,
+            name: ''
         }
     }
 
@@ -77,10 +78,17 @@ export default class Outfits extends Component {
                 this.getImageFromStorage(imgs[i][j]);
                 
             }
-        
-        
-        
         }
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          var query = "email=" + userDetails.email;
+          var name1 = "&name=" + this.props.route.params.name;
+          fetch("http://localhost:8080/getOutfitDetails?" + query + name1, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
 
     }
 

@@ -73,11 +73,21 @@ export default class DressingRoom extends Component {
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({
         "name": this.state.name,
-        "top": this.props.route.params.top,
-        "bottom": this.props.route.params.bottom,
-        "topLayer": this.props.route.params.topLayer,
-        "shoes": this.props.route.params.shoes,
-        "accessory": this.props.route.params.accessory
+        "top": {
+            "name": this.props.route.params.top
+        },
+        "bottom": {
+            "name": this.props.route.params.bottom
+        },
+        "topLayer": {
+            "name": this.props.route.params.topLayer
+        },
+        "shoes": {
+            "name": this.props.route.params.shoes
+        },
+        "accessory": {
+            "name": this.props.route.params.accessory
+        }
         });
 
         var requestOptions = {
@@ -154,6 +164,10 @@ export default class DressingRoom extends Component {
                  <Button style={{ marginTop: 15 }} centered inline rounded
                     onPress={this.onSubmit}>
                     Save Outfit
+                </Button>
+                <Button style={{ marginTop: 15 }} centered inline rounded
+                    onPress={() => this.props.navigation.navigate('Outfits', {name: this.state.name})}>
+                    View Outfit
                 </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2>Please give your outfit a name.</Title2>

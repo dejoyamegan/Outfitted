@@ -84,8 +84,36 @@ export default class Closet extends Component {
         // categories.map((name) => {
         //     this.getCategory(name['name']);
         // });
-    }
 
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+        });
+
+        var options = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow',
+            //body: raw
+        };
+
+        var query = "email=" + userDetails.email;
+
+        // add list of category names to categories field
+        fetch("http://localhost:8080/getAllCategories?" + query, options)
+            .then(response => response.text())
+            .then(result => {
+            console.log(result)
+            console.log(JSON.parse(result))
+            categories = JSON.parse(result)
+            for(var i = 0; i < categories.length; i++){
+               this.getCategory(categories[i].name)
+            }
+            
+            })
+            .catch(error => this.errorHandler(error));
+    }
     getCategory(name){
         //getCategoryDetails 
         var myHeaders = new Headers();
@@ -107,50 +135,25 @@ export default class Closet extends Component {
         // add list of category names to categories field
         fetch("http://localhost:8080/getCategoryDetails?" + query, options)
             .then(response => response.text())
-            .then(result => console.log(result))
             .then(result => {
+                console.log(result)
                 json = JSON.parse(result);
                 sendName = json.name;
                 sendPicture = json.uri; // do this when store the URI
 
                 categoryNames.push(sendName);
                 pictures.push(sendPicture);
+                console.log(categoryNames)
+                console.log(sendPicture)
             })
-            .then(console.log("something"))
             .catch(error => this.errorHandler(error));
     }
 
     getAllCategories = () => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-        });
-
-        var options = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow',
-            //body: raw
-        };
-
-        var query = "email=" + userDetails.email;
-
-        // add list of category names to categories field
-        fetch("http://localhost:8080/getAllCategories?" + query, options)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .then(result => console.log(JSON.parse(result)))
-            .then(result => categories = JSON.parse(result))
-            .then(console.log("categories: " + categories))
-            .catch(error => this.errorHandler(error));
 
         //console.log("categories" + categories[1]['name']);
-        console.log(categories);
-        categories.map((item) => {
-            //json2 = JSON.parse(item);
-            this.getCategory(item.name);
-        });
+        
+        
     }
 
     errorHandler(error) {
@@ -172,6 +175,7 @@ export default class Closet extends Component {
         const images = pictures.map(index => { // need to change this
             return <img key={index} src={index} onClick={() => imageClick()}/>
         });
+        console.log(images)
         return(
                 <View style={styles.container}>
                     

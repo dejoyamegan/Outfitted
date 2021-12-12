@@ -105,7 +105,8 @@ export default class AddCategoryForm extends Component {
 
        var raw = JSON.stringify({
           "name": this.state.name,
-          "items": []
+          "items": [],
+          "uri": this.state.imageURI
        });
 
        var options = {
@@ -121,7 +122,7 @@ export default class AddCategoryForm extends Component {
        fetch("http://localhost:8080/createCategory?" + query, options)
            .then(response => response.text())
            .then(result => console.log(result))
-           .then(this.props.navigation.navigate('Closet'))
+           //.then(this.props.navigation.navigate('Closet'))
            .catch(error => this.errorHandler(error));
    }
 
@@ -189,6 +190,10 @@ export default class AddCategoryForm extends Component {
                 <Button style={{ marginTop: 15 }} centered inline rounded
                     onPress={this.onSubmit}>
                     Add Category
+                </Button>
+                <Button style={{ marginTop: 15 }} centered inline rounded
+                    onPress={() => this.props.navigation.navigate('Closet', {name: this.state.name})}>
+                    View Category
                 </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2 style={{ paddingBottom: 10 }}>Please fill in the following fields:</Title2>

@@ -17,7 +17,13 @@ export default class ItemView extends Component {
             password: '',
             isLoading: false,
             imageURI: null,
-            photoz: []
+            photoz: [],
+            name: '',
+            size: '', 
+            color: '',
+            tags: '',
+            price: '',
+            timesWorn: '',
         }
     }
 
@@ -72,7 +78,7 @@ export default class ItemView extends Component {
          const imageClick = () => {
             console.log('Click');
           } 
-        
+        const string1 = this.props.route.params.name;
         return(
             <View style={styles.container}>
                 <Title1>Megan's shirt</Title1>
@@ -81,10 +87,11 @@ export default class ItemView extends Component {
                         source={{ uri: this.props.route.params.imageURI}}
                         PlaceholderContent={<ActivityIndicator />}/>
                 <View style={{ justifyContent: 'stretch' }}>
-                    <InfoRow theme={{  }} icon="pencil-sharp" title="Description" info="This is the best shirt ever. I love it."/>
-                    <InfoRow icon="shirt-outline" title="Size" info="Medium"/>
-                    <InfoRow icon="color-palette-outline" title="Color" info="Pink"/>
-                    <InfoRow icon="ios-pricetag-outline" title="Tags" info="Casual, School"/>
+                    <InfoRow theme={{  }} icon="pencil-sharp" title="Name" info= {string1}/>
+                    <InfoRow icon="shirt-outline" title="Size" info={this.props.route.params.size}/>
+                    <InfoRow icon="color-palette-outline" title="Color" info={this.props.route.params.color}/>
+                    <InfoRow icon="ios-pricetag-outline" title="Price" info={this.props.route.params.price}/>
+                    <InfoRow icon="ios-pricetag-outline" title="Times Worn" info={this.props.route.params.timesWorn}/>
                     <Button center rounded style={{ marginTop: 15, flexDirection: 'row', alignSelf: 'center' }}>
                         <Body>Delete Item</Body>
                         <Icon size={20} name={'ios-trash-outline'} />
