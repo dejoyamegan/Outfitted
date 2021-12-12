@@ -6,7 +6,13 @@ import { Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } f
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 import userDetails from '../userDetails.js';
-var categories = [];
+export let categoryNames = [];
+let categories;
+export let pictures = [];
+let sendPicture = '';
+let sendName = '';
+let json = '';
+let json2 = '';
 
 export default class Closet extends Component {
     showdata = () => {
@@ -48,7 +54,7 @@ export default class Closet extends Component {
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
-                    source={{ uri: item.link}}/>
+                    source={{ uri: item.key}}/>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Button
                             onPress={() => this.props.navigation.navigate('AddItemForm')}
@@ -71,9 +77,12 @@ export default class Closet extends Component {
         }
 
     componentDidMount() {
-        this.getAllCategories()
-        // cardInfo = categories.map((name) => {
-        //     return 
+        //this.getAllCategories();
+        console.log("please got here 2");
+         // stores string categories into categories list
+        // //console.log("categories" + categories[1]['name']);
+        // categories.map((name) => {
+        //     this.getCategory(name['name']);
         // });
     }
 
@@ -99,7 +108,15 @@ export default class Closet extends Component {
         fetch("http://localhost:8080/getCategoryDetails?" + query, options)
             .then(response => response.text())
             .then(result => console.log(result))
-            .then(result => categories = result)
+            .then(result => {
+                json = JSON.parse(result);
+                sendName = json.name;
+                sendPicture = json.uri; // do this when store the URI
+
+                categoryNames.push(sendName);
+                pictures.push(sendPicture);
+            })
+            .then(console.log("something"))
             .catch(error => this.errorHandler(error));
     }
 
@@ -123,8 +140,17 @@ export default class Closet extends Component {
         fetch("http://localhost:8080/getAllCategories?" + query, options)
             .then(response => response.text())
             .then(result => console.log(result))
-            .then(result => categories = result)
+            .then(result => console.log(JSON.parse(result)))
+            .then(result => categories = JSON.parse(result))
+            .then(console.log("categories: " + categories))
             .catch(error => this.errorHandler(error));
+
+        //console.log("categories" + categories[1]['name']);
+        console.log(categories);
+        categories.map((item) => {
+            //json2 = JSON.parse(item);
+            this.getCategory(item.name);
+        });
     }
 
     errorHandler(error) {
@@ -143,6 +169,9 @@ export default class Closet extends Component {
               }
         ];
 
+        const images = pictures.map(index => { // need to change this
+            return <img key={index} src={index} onClick={() => imageClick()}/>
+        });
         return(
                 <View style={styles.container}>
                     
@@ -155,7 +184,8 @@ export default class Closet extends Component {
                     </Button>
                         <View style={styles.container}>
                               <FlatList
-                                data={exampleData}
+                                //data={exampleData}
+                                data = {images}
                                 renderItem={({item}) => this.renderImage(item)}
                                 keyExtractor={(item, index) => `${item}_${index}`}
                               />
