@@ -41,12 +41,7 @@ public class Outfit {
 		this.bottom = bottom;
 		this.topLayer = topLayer;
 		this.shoes = shoes;
-		if(accessory == null){
-			System.out.println("Null Found");
-			this.accessory = new Item();
-		}else {
-			this.accessory = accessory;
-		}
+		this.accessory = accessory;
 	}
 	
 	// getters and setters
