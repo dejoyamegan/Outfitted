@@ -107,9 +107,9 @@ export default class Closet extends Component {
             console.log(result)
             console.log(JSON.parse(result))
             categories = JSON.parse(result)
-            for(var i = 0; i < categories.length; i++){
-               this.getCategory(categories[i].name)
-            }
+//            for(var i = 0; i < categories.length; i++){
+//               this.getCategory(categories[i].name)
+//            }
             
             })
             .catch(error => this.errorHandler(error));

@@ -159,7 +159,7 @@ export default class AddItemForm extends Component {
             "brand": result,
             "price": this.state.price,
             "timesWorn": this.state.timesWorn,
-            "uri": result,
+            "uri": this.state.imageURI,
             "category": this.state.category
         });
 
