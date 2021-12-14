@@ -8,6 +8,8 @@ import com.google.firestore.v1.Write;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -44,7 +46,19 @@ public class ItemService {
 //        return collectionsApiFuture.get().getUpdateTime().toString();
         return "Added";
     }
+    public ArrayList<Item> getAllItems(String email) throws ExecutionException, InterruptedException {
+        getPath(email);
 
+        List<QueryDocumentSnapshot> documents = getItemCollection().get().get().getDocuments();
+
+        ArrayList<Item> items = new ArrayList<Item>();
+        for (DocumentSnapshot document : documents) {
+            items.add(document.toObject(Item.class));
+        }
+        return items;
+
+
+    }
 
     public Item getItemDetails(String item, String email) throws InterruptedException, ExecutionException {
         getPath(email);
