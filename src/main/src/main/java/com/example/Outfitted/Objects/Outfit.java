@@ -12,7 +12,7 @@ public class Outfit {
 	private Item topLayer;
 	private Item shoes;
 	private Item accessory;
-	//TODO REFERENCE objects
+
 	
 	/**
 	 * Default constructor
@@ -42,7 +42,6 @@ public class Outfit {
 		this.topLayer = topLayer;
 		this.shoes = shoes;
 		this.accessory = accessory;
-
 	}
 	
 	// getters and setters
@@ -57,27 +56,36 @@ public class Outfit {
 		this.top = top;
 	}
 	public Item getTop() {
-		return this.top;
+		if(this.top == null) {
+			this.top = new Item();
+		}return this.top;
 	}
 	
 	public void setBottom(Item bottom) {
 		this.bottom = bottom;
 	}
 	public Item getBottom() {
-		return this.bottom;
+		if(this.bottom == null) {
+			this.bottom = new Item();
+		}return this.bottom;
 	}
 	
 	public void setTopLayer(Item topLayer) {
 		this.topLayer = topLayer;
 	}
 	public Item getTopLayer() {
-		return this.topLayer;
+		if(this.topLayer == null) {
+			this.topLayer = new Item();
+		}return this.topLayer;
 	}
 	
 	public void setShoes(Item shoes) {
 		this.shoes = shoes;
 	}
 	public Item getShoes() {
+		if(this.shoes == null) {
+			this.shoes = new Item();
+		}
 		return this.shoes;
 	}
 	
@@ -85,6 +93,9 @@ public class Outfit {
 		this.accessory = accessory;
 	}
 	public Item getAccessory() {
-		return this.accessory;
+		if(this.accessory == null) {
+			this.accessory = new Item();
+		}
+			return this.accessory;
 	}
 }
