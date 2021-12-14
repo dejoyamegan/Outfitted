@@ -23,10 +23,15 @@ export default class AddItemForm extends Component {
             imageURI: null,
             images1: '',
             validSubmission: true,
-            invalidMessages: []
+            invalidMessages: [],
+            category: null
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.acknowledgeError = this.acknowledgeError.bind(this);
+    }
+
+    componentDidMount() {
+        this.getCategory(this.props.route.params.categoryName);
     }
 
     validSubmission() {
@@ -55,6 +60,25 @@ export default class AddItemForm extends Component {
             });
         }
         return result;
+    }
+
+    getCategory(name){
+        var options = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        var query = "name=" + name + "&email=" + userDetails.email;
+        //console.log("http://localhost:8080/getCategoryDetails?" + query)
+
+        // add list of category names to categories field
+        fetch("http://localhost:8080/getCategoryDetails?" + query, options)
+            .then(response => response.text())
+            .then(result => {
+                console.log(JSON.parse(result));
+                this.setState({ category: JSON.parse(result)});
+            })
+            .catch(error => this.errorHandler(error));
     }
 
     uploadImageToStorage = async(imageName) => {
@@ -124,6 +148,8 @@ export default class AddItemForm extends Component {
         const result = Math.random().toString(36).substring(2,7);
         this.uploadImageToStorage('/'+result);
         var myHeaders = new Headers();
+        //this.getCategory(this.props.route.params.categoryName);
+        console.log(this.state.category);
         myHeaders.append("Content-Type", "application/json");
         //currently storing image name under "brand" -- need to change once db is restructured
         var raw = JSON.stringify({
@@ -133,8 +159,8 @@ export default class AddItemForm extends Component {
             "brand": result,
             "price": this.state.price,
             "timesWorn": this.state.timesWorn,
-            "uri": this.state.imageURI,
-            "category": {"name": "category name"}
+            "uri": result,
+            "category": this.state.category
         });
 
         var requestOptions = {
@@ -150,9 +176,9 @@ export default class AddItemForm extends Component {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
-        imgs2.push(result)
-        imgs.push(imgs2)
-        console.log(imgs)
+        //imgs2.push(result)
+        //imgs.push(imgs2)
+        //console.log(imgs)
         
     }
     

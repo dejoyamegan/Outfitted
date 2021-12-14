@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { CheckBox, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import { TextField, Button } from 'react-native-ios-kit'
+import userDetails from '../userDetails.js';
 
 export default class Signup extends Component {
 

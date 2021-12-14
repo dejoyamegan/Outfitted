@@ -99,14 +99,14 @@ export default class AddCategoryForm extends Component {
             }
         };
 
-    addCategoryToDB() {
+    addCategoryToDB(imageName) {
        var myHeaders = new Headers();
        myHeaders.append("Content-Type", "application/json");
 
        var raw = JSON.stringify({
           "name": this.state.name,
           "items": [],
-          "uri": this.state.imageURI
+          "uri": imageName
        });
 
        var options = {
@@ -129,9 +129,9 @@ export default class AddCategoryForm extends Component {
     onSubmit() {
         if (this.validSubmission()) {
             const result = Math.random().toString(36).substring(2,7);
-            //this.uploadImageToStorage('/'+result);
-            //imgs.push(result)
-            this.addCategoryToDB();
+            this.uploadImageToStorage('/'+result);
+            imgs.push(result)
+            this.addCategoryToDB(result);
         }
     }
 
