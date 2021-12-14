@@ -35,7 +35,7 @@ public class Outfit {
 	/**
 	 * Constructor with all outfit properties as strings
 	 */
-	public Outfit(String name, Item top, Item bottom, Item topLayer, Item shoes, Item accessory) {
+	public Outfit(String name, Item top, Item bottom, Item topLayer, Item shoes, Item accessory) throws IllegalStateException {
 		this.name = name;
 		this.top = top;
 		this.bottom = bottom;

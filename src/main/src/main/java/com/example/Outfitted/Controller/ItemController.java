@@ -4,6 +4,7 @@ import com.example.Outfitted.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -32,6 +33,11 @@ public class ItemController {
     @DeleteMapping("/deleteItem")
     public String deleteItem(@RequestParam String item, @RequestParam("email") String email) throws InterruptedException, ExecutionException {
         return itemService.deleteItem(item, email);
+    }
+
+    @GetMapping("/getAllItems")
+    public ArrayList<Item> getAllItems(@RequestParam("email") String email) throws InterruptedException, ExecutionException {
+        return itemService.getAllItems(email);
     }
 
 }
