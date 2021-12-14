@@ -54,10 +54,10 @@ export default class Closet extends Component {
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
-                    source={{ uri: item.key}}/>
+                    source={{ uri: item.uri}}/>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Button
-                            onPress={() => this.props.navigation.navigate('AddItemForm')}
+                            onPress={() => this.props.navigation.navigate('AddItemForm', { categoryName: item.name })}
                             style={{ margin: 10, alignItems: 'center'}} centered rounded>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Text>Add Item</Text>
@@ -104,9 +104,10 @@ export default class Closet extends Component {
         fetch("http://localhost:8080/getAllCategories?" + query, options)
             .then(response => response.text())
             .then(result => {
-            console.log(result)
-            console.log(JSON.parse(result))
-            categories = JSON.parse(result)
+            //console.log(result)
+            //console.log(JSON.parse(result))
+            categories = JSON.parse(result);
+            console.log(categories);
 //            for(var i = 0; i < categories.length; i++){
 //               this.getCategory(categories[i].name)
 //            }
@@ -114,47 +115,42 @@ export default class Closet extends Component {
             })
             .catch(error => this.errorHandler(error));
     }
-    getCategory(name){
-        //getCategoryDetails 
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-        });
+//    getCategory(name){
+//        //getCategoryDetails
+//        var myHeaders = new Headers();
+//        myHeaders.append("Content-Type", "application/json");
+//
+//        var raw = JSON.stringify({
+//        });
+//
+//        var options = {
+//            method: 'GET',
+//            headers: myHeaders,
+//            redirect: 'follow',
+//            //body: raw
+//        };
+//
+//        var query = "name=" + name + "&email=" + userDetails.email;
+//        console.log("http://localhost:8080/getCategoryDetails?" + query)
+//
+//        // add list of category names to categories field
+//        fetch("http://localhost:8080/getCategoryDetails?" + query, options)
+//            .then(response => response.text())
+//            .then(result => {
+//                console.log(result)
+//                json = JSON.parse(result);
+//                sendName = json.name;
+//                sendPicture = json.uri; // do this when store the URI
+//
+//                categoryNames.push(sendName);
+//                pictures.push(sendPicture);
+//                console.log(categoryNames)
+//                console.log(sendPicture)
+//            })
+//            .catch(error => this.errorHandler(error));
+//    }
 
-        var options = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow',
-            //body: raw
-        };
-
-        var query = "name=" + name + "&email=" + userDetails.email;
-        console.log("http://localhost:8080/getCategoryDetails?" + query)
-
-        // add list of category names to categories field
-        fetch("http://localhost:8080/getCategoryDetails?" + query, options)
-            .then(response => response.text())
-            .then(result => {
-                console.log(result)
-                json = JSON.parse(result);
-                sendName = json.name;
-                sendPicture = json.uri; // do this when store the URI
-
-                categoryNames.push(sendName);
-                pictures.push(sendPicture);
-                console.log(categoryNames)
-                console.log(sendPicture)
-            })
-            .catch(error => this.errorHandler(error));
-    }
-
-    getAllCategories = () => {
-
-        //console.log("categories" + categories[1]['name']);
-        
-        
-    }
 
     errorHandler(error) {
         alert(error);
@@ -162,15 +158,6 @@ export default class Closet extends Component {
     }
 
     render() {
-
-        const exampleData = [
-              {name: 'Shirts',
-               link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
-              },
-              {name: 'Shoes',
-               link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
-              }
-        ];
 
         const images = pictures.map(index => { // need to change this
             return <img key={index} src={index} onClick={() => imageClick()}/>
@@ -189,7 +176,7 @@ export default class Closet extends Component {
                         <View style={styles.container}>
                               <FlatList
                                 //data={exampleData}
-                                data = {images}
+                                data = {categories}
                                 renderItem={({item}) => this.renderImage(item)}
                                 keyExtractor={(item, index) => `${item}_${index}`}
                               />
