@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import { ProgressBar, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -18,7 +18,10 @@ export default class AddCategoryForm extends Component {
             imageURI: null,
             images1: '',
             invalidMessages: [],
-            validSubmission: true
+            validSubmission: true,
+            url: null,
+            progress: 0.0,
+            added: false
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.acknowledgeError = this.acknowledgeError.bind(this);
@@ -46,21 +49,35 @@ export default class AddCategoryForm extends Component {
 
 
     uploadImageToStorage = async(imageName) => {
+        const that = this;
         var path = imageName;
         const response = await fetch(this.state.imageURI);
         const blob = await response.blob();
 
-        firebase
-          .storage()
-          .ref(imageName)
-          .put(blob, { contentType: 'image/jpeg', })
-          .then((snapshot) => {
-            //You can check the image is now uploaded in the storage bucket
-            console.log(`${imageName} has been successfully uploaded.`);
-          })
-          .catch((e) => console.log('uploading image error => ', e));
-
-
+        const uploadTask = firebase
+           .storage()
+           .ref(imageName)
+           .put(blob, { contentType: 'image/jpeg', });
+        uploadTask.on('state_changed',
+             (snapshot) => {
+               // Observe state change events such as progress, pause, and resume
+               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+               console.log('Upload is ' + snapshot.state);
+               const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+               this.setState({ progress: prog });
+             },
+             (error) => {
+               this.errorHandler(error);
+             },
+             () => {
+               // Handle successful uploads on complete
+               // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+               uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                 console.log(downloadURL);
+                 this.addCategoryToDB(downloadURL);
+               });
+             }
+           );
     };
 
 
@@ -99,14 +116,14 @@ export default class AddCategoryForm extends Component {
             }
         };
 
-    addCategoryToDB() {
+    addCategoryToDB = (url) => {
        var myHeaders = new Headers();
        myHeaders.append("Content-Type", "application/json");
 
        var raw = JSON.stringify({
           "name": this.state.name,
           "items": [],
-          "uri": this.state.imageURI
+          "uri": url
        });
 
        var options = {
@@ -121,7 +138,7 @@ export default class AddCategoryForm extends Component {
        // create new category in db
        fetch("http://localhost:8080/createCategory?" + query, options)
            .then(response => response.text())
-           .then(result => console.log(result))
+           .then(result => this.setState({ added: true }))
            //.then(this.props.navigation.navigate('Closet'))
            .catch(error => this.errorHandler(error));
    }
@@ -130,8 +147,7 @@ export default class AddCategoryForm extends Component {
         if (this.validSubmission()) {
             const result = Math.random().toString(36).substring(2,7);
             this.uploadImageToStorage('/'+result);
-            imgs.push(result)
-            this.addCategoryToDB();
+            imgs.push(result);
         }
     }
 
@@ -174,6 +190,24 @@ export default class AddCategoryForm extends Component {
                source={{ uri: this.state.imageURI }}/>
         }
 
+        var overlayContent;
+        if (this.state.added) {
+            overlayContent = <View>
+                <Title2>Category Added!</Title2>
+                <Button
+                onPress={() => this.props.navigation.navigate("Closet")}
+                style={{ marginTop: 10 }}
+                centered
+                inline
+                rounded>OK</Button>
+                </View>;
+        } else {
+            overlayContent = <View>
+                <Title2>Adding Category...</Title2>
+                <ProgressBar progress={this.state.progress} />
+                </View>;
+        }
+
         return(
             <View style={styles.container}>
                 <Card style={{ flex: 1 }}>
@@ -191,10 +225,9 @@ export default class AddCategoryForm extends Component {
                     onPress={this.onSubmit}>
                     Add Category
                 </Button>
-                <Button style={{ marginTop: 15 }} centered inline rounded
-                    onPress={() => this.props.navigation.navigate('Closet', {name: this.state.name})}>
-                    View Category
-                </Button>
+                <Overlay isVisible={this.state.progress != 0.0}>
+                    {overlayContent}
+                </Overlay>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2 style={{ paddingBottom: 10 }}>Please fill in the following fields:</Title2>
                     {this.state.invalidMessages.map((message) => {

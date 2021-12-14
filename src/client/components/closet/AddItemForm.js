@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import { ProgressBar, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -24,7 +24,9 @@ export default class AddItemForm extends Component {
             images1: '',
             validSubmission: true,
             invalidMessages: [],
-            category: null
+            category: null,
+            progress: 0.0,
+            added: false
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.acknowledgeError = this.acknowledgeError.bind(this);
@@ -82,21 +84,65 @@ export default class AddItemForm extends Component {
     }
 
     uploadImageToStorage = async(imageName) => {
+        const that = this;
         var path = imageName;
         const response = await fetch(this.state.imageURI);
         const blob = await response.blob();
-        
-        firebase
-          .storage()
-          .ref(imageName)
-          .put(blob, { contentType: 'image/jpeg', })
-          .then((snapshot) => {
-            //You can check the image is now uploaded in the storage bucket
-            console.log(`${imageName} has been successfully uploaded.`);
-          })
-          .catch((e) => console.log('uploading image error => ', e));
 
-          
+        const uploadTask = firebase
+           .storage()
+           .ref(imageName)
+           .put(blob, { contentType: 'image/jpeg', });
+        uploadTask.on('state_changed',
+             (snapshot) => {
+               // Observe state change events such as progress, pause, and resume
+               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+               console.log('Upload is ' + snapshot.state);
+               const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+               this.setState({ progress: prog });
+             },
+             (error) => {
+               this.errorHandler(error);
+             },
+             () => {
+               // Handle successful uploads on complete
+               // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+               uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                 console.log(downloadURL);
+                 this.addItemToDB(downloadURL);
+               });
+             }
+           );
+    };
+
+    addItemToDB = (url) => {
+        var myHeaders = new Headers();
+                //this.getCategory(this.props.route.params.categoryName);
+                console.log(this.state.category);
+                myHeaders.append("Content-Type", "application/json");
+                //currently storing image name under "brand" -- need to change once db is restructured
+                var raw = JSON.stringify({
+                    "name": this.state.name,
+                    "color": this.state.color,
+                    "size": this.state.size,
+                    "price": this.state.price,
+                    "timesWorn": this.state.timesWorn,
+                    "uri": url,
+                    "category": this.state.category
+                });
+
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                  };
+                  var query = "email=" + userDetails.email;
+
+                  fetch("http://localhost:8080/createItem?" + query, requestOptions)
+                    .then(response => response.text())
+                    .then(result => this.setState({ added: true }))
+                    .catch(error => console.log('error', error));
     };
     
 
@@ -145,41 +191,9 @@ export default class AddItemForm extends Component {
     }
 
     onSubmit() {
+        this.getCategory(this.props.route.params.categoryName);
         const result = Math.random().toString(36).substring(2,7);
         this.uploadImageToStorage('/'+result);
-        var myHeaders = new Headers();
-        //this.getCategory(this.props.route.params.categoryName);
-        console.log(this.state.category);
-        myHeaders.append("Content-Type", "application/json");
-        //currently storing image name under "brand" -- need to change once db is restructured
-        var raw = JSON.stringify({
-            "name": this.state.name,
-            "color": this.state.color,
-            "size": this.state.size,
-            "brand": result,
-            "price": this.state.price,
-            "timesWorn": this.state.timesWorn,
-            "uri": this.state.imageURI,
-            "category": this.state.category
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-          var query = "email=" + userDetails.email;
-
-          fetch("http://localhost:8080/createItem?" + query, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-        //imgs2.push(result)
-        //imgs.push(imgs2)
-        //console.log(imgs)
-        
     }
     
     acknowledgeError() {
@@ -206,6 +220,24 @@ export default class AddItemForm extends Component {
             imagePreview = <Card.Image
                style={{ resizeMode: 'contain' }}
                source={{ uri: this.state.imageURI }}/>
+        }
+
+        var overlayContent;
+        if (this.state.added) {
+            overlayContent = <View>
+                <Title2>Item Added!</Title2>
+                <Button
+                onPress={() => this.props.navigation.navigate("Closet")}
+                style={{ marginTop: 10 }}
+                centered
+                inline
+                rounded>OK</Button>
+                </View>;
+        } else {
+            overlayContent = <View>
+                <Title2>Adding Item...</Title2>
+                <ProgressBar progress={this.state.progress} />
+                </View>;
         }
 
         return(
@@ -260,11 +292,9 @@ export default class AddItemForm extends Component {
                     onPress={this.onSubmit}>
                     Add Item to Closet
                 </Button>
-                <Button
-                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name, size: this.state.size, color: this.state.color, price: this.state.price, timesWorn: this.state.timesWorn})}
-                        style={{ margin: 5 }} centered rounded>
-                        View Items
-                    </Button>
+                <Overlay isVisible={this.state.progress != 0.0}>
+                    {overlayContent}
+                </Overlay>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2 style={{ paddingBottom: 10 }}>Please fill in the following fields:</Title2>
                     {this.state.invalidMessages.map((message) => {
