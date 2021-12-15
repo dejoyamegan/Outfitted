@@ -32,6 +32,7 @@ class OutfitTest {
     // create outfit instance to add to closet
     Outfit outfit = new Outfit();
     Outfit outfitWithParams = new Outfit("casual outfit", graphicTee, pants, coat, vans, hairClip);
+    Outfit nullFit = new Outfit("nullFit", null, null, null, null, null);
 
     // user tests
     @Test
@@ -98,9 +99,20 @@ class OutfitTest {
         assertEquals(outfit.getAccessory().equals(hairClip), false);
     }
 
-    @Test void testGetName(){
+    @Test
+    void testGetName(){
         outfit.setName("New Fit");
         assertEquals(outfit.getName(), "New Fit");
+    }
+
+    @Test
+    void testNullFit(){
+        assertEquals(nullFit.getTop().equals(null), false);
+        assertEquals(nullFit.getBottom().equals(null), false);
+        assertEquals(nullFit.getTopLayer().equals(null), false);
+        assertEquals(nullFit.getShoes().equals(null), false);
+        assertEquals(nullFit.getAccessory().equals(null), false);
+
     }
 
 
