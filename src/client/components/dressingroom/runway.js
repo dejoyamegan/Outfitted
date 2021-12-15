@@ -7,6 +7,7 @@ import { Overlay } from 'react-native-elements';
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
 //import { outfits1 } from './dressingroom';
 import userDetails from '../userDetails';
+import Gallery from "react-photo-gallery";
 export const listCheck = []
 let arrPic = []
 const photos = [
@@ -111,11 +112,12 @@ export default class DressingRoom extends Component {
         }
         renderImage() {
             arrPic = []
-            arrPic.push(this.props.route.params.pic1)
-            arrPic.push(this.props.route.params.pic2)
-            arrPic.push(this.props.route.params.pic3)
-            arrPic.push(this.props.route.params.pic4)
-            arrPic.push(this.props.route.params.pic5)
+            
+            arrPic.push({src: this.props.route.params.pic1, width: 1, height: 1})
+            arrPic.push({src: this.props.route.params.pic2, width: 1, height: 1})
+            arrPic.push({src: this.props.route.params.pic3, width: 1, height: 1})
+            arrPic.push({src: this.props.route.params.pic4, width: 1, height: 1})
+            arrPic.push({src: this.props.route.params.pic5, width: 1, height: 1})
             listCheck.push('yes')
             const images = arrPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
@@ -141,14 +143,13 @@ export default class DressingRoom extends Component {
                     </div>
                 </View>*/
          this.renderImage()
+         const images = arrPic.map(index => {
+            return <img key={index} src={index} onClick={() => imageClick()}/>
+         });
         return(
                 
             <View style={styles.container}>
-                <DynamicCollage
-                        width={350}
-                        height={350}
-                        images={ arrPic }
-                        matrix={ [ 1, 4] } /> 
+                <Gallery photos={arrPic} />;
                     <TextField
                     clearButton
                     style={styles.inputStyle}
