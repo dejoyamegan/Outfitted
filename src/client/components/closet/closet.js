@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { ScrollView, FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
+import { Spinner, Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 import userDetails from '../userDetails.js';
@@ -36,10 +36,11 @@ export default class Closet extends Component {
         this.state = {
             email: userDetails.email,
             password: '',
-            isLoading: false
+            isLoading: true
         }
         console.log(userDetails.closet);
         console.log(userDetails.email);
+        this.fetchData();
     }
 
     updateInputVal = (val, prop) => {
@@ -77,7 +78,7 @@ export default class Closet extends Component {
         }
 
 
-    UNSAFE_componentWillMount() {
+    fetchData() {
         //this.getAllCategories();
         console.log("please got here 2");
          // stores string categories into categories list
@@ -112,7 +113,7 @@ export default class Closet extends Component {
 //            for(var i = 0; i < categories.length; i++){
 //               this.getCategory(categories[i].name)
 //            }
-            this.setState();
+            this.setState({isLoading: false});
             })
             .catch(error => this.errorHandler(error));
     }
@@ -127,6 +128,18 @@ export default class Closet extends Component {
         const images = pictures.map(index => { // need to change this
             return <img key={index} src={index} onClick={() => imageClick()}/>
         });
+
+        var content;
+        if (this.state.isLoading) {
+            content = <Spinner animating={true} />
+        } else {
+            content =  <FlatList
+                                //data={exampleData}
+                                data = {categories}
+                                renderItem={({item}) => this.renderImage(item)}
+                                keyExtractor={(item, index) => `${item}_${index}`}
+                              />
+        }
         console.log(images)
         return(
                 <View style={styles.container}>
@@ -139,12 +152,7 @@ export default class Closet extends Component {
                         </View>
                     </Button>
                         <View style={styles.container}>
-                              <FlatList
-                                //data={exampleData}
-                                data = {categories}
-                                renderItem={({item}) => this.renderImage(item)}
-                                keyExtractor={(item, index) => `${item}_${index}`}
-                              />
+                              {content}
                          </View>
                     <NavBar navigation={this.props.navigation}/>
                 </View>
