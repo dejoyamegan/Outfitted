@@ -88,10 +88,10 @@ export default class Login extends Component {
         }
 
     errorHandler(error) {
-            if (error.name != "SyntaxError") {
-                alert(error.name);
-            }
-            //document.location.reload(true);
+        if (error.name != "SyntaxError") {
+            alert(error);
+        }
+        location.reload();
         }
         
 
