@@ -88,7 +88,9 @@ export default class Login extends Component {
         }
 
     errorHandler(error) {
-            alert(error);
+            if (error.name != "SyntaxError") {
+                alert(error.name);
+            }
             //document.location.reload(true);
         }
         
