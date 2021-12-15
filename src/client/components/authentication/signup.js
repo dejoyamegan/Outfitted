@@ -85,8 +85,8 @@ export default class Signup extends Component {
 
 
     errorHandler(error) {
-        alert(error);
-        //document.location.reload(true);
+        confirm(error);
+        location.reload();
     }
 
 

@@ -151,6 +151,13 @@ export default class Closet extends Component {
                             <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
                         </View>
                     </Button>
+                    <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
+                        onPress={() => this.props.navigation.navigate('Items', { itemType: "" })}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{alignSelf: 'center'}}>View All Items</Text>
+                            <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
+                        </View>
+                    </Button>
                         <View style={styles.container}>
                               {content}
                          </View>

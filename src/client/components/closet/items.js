@@ -78,9 +78,16 @@ export default class Items extends Component {
                     //console.log(result)
                     //console.log(JSON.parse(result))
                     allItems = JSON.parse(result);
-                    items = allItems.filter((item) => {
-                                return item['category']['name'] == this.category;
-                            });
+                    if (this.props.route.params.itemType != "") {
+                        items = allItems.filter((item) => {
+                            return item['category']['name'] == this.props.route.params.itemType;
+                        });
+                    } else {
+                        items = allItems.filter((item) => {
+                            return item['category']['name'];
+                        });
+                    }
+                    
                     //console.log(items);
                     })
                     .then(() => this.setState({isLoading: false}))
