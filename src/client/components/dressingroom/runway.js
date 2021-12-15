@@ -7,6 +7,7 @@ import { Overlay } from 'react-native-elements';
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
 //import { outfits1 } from './dressingroom';
 import userDetails from '../userDetails';
+export const listCheck = []
 let arrPic = []
 const photos = [
    'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F07%2Fnike-dunk-high-womens-sneakers-aluminum-baby-blue-white-price-release-date-1.jpg?q=75&w=800&cbr=1&fit=max' ,
@@ -115,6 +116,7 @@ export default class DressingRoom extends Component {
             arrPic.push(this.props.route.params.pic3)
             arrPic.push(this.props.route.params.pic4)
             arrPic.push(this.props.route.params.pic5)
+            listCheck.push('yes')
             const images = arrPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
          });
@@ -166,7 +168,7 @@ export default class DressingRoom extends Component {
                     Save Outfit
                 </Button>
                 <Button style={{ marginTop: 15 }} centered inline rounded
-                    onPress={() => this.props.navigation.navigate('Outfits', {name: this.state.name})}>
+                    onPress={() => this.props.navigation.navigate('Outfits', {name: this.state.name || ''})}>
                     View Outfit
                 </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
