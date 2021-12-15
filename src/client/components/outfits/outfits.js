@@ -8,10 +8,22 @@ import { DynamicCollage, StaticCollage } from "react-native-images-collage";
 //import { ReactPhotoCollage } from "react-photo-collage";
 import {imgs} from '../closet/AddItemForm'
 import userDetails from '../userDetails';
+import {listCheck} from '../dressingroom/runway'
+import { readPic } from '../closet/items';
+let obj2 = '';
+let top = '';
+let bottom = '';
+let accessory = '';
+let shoes = '';
+let topLayer = '';
+let readPics = []
 const photos = [
-   'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F07%2Fnike-dunk-high-womens-sneakers-aluminum-baby-blue-white-price-release-date-1.jpg?q=75&w=800&cbr=1&fit=max' ,
-    'https://lsco.scene7.com/is/image/lsco/290370014-front-pdp?$qv_desktop_bottoms$' ,
-     'https://di2ponv0v5otw.cloudfront.net/posts/2020/08/01/5f25afd9284e99d2de7607c3/m_5f25afec163df4604b30a4ca.jpg' 
+   'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconsdb.com%2Fblack-icons%2Fsquare-icon.html&psig=AOvVaw1nb-7_absezjEGPlto_LTJ&ust=1639623507200000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjmv9fn5PQCFQAAAAAdAAAAABAE',
+   'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconsdb.com%2Fblack-icons%2Fsquare-icon.html&psig=AOvVaw1nb-7_absezjEGPlto_LTJ&ust=1639623507200000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjmv9fn5PQCFQAAAAAdAAAAABAE',
+   'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconsdb.com%2Fblack-icons%2Fsquare-icon.html&psig=AOvVaw1nb-7_absezjEGPlto_LTJ&ust=1639623507200000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjmv9fn5PQCFQAAAAAdAAAAABAE',
+   'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconsdb.com%2Fblack-icons%2Fsquare-icon.html&psig=AOvVaw1nb-7_absezjEGPlto_LTJ&ust=1639623507200000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjmv9fn5PQCFQAAAAAdAAAAABAE',
+   'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconsdb.com%2Fblack-icons%2Fsquare-icon.html&psig=AOvVaw1nb-7_absezjEGPlto_LTJ&ust=1639623507200000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjmv9fn5PQCFQAAAAAdAAAAABAE'
+
      
   ]
   const photos2 = [
@@ -60,7 +72,8 @@ export default class Outfits extends Component {
             password: '',
             isLoading: false,
             imageURI: null,
-            name: ''
+            name: '',
+            none: '',
         }
     }
 
@@ -84,10 +97,30 @@ export default class Outfits extends Component {
             redirect: 'follow'
           };
           var query = "email=" + userDetails.email;
+          if(listCheck.length == 0){return}
           var name1 = "&name=" + this.props.route.params.name;
           fetch("http://localhost:8080/getOutfitDetails?" + query + name1, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => {
+                console.log(result)
+                obj2 = JSON.parse(result)
+                console.log(obj2)
+                top = obj2.top.uri
+                console.log(top)
+                bottom = obj2.bottom.uri
+                shoes = obj2.shoes.uri
+                accessory = obj2.accessory.uri
+                topLayer = obj2.topLayer.uri
+                readPics.push(top)
+                readPics.push(bottom)
+                readPics.push(shoes)
+                readPics.push(accessory)
+                readPics.push(topLayer)
+                console.log(readPics)
+                this.renderOutfitCard()
+                //Check array length for outfit size
+            
+            })
             .catch(error => console.log('error', error));
 
     }
@@ -98,36 +131,39 @@ export default class Outfits extends Component {
           .getDownloadURL()
           .then((url) => {
             //from url you can fetched the uploaded image easily
-            this.setState({ imageURI: url });
+           // this.setState({ imageURI: url });
           })
           .catch((e) => console.log('getting downloadURL of image error => ', e));
     }
 
-    renderOutfitCard = (outfit) => {
-        return <Card>
-            <Card.Title>{outfit.name}</Card.Title>
-            <View style={{alignItems: 'center'}}>
-                <DynamicCollage
-                    width={300}
-                    height={300}
-                    images={outfit.photos}
-                    matrix={ [1,1,1] } />
-            </View>
-        </Card>
+    renderOutfitCard = () => {
+        if(readPics.length == 0){
+            return photos
+        }
+        else{
+            return readPics
+        }
+                       
     };
-
+    
     render() {
+        const images = readPics.map(index => {
+            return <img key={index} src={index} onClick={() => imageClick()}/>
+         }); 
+         console.log(images)
+         console.log(readPics)
+         
         return(
             <View style={styles.container}>
-                <SearchBar
-                    value={this.state.text}
-                    onValueChange={text => this.setState({ text })}
-                    withCancel
-                    animated
-                    />
-                <ScrollView>
-                    {data.map((outfit) => this.renderOutfitCard(outfit))}
-                </ScrollView>
+                 
+                    <View>
+                    <DynamicCollage
+                        width={350}
+                        height={350}
+                        images={ this.renderOutfitCard()}
+                        matrix={ [ 1, 4] } /> 
+                    </View>
+                    
                 <NavBar navigation={this.props.navigation}/>
             </View>
 
@@ -169,5 +205,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: "#fff"
-    }
+    },
+    image: {
+        flex: 1,
+        width: 50,
+        height: 50,
+        resizeMode: 'contain'
+      }
 })
