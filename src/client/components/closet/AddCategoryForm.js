@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { ProgressBar, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import { Spinner, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -204,7 +204,7 @@ export default class AddCategoryForm extends Component {
         } else {
             overlayContent = <View>
                 <Title2>Adding Category...</Title2>
-                <ProgressBar progress={this.state.progress} />
+                <Spinner animating={true} />
                 </View>;
         }
 

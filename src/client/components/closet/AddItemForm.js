@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { ProgressBar, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import { Spinner, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -193,6 +193,9 @@ export default class AddItemForm extends Component {
     onSubmit() {
         this.getCategory(this.props.route.params.categoryName);
         const result = Math.random().toString(36).substring(2,7);
+        imgs2.push(result)
+        imgs.push(imgs2)
+        console.log(imgs)
         this.uploadImageToStorage('/'+result);
     }
     
@@ -227,7 +230,7 @@ export default class AddItemForm extends Component {
             overlayContent = <View>
                 <Title2>Item Added!</Title2>
                 <Button
-                onPress={() => this.props.navigation.navigate("Closet")}
+                onPress={() => this.setState({progress: 0.0})}
                 style={{ marginTop: 10 }}
                 centered
                 inline
@@ -236,7 +239,7 @@ export default class AddItemForm extends Component {
         } else {
             overlayContent = <View>
                 <Title2>Adding Item...</Title2>
-                <ProgressBar progress={this.state.progress} />
+                <Spinner animating={true} />
                 </View>;
         }
 
@@ -292,6 +295,11 @@ export default class AddItemForm extends Component {
                     onPress={this.onSubmit}>
                     Add Item to Closet
                 </Button>
+                <Button
+                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name})}
+                        style={{ margin: 5 }} centered rounded>
+                        View Item
+                    </Button>
                 <Overlay isVisible={this.state.progress != 0.0}>
                     {overlayContent}
                 </Overlay>

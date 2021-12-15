@@ -18,6 +18,12 @@ export default class Login extends Component {
         }
     }
 
+//    componentDidMount() {
+//            userDetails.email = null;
+//            userDetails.closet = null;
+//            userDetails.dressingRoom = [];
+//        }
+
     updateInputVal = (val, prop) => {
         const state = this.state;
         state[prop] = val;
@@ -47,6 +53,7 @@ export default class Login extends Component {
             .then(() => {
                 userDetails.closet = this.state.closet;
                 userDetails.email = this.state.email;
+                userDetails.dressingRoomNames = [];
                 this.props.navigation.navigate('Closet');
             })
             .catch(error => this.errorHandler(error))

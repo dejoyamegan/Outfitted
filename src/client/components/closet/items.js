@@ -12,6 +12,8 @@ const picCount = []
 let obj2 = '';
 let sendUri = '';
 let sendName = '';
+var allItems;
+var items;
 export let readNames = [];
 export let readPic = [];
 const im2 = []
@@ -29,7 +31,7 @@ export default class Items extends Component {
             color: '',
             tags: '',
             price: '',
-            timesWorn: '',
+            timesWorn: ''
         }
     }
 
@@ -39,8 +41,49 @@ export default class Items extends Component {
         this.setState(state);
     }
 
-    componentDidMount() {
-        
+    addItemToDressingRoom(item) {
+        if (!userDetails.dressingRoomNames.includes(item.name)) {
+            userDetails.dressingRoomNames.push(item.name);
+            alert("Added to dressing room!");
+        } else {
+            alert("Item already in dressing room.")
+        }
+        console.log(userDetails);
+    }
+
+    UNSAFE_componentWillMount() {
+        // megan code
+        console.log(userDetails);
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                var raw = JSON.stringify({
+                });
+
+                var options = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow',
+                    //body: raw
+                };
+
+                var query = "email=" + userDetails.email;
+
+                // add list of category names to categories field
+                fetch("http://localhost:8080/getAllItems?" + query, options)
+                    .then(response => response.text())
+                    .then(result => {
+                    //console.log(result)
+                    //console.log(JSON.parse(result))
+                    allItems = JSON.parse(result);
+                    items = allItems.filter((item) => {
+                                return item['category']['name'] == this.props.route.params.itemType;
+                            });
+                    //console.log(items);
+                    })
+                    .catch(error => this.errorHandler(error));
+
+        //mira code
         console.log(imgs[0]);
         for(var i = 0; i < imgs.length; i++){
             for(var j = 0; j < imgs[i].length; j++){
@@ -48,7 +91,7 @@ export default class Items extends Component {
                 this.getImageFromStorage(imgs[i][j]);
             }
         }
-        
+
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow'
@@ -65,7 +108,7 @@ export default class Items extends Component {
                     //Object.defineProperty(obj2, "uri", {
                     //    writable: true
                     //});
-    
+
                     console.log(obj2.uri)
                     readPic.push(sendUri)
                     readNames.push(sendName)
@@ -73,8 +116,8 @@ export default class Items extends Component {
                     console.log(readNames)
                 })
                 .catch(error => console.log('error', error));
-            
-        
+
+
 
     }
     
@@ -90,11 +133,12 @@ export default class Items extends Component {
             pics.push(url)
             this.setState({photoz: pics})
           }
-            
-            
+
+
           })
           .catch((e) => console.log('getting downloadURL of image error => ', e));
     }
+
     uriFunc(images){
         for(var i = 0; i < images.length; i++){
             if(picCount[i] != 1){
@@ -106,16 +150,18 @@ export default class Items extends Component {
     
     renderImage(item) {
             return (<Card style={{ flex: 1 }}>
+                <Card.Title>{item.name}</Card.Title>
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
-                    source={{ uri: item.key}}/>
+                    source={{ uri: item.uri}}/>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <Button
+                        onPress={() => this.addItemToDressingRoom(item)}
                         style={{ margin: 5 }} centered rounded>
                         Add to Dressing Room
                     </Button>
                     <Button
-                        onPress={() => this.props.navigation.navigate('ItemView', { imageURI: item.key, name: this.props.route.params.name, size: this.props.route.params.size, color: this.props.route.params.color, price: this.props.route.params.price, timesWorn: this.props.route.params.timesWorn })}
+                        onPress={() => this.props.navigation.navigate('ItemView', { itemObject: item })}
                         style={{ margin: 5 }} centered rounded>
                         View Item
                     </Button>
@@ -124,45 +170,12 @@ export default class Items extends Component {
         }
         
     render() {
-        const shirtData = [
-              {
-               link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
-              },
-              {
-               link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
-              },
-              {
-               link: 'https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg'
-              }
-        ];
-
-        const shoeData = [
-            {
-                link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
-            },
-            {
-                link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
-            },
-            {
-                link: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png'
-            }
-        ]
-
-        var itemData;
-        if (this.props.route.params.itemType === "Shirts") {
-            itemData = shirtData;
-        } else if (this.props.route.params.itemType === "Shoes") {
-           itemData = shoeData;
-        }
-        
-        
-        
         
         const images = readPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
          }); //Displays all the images the user has uploaded
-         console.log(images)
-         console.log(readPic)
+         //console.log(images)
+         //console.log(readPic)
         return(
             <View style={styles.container}>
                 <SearchBar
@@ -174,7 +187,7 @@ export default class Items extends Component {
                         />
                 <View style={styles.container}>
                       <FlatList
-                        data={images}
+                        data={items}
                         renderItem={({item}) => this.renderImage(item)}
                         keyExtractor={(item, index) => `${item}_${index}`}
                       />

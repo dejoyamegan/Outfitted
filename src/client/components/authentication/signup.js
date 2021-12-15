@@ -17,6 +17,12 @@ export default class Signup extends Component {
         }
     }
 
+//    componentDidMount() {
+//        userDetails.email = null;
+//        userDetails.closet = null;
+//        userDetails.dressingRoom = [];
+//    }
+
     
     updateInputVal = (val, prop) => {
         
@@ -74,6 +80,7 @@ export default class Signup extends Component {
             .then(result => console.log(result))
             .catch(error => this.errorHandler(error));
         userDetails.email = this.state.email;
+        userDetails.dressingRoomNames = [];
     }
 
 

@@ -6,6 +6,7 @@ import { InfoRow, Body, Icon, Title1, Title2, Button, Collection, SegmentedContr
 import { Image, Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
 import { index } from 'cheerio/lib/api/traversing';
+import userDetails from "../userDetails.js";
 export const pics = []
 const pics2 = []
 export default class ItemView extends Component {
@@ -27,18 +28,18 @@ export default class ItemView extends Component {
         }
     }
 
-    componentDidMount() {
-        
-        console.log(imgs[0]);
-        for(var i = 0; i < imgs.length; i++){
-            for(var j = 0; j < imgs[i].length; j++){
-                console.log(imgs[i]);
-                this.getImageFromStorage(imgs[i][j]);
-            }
-        }
-        
-
-    }
+//    componentDidMount() {
+//
+//        console.log(imgs[0]);
+//        for(var i = 0; i < imgs.length; i++){
+//            for(var j = 0; j < imgs[i].length; j++){
+//                console.log(imgs[i]);
+//                this.getImageFromStorage(imgs[i][j]);
+//            }
+//        }
+//
+//
+//    }
 
     updateInputVal = (val, prop) => {
         const state = this.state;
@@ -64,6 +65,28 @@ export default class ItemView extends Component {
           .catch((e) => console.log('getting downloadURL of image error => ', e));
     }
 
+    deleteItem(name, category) {
+        var myHeaders = new Headers();
+                //this.getCategory(this.props.route.params.categoryName);
+                myHeaders.append("Content-Type", "application/json");
+                //currently storing image name under "brand" -- need to change once db is restructured
+
+                var requestOptions = {
+                    method: 'DELETE',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                  };
+                  var query = "email=" + userDetails.email + "&item=" + name;
+
+                  fetch("http://localhost:8080/deleteItem?" + query, requestOptions)
+                    .then(response => response.text())
+                    .then(result => {
+                        alert("Deleted!");
+                        this.props.navigation.navigate("Items", { itemType: category })
+                        })
+                    .catch(error => console.log('error', error));
+    }
+
     
 
 /** 
@@ -81,18 +104,22 @@ export default class ItemView extends Component {
         const string1 = this.props.route.params.name;
         return(
             <View style={styles.container}>
-                <Title1>Megan's shirt</Title1>
+                <Title1>{this.props.route.params.itemObject['name']}</Title1>
                 <Image
                         style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
-                        source={{ uri: this.props.route.params.imageURI}}
+                        source={{ uri: this.props.route.params.itemObject['uri']}}
                         PlaceholderContent={<ActivityIndicator />}/>
                 <View style={{ justifyContent: 'stretch' }}>
-                    <InfoRow theme={{  }} icon="pencil-sharp" title="Name" info= {string1}/>
-                    <InfoRow icon="shirt-outline" title="Size" info={this.props.route.params.size}/>
-                    <InfoRow icon="color-palette-outline" title="Color" info={this.props.route.params.color}/>
-                    <InfoRow icon="ios-pricetag-outline" title="Price" info={this.props.route.params.price}/>
-                    <InfoRow icon="ios-pricetag-outline" title="Times Worn" info={this.props.route.params.timesWorn}/>
-                    <Button center rounded style={{ marginTop: 15, flexDirection: 'row', alignSelf: 'center' }}>
+                    <InfoRow icon="shirt-outline" title="Size" info={this.props.route.params.itemObject['size']}/>
+                    <InfoRow icon="color-palette-outline" title="Color" info={this.props.route.params.itemObject['color']}/>
+                    <InfoRow icon="ios-pricetag-outline" title="Price" info={this.props.route.params.itemObject['price']}/>
+                    <InfoRow icon="ios-pricetag-outline" title="Times Worn" info={this.props.route.params.itemObject['timesWorn']}/>
+                    <Button onPress={() => {
+                        this.deleteItem(this.props.route.params.itemObject['name'], this.props.route.params.itemObject['category']['name']);
+                        }}
+                     center
+                     rounded
+                     style={{ marginTop: 15, flexDirection: 'row', alignSelf: 'center' }}>
                         <Body>Delete Item</Body>
                         <Icon size={20} name={'ios-trash-outline'} />
                     </Button>

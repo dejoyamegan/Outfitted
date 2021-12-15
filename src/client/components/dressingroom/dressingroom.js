@@ -38,8 +38,7 @@ export default class DressingRoom extends Component {
     }
 
     componentDidMount() {
-        
-        console.log(imgs[0]);
+        //console.log(imgs[0]);
         for(var i = 0; i < imgs.length; i++){
             for(var j = 0; j < imgs[i].length; j++){
                 console.log(imgs[i]);

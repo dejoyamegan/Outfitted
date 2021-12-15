@@ -76,7 +76,8 @@ export default class Closet extends Component {
             </Card>);
         }
 
-    componentDidMount() {
+
+    UNSAFE_componentWillMount() {
         //this.getAllCategories();
         console.log("please got here 2");
          // stores string categories into categories list
@@ -111,46 +112,10 @@ export default class Closet extends Component {
 //            for(var i = 0; i < categories.length; i++){
 //               this.getCategory(categories[i].name)
 //            }
-            
+            this.setState();
             })
             .catch(error => this.errorHandler(error));
     }
-
-//    getCategory(name){
-//        //getCategoryDetails
-//        var myHeaders = new Headers();
-//        myHeaders.append("Content-Type", "application/json");
-//
-//        var raw = JSON.stringify({
-//        });
-//
-//        var options = {
-//            method: 'GET',
-//            headers: myHeaders,
-//            redirect: 'follow',
-//            //body: raw
-//        };
-//
-//        var query = "name=" + name + "&email=" + userDetails.email;
-//        console.log("http://localhost:8080/getCategoryDetails?" + query)
-//
-//        // add list of category names to categories field
-//        fetch("http://localhost:8080/getCategoryDetails?" + query, options)
-//            .then(response => response.text())
-//            .then(result => {
-//                console.log(result)
-//                json = JSON.parse(result);
-//                sendName = json.name;
-//                sendPicture = json.uri; // do this when store the URI
-//
-//                categoryNames.push(sendName);
-//                pictures.push(sendPicture);
-//                console.log(categoryNames)
-//                console.log(sendPicture)
-//            })
-//            .catch(error => this.errorHandler(error));
-//    }
-
 
     errorHandler(error) {
         alert(error);
