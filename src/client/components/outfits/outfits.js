@@ -194,8 +194,8 @@ export default class Outfits extends Component {
          
         return(
             <View style={styles.container}>
-                 
-                    <Gallery photos={this.renderOutfitCard()} />;
+                 <div style={{width: '100vw'}}> <Gallery photos={this.renderOutfitCard()} /> </div>
+                    
                 <NavBar navigation={this.props.navigation}/>
             </View>
         );

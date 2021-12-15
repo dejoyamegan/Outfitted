@@ -149,7 +149,8 @@ export default class DressingRoom extends Component {
         return(
                 
             <View style={styles.container}>
-                <Gallery photos={arrPic} />;
+                
+                <div style={{width: '100vw'}}> <Gallery photos={arrPic}/> </div>
                     <TextField
                     clearButton
                     style={styles.inputStyle}
