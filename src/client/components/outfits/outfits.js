@@ -161,12 +161,11 @@ export default class Outfits extends Component {
                         width={350}
                         height={350}
                         images={ this.renderOutfitCard()}
-                        matrix={ [ 1, 4] } /> 
+                        matrix={ [ 1, 4] } />
                     </View>
                     
                 <NavBar navigation={this.props.navigation}/>
             </View>
-
         );
     }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
+import { Spinner, SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
@@ -19,12 +19,12 @@ export let readPic = [];
 const im2 = []
 export default class Items extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: '',
-            isLoading: false,
+            isLoading: true,
             imageURI: null,
             name: '',
             size: '', 
@@ -33,6 +33,8 @@ export default class Items extends Component {
             price: '',
             timesWorn: ''
         }
+        this.category = this.props.route.params.itemType;
+        this.fetchData();
     }
 
     updateInputVal = (val, prop) => {
@@ -51,7 +53,7 @@ export default class Items extends Component {
         console.log(userDetails);
     }
 
-    UNSAFE_componentWillMount() {
+    fetchData() {
         // megan code
         console.log(userDetails);
                 var myHeaders = new Headers();
@@ -88,6 +90,7 @@ export default class Items extends Component {
                     
                     //console.log(items);
                     })
+                    .then(() => this.setState({isLoading: false}))
                     .catch(error => this.errorHandler(error));
 
         //mira code
@@ -177,7 +180,17 @@ export default class Items extends Component {
         }
         
     render() {
-        
+        var content;
+        if (this.state.isLoading) {
+            content = <Spinner animating={true} />
+        } else {
+            content =  <FlatList
+                                data = {items}
+                                renderItem={({item}) => this.renderImage(item)}
+                                keyExtractor={(item, index) => `${item}_${index}`}
+                              />
+        }
+
         const images = readPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
          }); //Displays all the images the user has uploaded
@@ -193,11 +206,7 @@ export default class Items extends Component {
                         animated
                         />
                 <View style={styles.container}>
-                      <FlatList
-                        data={items}
-                        renderItem={({item}) => this.renderImage(item)}
-                        keyExtractor={(item, index) => `${item}_${index}`}
-                      />
+                      {content}
                  </View>
                 <NavBar navigation={this.props.navigation}/>
             </View>

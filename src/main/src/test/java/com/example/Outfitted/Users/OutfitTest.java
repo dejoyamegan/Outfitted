@@ -24,7 +24,7 @@ class OutfitTest {
     // create test category
     Category shirts = new Category("Shirts", "/path");
     // create test items to go in outfit
-//    Item graphicTee = new Item("graphic tee", "green", "M", "Gap", 20.0, shirts);
+    Item graphicTee = new Item("graphic tee", "green", "M", "Gap", 20.0, shirts, "uri");
     Item pants = new Item();
     Item coat = new Item();
     Item vans = new Item();
@@ -46,12 +46,12 @@ class OutfitTest {
     }
     @Test
     void testAddItemToCategory(){
-//        shirts.addItem(graphicTee);
+        shirts.addItem(graphicTee);
         assertEquals(shirts.getItems().size(), 1);
     }
     @Test
     void testRemoveItemFromCategory(){
-//        shirts.removeItem(graphicTee);
+        shirts.removeItem(graphicTee);
         assertEquals(shirts.getItems().size(), 0);
     }
 
@@ -116,14 +116,16 @@ class OutfitTest {
     }
     @Test
     void testAddClosetCategories(){
+        int prevNumCategories = testCloset.getOutfits().size();
         testCloset.addCategory("Jeans");
-        assertEquals(testCloset.getCategories().size(), 1);
+        assertEquals(testCloset.getCategories().size(), prevNumCategories + 1);
     }
     @Test
     void testAddItemToCloset(){
+        int prevNumItems = shirts.getItems().size();
         Item workShirt = new Item();
         testCloset.addItem(shirts, workShirt);
-        assertEquals(shirts.getItems().size(), 1);
+        assertEquals(shirts.getItems().size(), prevNumItems + 1);
     }
     @Test
     void testRemoveItemFromCloset(){

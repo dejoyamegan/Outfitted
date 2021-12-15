@@ -150,7 +150,6 @@ export default class DressingRoom extends Component {
             
 
         return(
-
             <View style={styles.container}>
                 <Button style={{ alignItems: 'center' }} centered rounded
                     onPress={() => this.props.navigation.navigate('Runway', {top: this.state.top, bottom: this.state.bottom, shoes: this.state.shoes, 
