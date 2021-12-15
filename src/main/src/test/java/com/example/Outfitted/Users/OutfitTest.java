@@ -18,7 +18,7 @@ class OutfitTest {
     }
     // create test user objects
     User defaultUser = new User();
-    User testUser = new User("Taylor Swift", "31", "New York");
+    User testUser = new User("Taylor Swift", "32", "New York");
     // create closet instance
     Closet testCloset = new Closet("Test Owner");
     // create test category
@@ -96,6 +96,11 @@ class OutfitTest {
     void testOutfitAccessory(){
         outfit.setAccessory(new Item());
         assertEquals(outfit.getAccessory().equals(hairClip), false);
+    }
+
+    @Test void testGetName(){
+        outfit.setName("New Fit");
+        assertEquals(outfit.getName(), "New Fit");
     }
 
 
