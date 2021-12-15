@@ -24,12 +24,6 @@ public class Outfit {
 		this.topLayer = new Item();
 		this.shoes = new Item();
 		this.accessory = new Item();
-//		this.top = "top";
-//		this.bottom = "bottom";
-//		this.topLayer = "top layer";
-//		this.shoes = "shoes";
-//		this.accessory = "accessory";
-
 	}
 	
 	/**
