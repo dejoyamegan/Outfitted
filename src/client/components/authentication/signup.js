@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { CheckBox, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
+import { Image, CheckBox, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import { TextField, Button } from 'react-native-ios-kit'
 import userDetails from '../userDetails.js';
@@ -132,6 +132,7 @@ export default class Signup extends Component {
         }
         return(
             <View style={styles.container}>
+                <Image style={{ width: 410, alignSelf: 'center', resizeMode: 'contain' }} source={require('../styles/logo.png')} />
                 <TextField
                     style={styles.inputStyle}
                     placeholder="Name"

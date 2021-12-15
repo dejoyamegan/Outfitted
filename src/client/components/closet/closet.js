@@ -13,6 +13,7 @@ let sendPicture = '';
 let sendName = '';
 let json = '';
 let json2 = '';
+import Header from '../common/header.js';
 
 export default class Closet extends Component {
     showdata = () => {
@@ -143,7 +144,6 @@ export default class Closet extends Component {
         console.log(images)
         return(
                 <View style={styles.container}>
-                    
                     <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
                         onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
                         <View style={{ flexDirection: 'row' }}>

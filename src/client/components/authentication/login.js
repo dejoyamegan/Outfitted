@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
+import { Image, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import { TextField, Button } from 'react-native-ios-kit';
 import userDetails from '../userDetails.js';
@@ -98,6 +98,7 @@ export default class Login extends Component {
     render() {
         return(
             <View style={styles.container}>
+                <Image style={{ width: 410, alignSelf: 'center', resizeMode: 'contain' }} source={require('../styles/logo.png')} />
                 <TextField
                     clearButton
                     style={styles.inputStyle}
@@ -117,6 +118,7 @@ export default class Login extends Component {
                     <Button
                         center
                         rounded
+                        style={styles.button}
                         onPress={() => this.userLogin()}
                     >
                     Login

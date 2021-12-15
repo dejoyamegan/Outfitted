@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { userRoute, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
-import { DarkTheme, ThemeProvider, DefaultTheme } from 'react-native-ios-kit';
+import { Button, DarkTheme, ThemeProvider, DefaultTheme } from 'react-native-ios-kit';
 import color from 'color';
 
 import Login from './components/authentication/login';
@@ -16,7 +16,7 @@ import Items from './components/closet/items';
 import ItemView from './components/closet/itemView';
 import AddCategoryForm from './components/closet/AddCategoryForm';
 import OutfitView from './components/dressingroom/outfitview';
-
+import ProjectTheme from './components/styles/ProjectTheme';
 const Stack = createStackNavigator();
 
 function MyStack() {
@@ -24,9 +24,10 @@ function MyStack() {
     <Stack.Navigator
       initialRouteName = "Signup"
       screenOptions={{
+        headerShown: true,
         headTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#97bde8'
+          backgroundColor: '#FF6663',
         },
         animationTypeForReplace: 'pop',
         headerTintColor: '#fff',
@@ -59,7 +60,7 @@ function MyStack() {
                   name="DressingRoom"
                   component={DressingRoom}
                   options= {
-                    {title: 'DressingRoom'}
+                    {title: 'Dressing Room'}
                   }
                 />
         <Stack.Screen
@@ -73,7 +74,7 @@ function MyStack() {
                   name="AddItemForm"
                   component={AddItemForm}
                   options= {
-                    {title: 'AddItemForm'}
+                    {title: 'Add Item'}
                   }
                 />
         <Stack.Screen
@@ -94,21 +95,21 @@ function MyStack() {
              name="ItemView"
              component={ItemView}
              options= {
-               {title: 'ItemView'}
+               {title: 'Item View'}
              }
         />
         <Stack.Screen
              name="OutfitView"
              component={OutfitView}
              options= {
-               {title: 'OutfitView'}
+               {title: 'Outfit View'}
              }
         />
         <Stack.Screen
              name="AddCategoryForm"
              component={AddCategoryForm}
              options= {
-               {title: 'AddCategoryForm'}
+               {title: 'Add Category'}
              }
         />
 
@@ -121,7 +122,7 @@ function MyStack() {
 
 export default function App() {
   return (
-    <ThemeProvider theme={DefaultTheme}>
+    <ThemeProvider theme={ProjectTheme}>
         <NavigationContainer>
               <MyStack />
         </NavigationContainer>
