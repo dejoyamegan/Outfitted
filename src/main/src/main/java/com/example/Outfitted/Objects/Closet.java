@@ -71,14 +71,14 @@ public class Closet {
 	 */
 	public void addCategory(String categoryName) {
 
-//		this.categories.add(new Category(categoryName));
+		this.categories.add(new Category(categoryName, "test uri"));
 	}
 	/**
 	 * Adds a new clothing item to this user's closet in the specified category 
 	 */
 	public void addItem(Category category, Item newItem) {
 
-//		category.addItem(newItem);
+		category.addItem(newItem);
 	}
 	
 	/**
