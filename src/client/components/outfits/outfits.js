@@ -198,7 +198,6 @@ export default class Outfits extends Component {
                     <Gallery photos={this.renderOutfitCard()} />;
                 <NavBar navigation={this.props.navigation}/>
             </View>
-
         );
     }
 }

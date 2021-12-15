@@ -8,15 +8,13 @@ import java.util.ArrayList;
 public class Category {
 	// properties of a clothing category
 	private String name;
-	//TODO: Change this to reference items rather than array list of item objects
-	private ArrayList<String> items;
+	private ArrayList<Item> items;
 	private String uri;
 
 	public Category() {
 		this.name = "";
-		items = new ArrayList<String>();
+		items = new ArrayList<Item>();
 		this.uri = "";
-		//TODO URL image field
 	}
 
 	/**
@@ -25,7 +23,7 @@ public class Category {
 	 */
 	public Category(String name, String uri) {
 		this.name = name;
-		items = new ArrayList<String>();
+		items = new ArrayList<Item>();
 		this.uri = uri;
 	}
 	
@@ -38,13 +36,13 @@ public class Category {
 
 		return this.name;
 	}
-	public ArrayList<String> getItems(){
+	public ArrayList<Item> getItems(){
 
 		return items;
 	}
 	
 	// clothing category functions
-	public void addItem(String newItem) {
+	public void addItem(Item newItem) {
 
 		items.add(newItem);
 	}
