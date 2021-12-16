@@ -92,7 +92,13 @@ export default class Login extends Component {
     errorHandler(error) {
         if (error.name != "SyntaxError") {
             alert(error);
-            location.reload();
+            this.setState({
+                            email: '',
+                            password: '',
+                            user: '',
+                            uid: '',
+                            closet: null
+                        })
         }
     }
         

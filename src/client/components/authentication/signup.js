@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Image, CheckBox, StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import { TextField, Button } from 'react-native-ios-kit'
+import { NavigationActions } from 'react-navigation';
 import userDetails from '../userDetails.js';
 
 export default class Signup extends Component {
@@ -13,7 +14,8 @@ export default class Signup extends Component {
             email: '',
             password: '',
             isLoading: false,
-            uid: ''
+            uid: '',
+            rand: 0
         }
     }
 
@@ -87,8 +89,18 @@ export default class Signup extends Component {
 
 
     errorHandler(error) {
-        confirm(error);
-        location.reload();
+        if (error.name != SyntaxError) {
+            alert(error);
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                isLoading: false,
+                uid: ''
+            })
+//            var next = this.state.rand + 2
+//            this.setState({ rand: next });
+        }
     }
 
 
