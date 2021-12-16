@@ -194,10 +194,6 @@ export default class DressingRoom extends Component {
                     onPress={this.onSubmit}>
                     Save Outfit
                 </Button>
-                <Button style={{ marginTop: 15 }} centered inline rounded
-                    onPress={() => this.props.navigation.navigate('Outfits')}>
-                    View Outfit
-                </Button>
                 <Overlay isVisible={!this.state.validSubmission}>
                     <Title2>Please give your outfit a name.</Title2>
                     <Button onPress={this.acknowledgeError} inline centered rounded>
