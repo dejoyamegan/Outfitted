@@ -6,10 +6,10 @@ import type { Theme } from 'react-native-ios-kit';
  */
 const ProjectTheme: Theme = {
   primaryColor: "#0B3954",
-  primaryLightColor: "#FEFFFE",
+  primaryLightColor: "#FF6663",
   disabledColor: "#BFD7EA",
   backgroundColor: "#ffffff",
-  barColor: "#FF6663",
+  barColor: "#fabdbb",
   dividerColor: "#E0FF4F",
   textColor: "#000000",
   placeholderColor: "#787a7a",

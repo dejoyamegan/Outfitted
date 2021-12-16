@@ -80,7 +80,9 @@ export default class Signup extends Component {
             .then(result => console.log(result))
             .catch(error => this.errorHandler(error));
         userDetails.email = this.state.email;
-        userDetails.dressingRoomNames = [];
+        userDetails.dressingRoom = [];
+        userDetails.outfit = [];
+        userDetails.savedOutfits = [];
     }
 
 
@@ -191,14 +193,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderColor: '#ccc',
         borderBottomWidth: 1,
-        fontFamily: 'PingFang HK'
+        fontFamily: 'PingFangSC-Thin'
     },
     loginText: {
-        color: "#636B66",
-        marginTop: 25,
-        textAlign: "center",
-        fontFamily: 'PingFang HK'
-    },
+                color: "#636B66",
+                marginTop: 25,
+                textAlign: "center",
+                fontFamily: 'PingFangSC-Thin'
+            },
     preloader: {
         left: 0,
         right: 0,
@@ -218,9 +220,9 @@ const styles = StyleSheet.create({
     },
     label: {
         margin: 8,
-        fontFamily: 'PingFang HK'
+        fontFamily: 'PingFangSC-Thin'
     },
     button: {
-        fontFamily: 'PingFang HK'
+        fontFamily: 'PingFangSC-Thin'
     }
 })

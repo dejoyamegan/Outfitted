@@ -9,6 +9,7 @@ const pics = []
 export const outfits1 = []
 import { readPic } from '../closet/items';
 import { readNames } from '../closet/items';
+import userDetails from '../userDetails';
 export default class DressingRoom extends Component {
 
 
@@ -106,24 +107,51 @@ export default class DressingRoom extends Component {
                 }
 
             }
-        
-    
+
+    addToOutfit2(item) {
+        if (userDetails.outfit.length == 5) {
+            alert("Outfit is full.");
+        } else {
+            var exists = false;
+                    for (var i = 0; i < userDetails.outfit.length; i++) {
+                        if (userDetails.outfit[i]['name'] == item.name) {
+                            exists = true;
+                            alert("Item already in Outfit.")
+                        }
+                    }
+                    if (!exists) {
+                        userDetails.outfit.push(item);
+                        alert("Item added to outfit!");
+                    }
+                    console.log(userDetails);
+        }
+    }
+
+    onSubmit() {
+        if (userDetails.outfit.length < 5) {
+            alert("Add 5 items to your outfit to continue.");
+            return;
+        } else {
+            this.props.navigation.navigate("Runway");
+        }
+    }
 
     //<View onStartShouldSetResponder={() => this.props.navigation.navigate('ItemView')}>
     renderImage(item) {
         return (
         <Card style={{ flex: 1 }}>
+            <Card.Title>{item.name}</Card.Title>
             <Card.Image
                 style={{ resizeMode: 'contain' }}
-                source={{ uri: item.key}}/>
+                source={{ uri: item.uri}}/>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <Button
                     style={{ margin: 5 }} centered rounded
-                    onPress={() =>this.addToOutfit(item.key)}>
+                    onPress={() =>this.addToOutfit2(item)}>
                     Add to Outfit
                 </Button>
                 <Button
-                    onPress={() => this.props.navigation.navigate('ItemView', { imageURI: item.key })}
+                    onPress={() => this.props.navigation.navigate('ItemView', { itemObject: item })}
                     style={{ margin: 5 }} centered rounded>
                     View Item
                 </Button>
@@ -132,18 +160,6 @@ export default class DressingRoom extends Component {
     }
 
     render() {
-        const exampleData = [
-                {
-                    title : "Shoes",
-                    data : ["https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/464e8d65-3a82-472a-aa2c-de53b2dfe7f2/wearallday-shoe-6zKcQm.png",
-                            "https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy,c_fill,g_auto/4e894c2b76dd4c8e9013aafc016047af_9366/Superstar_Shoes_White_FV3284_01_standard.jpg"]
-                },
-                {
-                    title : "Shirts",
-                    data : ["https://www.all4o.com/image/cache/data/brand/TrueStory/TRUE-STORY-Elite-orienteering-shirt-Men-Deep-BLUE-800x800.jpg",
-                            "https://imgprd19.hobbylobby.com/9/5f/26/95f264323ae49e65b2a53a909fcd7d9ee659f3c7/350Wx350H-422519-0320.jpg"]
-                }
-            ]
             const images = readPic.map(index => {
                 return <img key={index} src={index} onClick={() => imageClick()}/>
              }); //Displays all the images the user has uploaded
@@ -152,22 +168,15 @@ export default class DressingRoom extends Component {
         return(
             <View style={styles.container}>
                 <Button style={{ alignItems: 'center' }} centered rounded
-                    onPress={() => this.props.navigation.navigate('Runway', {top: this.state.top, bottom: this.state.bottom, shoes: this.state.shoes, 
-                    pic1: this.state.pic1, pic2: this.state.pic2, pic3: this.state.pic3, pic4: this.state.pic4, pic5: this.state.pic5, topLayer: this.state.topLayer, accessory: this.state.accessory})}>
+                    onPress={() => this.onSubmit()}>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{alignSelf: 'center'}}>Finalize Outfit</Text>
                         <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
                     </View>
                 </Button>
-                <Button style={{ alignItems: 'center' }} centered rounded>
-                <View style={{ flexDirection: 'row' }}>
-                        <Text style={{alignSelf: 'center'}}>Add 5 items to make an outfit!</Text>
-                        <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
-                    </View>
-                    </Button>
                 <View style={styles.container}>
                       <FlatList
-                        data={images}
+                        data={userDetails.dressingRoom}
                         renderItem={({item}) => this.renderImage(item)}
                         keyExtractor={(item, index) => `${item}_${index}`}
                       />

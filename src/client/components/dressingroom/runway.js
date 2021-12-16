@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Title2, TextField, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
+import { Spinner, Title1, Title2, TextField, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Overlay } from 'react-native-elements';
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
 //import { outfits1 } from './dressingroom';
@@ -36,7 +36,8 @@ export default class DressingRoom extends Component {
         this.state = {
             name: '',
             tags: '',
-            isLoading: false,
+            URIs: null,
+            isLoading: true,
             validSubmission: true,
             top: '',
             bottom: '',
@@ -51,6 +52,16 @@ export default class DressingRoom extends Component {
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.acknowledgeError = this.acknowledgeError.bind(this);
+        this.fetchURIs();
+    }
+
+    fetchURIs() {
+        var images = []
+        for (var i = 0; i < userDetails.outfit.length; i++) {
+            images.push(userDetails.outfit[i]['uri']);
+        }
+        console.log(images);
+        setTimeout(() => this.setState({ isLoading: false, URIs: images }), 3000);
     }
 
     validSubmission() {
@@ -70,25 +81,34 @@ export default class DressingRoom extends Component {
         this.setState(state);
     }
 
+    saveSuccess() {
+        userDetails.dressingRoom = [];
+        userDetails.outfit = [];
+        userDetails.savedOutfits.push(this.state.name);
+        console.log(userDetails)
+        alert("Outfit Saved!");
+        this.props.navigation.navigate("Outfits");
+    }
+
     onSubmit() {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({
         "name": this.state.name,
         "top": {
-            "name": this.props.route.params.top
+            "name": userDetails.outfit[0]['name']
         },
         "bottom": {
-            "name": this.props.route.params.bottom
+            "name": userDetails.outfit[1]['name']
         },
         "topLayer": {
-            "name": this.props.route.params.topLayer
+            "name": userDetails.outfit[2]['name']
         },
         "shoes": {
-            "name": this.props.route.params.shoes
+            "name": userDetails.outfit[3]['name']
         },
         "accessory": {
-            "name": this.props.route.params.accessory
+            "name": userDetails.outfit[4]['name']
         }
         });
 
@@ -101,7 +121,7 @@ export default class DressingRoom extends Component {
         var query = "email=" + userDetails.email;
         fetch("http://localhost:8080/createOutfit?" + query, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => this.saveSuccess())
         .catch(error => console.log('error', error));
          }
 
@@ -110,6 +130,7 @@ export default class DressingRoom extends Component {
             validSubmission: true
          });
         }
+
         renderImage() {
             arrPic = []
             
@@ -142,15 +163,26 @@ export default class DressingRoom extends Component {
                         {this.renderImage()}
                     </div>
                 </View>*/
-         this.renderImage()
+         //this.renderImage()
          const images = arrPic.map(index => {
             return <img key={index} src={index} onClick={() => imageClick()}/>
          });
+
+        var collage;
+        if (this.state.isLoading) {
+            collage = <Spinner />
+        } else {
+            collage = <DynamicCollage
+                          width={350}
+                          height={350}
+                          images={ this.state.URIs }
+                          matrix={[3, 2]}
+                          />
+        }
         return(
                 
             <View style={styles.container}>
-                
-                <div style={{width: '100vw'}}> <Gallery photos={arrPic}/> </div>
+                {collage}
                     <TextField
                     clearButton
                     style={styles.inputStyle}
@@ -158,19 +190,12 @@ export default class DressingRoom extends Component {
                     value={this.state.name}
                     onValueChange={(val) => this.updateInputVal(val, 'name')}
                 />
-                <TextField
-                    clearButton
-                    style={styles.inputStyle}
-                    placeholder="Tags (Optional)"
-                    value={this.state.tags}
-                    onValueChange={(val) => this.updateInputVal(val, 'tags')}
-                />
                  <Button style={{ marginTop: 15 }} centered inline rounded
                     onPress={this.onSubmit}>
                     Save Outfit
                 </Button>
                 <Button style={{ marginTop: 15 }} centered inline rounded
-                    onPress={() => this.props.navigation.navigate('Outfits', {name: this.state.name || ''})}>
+                    onPress={() => this.props.navigation.navigate('Outfits')}>
                     View Outfit
                 </Button>
                 <Overlay isVisible={!this.state.validSubmission}>

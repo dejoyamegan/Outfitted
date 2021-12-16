@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Spinner, Icon, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
-import { Card, ListItem, Container } from 'react-native-elements';
+import { Divider, Card, ListItem, Container } from 'react-native-elements';
 import userDetails from '../userDetails.js';
 export let categoryNames = [];
 let categories;
@@ -53,28 +53,28 @@ export default class Closet extends Component {
     renderImage(item) {
             return (
                 <Card style={{ flex: 1 }}>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Image
-                    style={{ resizeMode: 'contain' }}
-                    source={{ uri: item.uri}}/>
-                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <Button
-                            onPress={() => this.props.navigation.navigate('AddItemForm', { categoryName: item.name })}
-                            style={{ margin: 10, alignItems: 'center'}} centered rounded>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text>Add Item</Text>
-                                <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
-                            </View>
-                        </Button>
-                        <Button
-                            onPress={() => this.props.navigation.navigate('Items', { itemType: item.name })}
-                            style={{ margin: 10, alignItems: 'center'}} centered rounded>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text>View Items</Text>
-                                <Icon style={{ marginLeft: 4}} name={'shirt-outline'} size={20} />
-                            </View>
-                        </Button>
-                </View>
+                    <Card.Title style={ styles.loginText }>{item.name}</Card.Title>
+                    <Card.Image
+                        style={{ resizeMode: 'contain' }}
+                        source={{ uri: item.uri}}/>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <Button
+                                onPress={() => this.props.navigation.navigate('AddItemForm', { categoryName: item.name })}
+                                style={styles.button} centered rounded>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={{ fontFamily: 'PingFangSC-Thin' }}>Add Item</Text>
+                                    <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                                </View>
+                            </Button>
+                            <Button
+                                onPress={() => this.props.navigation.navigate('Items', { itemType: item.name })}
+                                style={styles.button} centered rounded>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={{ fontFamily: 'PingFangSC-Thin' }}>View Items</Text>
+                                    <Icon style={{ marginLeft: 4}} name={'shirt-outline'} size={20} />
+                                </View>
+                            </Button>
+                    </View>
             </Card>);
         }
 
@@ -144,23 +144,26 @@ export default class Closet extends Component {
         console.log(images)
         return(
                 <View style={styles.container}>
-                    <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
-                        onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{alignSelf: 'center'}}>Add Category</Text>
-                            <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
-                        </View>
-                    </Button>
-                    <Button style={{ margin: 10, alignItems: 'center' }} centered rounded
-                        onPress={() => this.props.navigation.navigate('Items', { itemType: "" })}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{alignSelf: 'center'}}>View All Items</Text>
-                            <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
-                        </View>
-                    </Button>
-                        <View style={styles.container}>
-                              {content}
-                         </View>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", margin: 8 }}>
+                        <Button style={styles.button} centered
+                            onPress={() => this.props.navigation.navigate('AddCategoryForm')}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{alignSelf: 'center', fontFamily: 'PingFangSC-Thin'}}>Add Category</Text>
+                                <Icon style={{ marginLeft: 4 }} name={'add'} size={20} />
+                            </View>
+                        </Button>
+                        <Button style={styles.button} centered
+                            onPress={() => this.props.navigation.navigate('Items', { itemType: "" })}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{alignSelf: 'center', fontFamily: 'PingFangSC-Thin'}}>View All Items</Text>
+                                <Icon style={{ marginLeft: 4 }} name={'globe-outline'} size={20} />
+                            </View>
+                        </Button>
+                    </View>
+                    <Divider color="#E0FF4F" orientation="horizontal" width={2}/>
+                    <View style={styles.container}>
+                         {content}
+                    </View>
                     <NavBar navigation={this.props.navigation}/>
                 </View>
         );
@@ -186,10 +189,12 @@ const styles = StyleSheet.create({
         fontFamily: 'PingFang HK'
     },
     loginText: {
-        color: '#636B66',
-        marginTop: 25,
-        textAlign: 'center',
-        fontFamily: 'PingFang HK'
+        fontFamily: 'PingFangSC-Thin'
+    },
+    button: {
+        fontFamily: 'PingFangSC-Thin',
+        margin: 10,
+        alignItems: 'center'
     },
     preloader: {
         left: 0,

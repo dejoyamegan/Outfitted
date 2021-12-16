@@ -27,19 +27,19 @@ function MyStack() {
         headerShown: true,
         headTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#FF6663',
+          backgroundColor: '#fabdbb',
         },
         animationTypeForReplace: 'pop',
         headerTintColor: '#fff',
         headerTitleStyle: {
-          fontWeight: 'bold',
-          fontFamily: 'PingFang HK'
+          fontFamily: 'PingFangSC-Thin'
         },
       }}>
         <Stack.Screen 
         name="Signup"
         component={Signup}
-        options= {{ title: 'Signup'}}
+        options= {{
+            title: 'Signup'}}
         />
         <Stack.Screen 
           name="Login"

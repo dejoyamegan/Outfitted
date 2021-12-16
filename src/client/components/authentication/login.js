@@ -53,7 +53,9 @@ export default class Login extends Component {
             .then(() => {
                 userDetails.closet = this.state.closet;
                 userDetails.email = this.state.email;
-                userDetails.dressingRoomNames = [];
+                userDetails.dressingRoom = [];
+                userDetails.outfit = [];
+                userDetails.savedOutfits = [];
                 this.props.navigation.navigate('Closet');
             })
             .catch(error => this.errorHandler(error))
@@ -90,9 +92,9 @@ export default class Login extends Component {
     errorHandler(error) {
         if (error.name != "SyntaxError") {
             alert(error);
+            location.reload();
         }
-        location.reload();
-        }
+    }
         
 
     render() {
@@ -146,6 +148,6 @@ const styles = StyleSheet.create({
             color: "#636B66",
             marginTop: 25,
             textAlign: "center",
-            fontFamily: 'PingFang HK'
+            fontFamily: 'PingFangSC-Thin'
         },
 })

@@ -81,6 +81,10 @@ export default class ItemView extends Component {
                   fetch("http://localhost:8080/deleteItem?" + query, requestOptions)
                     .then(response => response.text())
                     .then(result => {
+                        userDetails.dressingRoom = userDetails.dressingRoom.filter((item) => {
+                            return item.name != name;
+                        });
+                        console.log(userDetails.dressingRoom);
                         alert("Deleted!");
                         this.props.navigation.navigate("Items", { itemType: category })
                         })
@@ -109,11 +113,11 @@ export default class ItemView extends Component {
                         style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
                         source={{ uri: this.props.route.params.itemObject['uri']}}
                         PlaceholderContent={<ActivityIndicator />}/>
-                <View style={{ justifyContent: 'stretch' }}>
-                    <InfoRow icon="shirt-outline" title="Size" info={this.props.route.params.itemObject['size']}/>
-                    <InfoRow icon="color-palette-outline" title="Color" info={this.props.route.params.itemObject['color']}/>
-                    <InfoRow icon="ios-pricetag-outline" title="Price" info={this.props.route.params.itemObject['price']}/>
-                    <InfoRow icon="ios-pricetag-outline" title="Times Worn" info={this.props.route.params.itemObject['timesWorn']}/>
+                <View style={{ width: "80%" }}>
+                    <InfoRow theme={{ barColor: "#FEFFFE" }} icon="shirt-outline" title="Size" info={this.props.route.params.itemObject['size']}/>
+                    <InfoRow theme={{ barColor: "#FEFFFE" }} icon="color-palette-outline" title="Color" info={this.props.route.params.itemObject['color']}/>
+                    <InfoRow theme={{ barColor: "#FEFFFE" }} icon="ios-pricetag-outline" title="Price" info={this.props.route.params.itemObject['price']}/>
+                    <InfoRow theme={{ barColor: "#FEFFFE" }} icon="ios-pricetag-outline" title="Times Worn" info={this.props.route.params.itemObject['timesWorn']}/>
                     <Button onPress={() => {
                         this.deleteItem(this.props.route.params.itemObject['name'], this.props.route.params.itemObject['category']['name']);
                         }}

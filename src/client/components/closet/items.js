@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Spinner, SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
-import { Card, ListItem, Container } from 'react-native-elements';
+import { Divider, Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
 import userDetails from '../userDetails';
 const pics = []
@@ -44,11 +44,16 @@ export default class Items extends Component {
     }
 
     addItemToDressingRoom(item) {
-        if (!userDetails.dressingRoomNames.includes(item.name)) {
-            userDetails.dressingRoomNames.push(item.name);
+        var exists = false;
+        for (var i = 0; i < userDetails.dressingRoom.length; i++) {
+            if (userDetails.dressingRoom[i]['name'] == item.name) {
+                exists = true;
+                alert("Item already in dressing room.")
+            }
+        }
+        if (!exists) {
+            userDetails.dressingRoom.push(item);
             alert("Added to dressing room!");
-        } else {
-            alert("Item already in dressing room.")
         }
         console.log(userDetails);
     }
@@ -199,12 +204,14 @@ export default class Items extends Component {
         return(
             <View style={styles.container}>
                 <SearchBar
-                        style={{ marginTop: 10 }}
+                        theme={{ barColor: "#d1e0ed" }}
+                        style={{ marginTop: 30 }}
                         value={this.state.text}
                         onValueChange={text => this.setState({ text })}
                         withCancel
                         animated
                         />
+                <Divider color="#E0FF4F" orientation="horizontal" width={2}/>
                 <View style={styles.container}>
                       {content}
                  </View>

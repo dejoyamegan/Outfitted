@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { Spinner, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import { Icon, Spinner, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -174,15 +174,22 @@ export default class AddCategoryForm extends Component {
     render() {
         var imagePreview;
         if (this.state.imageURI == null) {
-            imagePreview = <View>
-            <Button style={{ marginTop: 10 }} centered inline rounded
-                onPress={this.pickImage}>
-                Select Image from Camera Roll
-            </Button>
-            <Button style={{ marginTop: 10 }} centered inline rounded
-                 onPress={this.openCamera}>
-                 Take Photo
-            </Button>
+            imagePreview = <View style={{ margin: 20 }}>
+                <Button style={styles.button} centered
+                    onPress={this.pickImage}>
+                    <View style={{ flexDirection: 'row' }}>
+                    <Text style={{alignSelf: 'center', fontSize: 20, fontFamily: 'PingFangSC-Thin'}}>Upload an image</Text>
+                    <Icon style={{ alignSelf: 'center', marginLeft: 10 }} name={'cloud-upload'} size={20} />
+                    </View>
+                </Button>
+                <Text style={styles.button}>-or-</Text>
+                <Button style={styles.button} centered
+                    onPress={this.openCamera}>
+                    <View style={{ flexDirection: 'row' }}>
+                    <Text style={{alignSelf: 'center', fontSize: 20, fontFamily: 'PingFangSC-Thin'}}>Take a Photo</Text>
+                    <Icon style={{ alignSelf: 'center', marginLeft: 10 }} name={'ios-camera-outline'} size={20} />
+                    </View>
+                </Button>
             </View>
         } else {
             imagePreview = <Card.Image
@@ -210,7 +217,7 @@ export default class AddCategoryForm extends Component {
 
         return(
             <View style={styles.container}>
-                <Card style={{ flex: 1 }}>
+                <Card style={{ flex: 1, marginBottom: 20 }}>
                      <Card.Title>Photo</Card.Title>
                      {imagePreview}
                 </Card>
@@ -221,7 +228,7 @@ export default class AddCategoryForm extends Component {
                     value={this.state.name}
                     onValueChange={(val) => this.updateInputVal(val, 'name')}
                 />
-                <Button style={{ marginTop: 15 }} centered inline rounded
+                <Button style={styles.button} centered inline rounded
                     onPress={this.onSubmit}>
                     Add Category
                 </Button>
@@ -233,7 +240,7 @@ export default class AddCategoryForm extends Component {
                     {this.state.invalidMessages.map((message) => {
                         return <Title2>{message}</Title2>;
                     })}
-                    <Button onPress={this.acknowledgeError} inline centered rounded>
+                    <Button style={styles.button} onPress={this.acknowledgeError} inline centered rounded>
                         OK
                     </Button>
                 </Overlay>
@@ -250,6 +257,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 35,
         backgroundColor: '#fff'
+    },
+    button: {
+        marginTop: 10,
+        fontFamily: "PingFangSC-Thin",
+        alignSelf: 'center'
     },
     inputStyle: {
         width: '100%',

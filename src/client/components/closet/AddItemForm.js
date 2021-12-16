@@ -1,7 +1,7 @@
 import React, {useState, Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Platform, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
-import { Spinner, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
+import { Icon, Spinner, Title2, Button, Collection, SegmentedControl, RowItem, TabBar, TextField} from 'react-native-ios-kit';
 import data from '../../data.json'
 import { Overlay, Card, ListItem, Container } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
@@ -206,18 +206,30 @@ export default class AddItemForm extends Component {
         });
     }
 
+    onPressOk() {
+        this.setState({ progress: 0.0 });
+        this.props.navigation.navigate('Items', { name: this.state.name, itemType: this.props.route.params.categoryName });
+    }
+
     render() {
         var imagePreview;
         if (this.state.imageURI == null) {
             imagePreview = <View>
-            <Button style={{ marginTop: 10 }} centered inline rounded
-                onPress={this.pickImage}>
-                Select Image from Camera Roll
-            </Button>
-            <Button style={{ marginTop: 10 }} centered inline rounded
-                 onPress={this.openCamera}>
-                 Take Photo
-            </Button>
+                <Button style={styles.button} centered
+                    onPress={this.pickImage}>
+                    <View style={{ flexDirection: 'row' }}>
+                    <Text style={{alignSelf: 'center', fontSize: 20, fontFamily: 'PingFangSC-Thin'}}>Upload an image</Text>
+                    <Icon style={{ alignSelf: 'center', marginLeft: 10 }} name={'cloud-upload'} size={20} />
+                    </View>
+                </Button>
+                <Text style={styles.button}>-or-</Text>
+                <Button style={styles.button} centered
+                    onPress={this.openCamera}>
+                    <View style={{ flexDirection: 'row' }}>
+                    <Text style={{alignSelf: 'center', fontSize: 20, fontFamily: 'PingFangSC-Thin'}}>Take a Photo</Text>
+                    <Icon style={{ alignSelf: 'center', marginLeft: 10 }} name={'ios-camera-outline'} size={20} />
+                    </View>
+                </Button>
             </View>
         } else {
             imagePreview = <Card.Image
@@ -230,7 +242,7 @@ export default class AddItemForm extends Component {
             overlayContent = <View>
                 <Title2>Item Added!</Title2>
                 <Button
-                onPress={() => this.setState({progress: 0.0})}
+                onPress={() => this.onPressOk()}
                 style={{ marginTop: 10 }}
                 centered
                 inline
@@ -273,13 +285,6 @@ export default class AddItemForm extends Component {
                 <TextField
                     clearButton
                     style={styles.inputStyle}
-                    placeholder="Tags (Optional)"
-                    value={this.state.tags}
-                    onValueChange={(val) => this.updateInputVal(val, 'tags')}
-                />
-                <TextField
-                    clearButton
-                    style={styles.inputStyle}
                     placeholder="Price"
                     value={this.state.price}
                     onValueChange={(val) => this.updateInputVal(val, 'price')}
@@ -295,11 +300,6 @@ export default class AddItemForm extends Component {
                     onPress={this.onSubmit}>
                     Add Item to Closet
                 </Button>
-                <Button
-                        onPress={() => this.props.navigation.navigate('Items', { name: this.state.name})}
-                        style={{ margin: 5 }} centered rounded>
-                        View Item
-                    </Button>
                 <Overlay isVisible={this.state.progress != 0.0}>
                     {overlayContent}
                 </Overlay>
@@ -326,6 +326,11 @@ const styles = StyleSheet.create({
         padding: 35,
         backgroundColor: '#fff'
     },
+    button: {
+            marginTop: 10,
+            fontFamily: "PingFangSC-Thin",
+            alignSelf: 'center'
+        },
     inputStyle: {
         width: '100%',
         marginBottom: 15,

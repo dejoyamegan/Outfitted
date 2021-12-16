@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import { Image, StyleSheet, Picker, Text, View, TextInput,  Alert, ActivityIndicator } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
+import { Title2, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
 import { Card, ListItem, Container } from 'react-native-elements'
 import { DynamicCollage, StaticCollage } from "react-native-images-collage";
 //import { ReactPhotoCollage } from "react-photo-collage";
@@ -53,24 +53,26 @@ export default class Outfits extends Component {
     }
 
     render() {
-        return(
+        var collage;
+                if (this.state.isLoading) {
+                    collage = <Spinner />
+                } else {
+                    collage = <DynamicCollage
+                                  width={350}
+                                  height={350}
+                                  images={ this.props.route.params.URIs }
+                                  matrix={[3, 2]}
+                                  />
+                }
+                return(
 
-            <View style={styles.container}>
-                 <View style={{ marginVertical: 10 }}>
-                 <Button style={styles.button} inline rounded
-                 onPress={() => this.props.navigation.navigate('Runway')}>
-                    Go to Runway
-                </Button>
-                </View>
-                <Image
-                        style={{ marginVertical: 15, width: 350, height: 350, alignSelf: 'center' }}
-                        source={{ uri: this.state.imageURI }}
-                        PlaceholderContent={<ActivityIndicator />}/>
-                <NavBar navigation={this.props.navigation}/>
-            </View>
-
-        );
-    }
+                    <View style={styles.container}>
+                        <Title2>{this.props.route.params.name}</Title2>
+                        {collage}
+                        <NavBar navigation={this.props.navigation}/>
+                        </View>
+                );
+            }
 }
 
 const styles = StyleSheet.create({
@@ -80,7 +82,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 35,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        alignItems: 'center'
     },
     inputStyle: {
         width: '100%',
