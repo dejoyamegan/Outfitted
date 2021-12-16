@@ -3,7 +3,7 @@ import { FlatList, Row, Image, StyleSheet, Text, View, TextInput,  Alert, Activi
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
 import { Icon, Stepper, Title1, Button, Collection, SegmentedControl, RowItem, TabBar} from 'react-native-ios-kit';
-import { Card, ListItem, Container } from 'react-native-elements'
+import { Divider, Card, ListItem, Container } from 'react-native-elements'
 import {imgs} from '../closet/AddItemForm'
 const pics = []
 export const outfits1 = []
@@ -167,13 +167,16 @@ export default class DressingRoom extends Component {
 
         return(
             <View style={styles.container}>
-                <Button style={{ alignItems: 'center' }} centered rounded
-                    onPress={() => this.onSubmit()}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={{alignSelf: 'center'}}>Finalize Outfit</Text>
-                        <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
-                    </View>
-                </Button>
+                <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", margin: 10 }}>
+                    <Button style={styles.button} centered
+                            onPress={() => this.onSubmit()}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{alignSelf: 'center', fontFamily: 'PingFangSC-Thin'}}>Finalize Outfit</Text>
+                                <Icon style={{ marginLeft: 4 }} name={'checkmark'} size={20} />
+                            </View>
+                        </Button>
+                 </View>
+                    <Divider style={{ marginTop: 3 }} color="#E0FF4F" orientation="horizontal" width={2}/>
                 <View style={styles.container}>
                       <FlatList
                         data={userDetails.dressingRoom}

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { FlatList, StyleSheet, Text, View, TextInput,  Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../firebase';
 import NavBar from '../common/navbar';
-import { Spinner, SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
+import { Icon, Spinner, SearchBar, Title1, Button, Collection, SegmentedControl, RowItem, TabBar } from 'react-native-ios-kit';
 import data from '../../data.json';
 import { Divider, Card, ListItem, Container } from 'react-native-elements';
 import {imgs} from './AddItemForm'
@@ -169,18 +169,24 @@ export default class Items extends Component {
                 <Card.Image
                     style={{ resizeMode: 'contain' }}
                     source={{ uri: item.uri}}/>
-                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <Button
-                        onPress={() => this.addItemToDressingRoom(item)}
-                        style={{ margin: 5 }} centered rounded>
-                        Add to Dressing Room
-                    </Button>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('ItemView', { itemObject: item })}
-                        style={{ margin: 5 }} centered rounded>
-                        View Item
-                    </Button>
-                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <Button
+                                onPress={() => this.addItemToDressingRoom(item)}
+                                style={styles.button} centered rounded>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={{ fontFamily: 'PingFangSC-Thin' }}>Add To Dressing Room</Text>
+                                    <Icon style={{ marginLeft: 4}} name={'add'} size={20} />
+                                </View>
+                            </Button>
+                            <Button
+                                onPress={() => this.props.navigation.navigate('ItemView', { itemObject: item })}
+                                style={styles.button} centered rounded>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={{ fontFamily: 'PingFangSC-Thin' }}>View Item</Text>
+                                    <Icon style={{ marginLeft: 4}} name={'shirt-outline'} size={20} />
+                                </View>
+                            </Button>
+                    </View>
             </Card>);
         }
         
@@ -222,6 +228,11 @@ export default class Items extends Component {
 }
 
 const styles = StyleSheet.create({
+    button: {
+            fontFamily: 'PingFangSC-Thin',
+            margin: 10,
+            alignItems: 'center'
+        },
     container: {
         flex: 1,
         display: 'flex',
